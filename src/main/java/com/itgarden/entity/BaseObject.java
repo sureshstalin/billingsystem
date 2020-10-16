@@ -25,6 +25,6 @@ public class BaseObject implements Serializable {
     private Timestamp dateCreated = new Timestamp(System.currentTimeMillis());
 
     @JsonIgnore
-    @Column(name = "date_modified")
+    @Column(name = "date_modified",nullable = true)
     private Timestamp dateModified;
 }

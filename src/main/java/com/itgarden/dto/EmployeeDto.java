@@ -3,11 +3,13 @@ package com.itgarden.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BaseDto implements Serializable {
+public class EmployeeDto extends BaseDto {
 
-    protected String flowType;
+    private String fullName;
+
+    private String employeeCode;
+
+    private UserDto user;
 }
