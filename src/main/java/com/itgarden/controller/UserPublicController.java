@@ -28,7 +28,5 @@ public class UserPublicController {
         return new ResponseEntity<ResponseMessage<EmployeeDto>>(responseMessage, HttpStatus.CREATED);
     }
 
-    public void show() {
-        System.out.println("Hello world");
-    }
+
 }

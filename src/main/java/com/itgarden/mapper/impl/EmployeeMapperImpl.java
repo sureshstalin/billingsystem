@@ -16,7 +16,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-10-16T21:37:25+0530",
+    date = "2020-10-17T05:50:19+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class EmployeeMapperImpl implements EmployeeMapper {
@@ -29,6 +29,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         EmployeeDto employeeDto = new EmployeeDto();
 
+        employeeDto.setId( employee.getId() );
+        employeeDto.setFlowType( employee.getFlowType() );
         employeeDto.setFullName( employee.getFullName() );
         employeeDto.setEmployeeCode( employee.getEmployeeCode() );
         employeeDto.setUser( userToUserDto( employee.getUser() ) );
@@ -44,9 +46,13 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         Employee employee = new Employee();
 
+        employee.setId( employeeDto.getId() );
+        employee.setFlowType( employeeDto.getFlowType() );
         employee.setFullName( employeeDto.getFullName() );
         employee.setEmployeeCode( employeeDto.getEmployeeCode() );
         employee.setUser( userDtoToUser( employeeDto.getUser() ) );
+
+//        afterMapping( employee, employeeDto );
 
         return employee;
     }
@@ -58,6 +64,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         AddressDto addressDto = new AddressDto();
 
+        addressDto.setId( address.getId() );
+        addressDto.setFlowType( address.getFlowType() );
         addressDto.setAddress1( address.getAddress1() );
         addressDto.setAddress2( address.getAddress2() );
         addressDto.setCity( address.getCity() );
@@ -89,6 +97,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         RoleDto roleDto = new RoleDto();
 
+        roleDto.setId( role.getId() );
+        roleDto.setFlowType( role.getFlowType() );
         roleDto.setName( role.getName() );
         roleDto.setDescription( role.getDescription() );
 
@@ -115,11 +125,13 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         UserDto userDto = new UserDto();
 
+        userDto.setId( user.getId() );
         userDto.setEmailId( user.getEmailId() );
         userDto.setFirstName( user.getFirstName() );
         userDto.setMiddleName( user.getMiddleName() );
         userDto.setLastName( user.getLastName() );
         userDto.setMobileNo( user.getMobileNo() );
+        userDto.setFlowType( user.getFlowType() );
         userDto.setAddressList( addressListToAddressDtoList( user.getAddressList() ) );
         userDto.setRoles( roleListToRoleDtoList( user.getRoles() ) );
 
@@ -133,6 +145,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         Address address = new Address();
 
+        address.setId( addressDto.getId() );
+        address.setFlowType( addressDto.getFlowType() );
         address.setAddress1( addressDto.getAddress1() );
         address.setAddress2( addressDto.getAddress2() );
         address.setCity( addressDto.getCity() );
@@ -164,6 +178,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         Role role = new Role();
 
+        role.setId( roleDto.getId() );
+        role.setFlowType( roleDto.getFlowType() );
         role.setName( roleDto.getName() );
         role.setDescription( roleDto.getDescription() );
 
@@ -190,6 +206,8 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         User user = new User();
 
+        user.setId( userDto.getId() );
+        user.setFlowType( userDto.getFlowType() );
         user.setEmailId( userDto.getEmailId() );
         user.setFirstName( userDto.getFirstName() );
         user.setMiddleName( userDto.getMiddleName() );

@@ -1,7 +1,7 @@
 package com.itgarden.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,9 @@ import java.sql.Timestamp;
 
 @Data
 @MappedSuperclass
+
 public class BaseObject implements Serializable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +29,6 @@ public class BaseObject implements Serializable {
     @JsonIgnore
     @Column(name = "date_modified",nullable = true)
     private Timestamp dateModified;
+
+    transient String flowType;
 }

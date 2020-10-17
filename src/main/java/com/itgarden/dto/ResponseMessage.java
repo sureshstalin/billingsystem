@@ -11,9 +11,8 @@ import lombok.*;
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class ResponseMessage<T> {
 
-
     @NonNull
-    private T responseClassType;
+    private T responseClassType; // User,emp info,billing info or order info cusomer info
 
     private String message;
 
@@ -30,4 +29,6 @@ public class ResponseMessage<T> {
     public static ResponseMessage<Void> empty() {
         return new ResponseMessage<>();
     }
+
+
 }

@@ -9,5 +9,6 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseDto implements Serializable {
 
+    protected  Long id;
     protected String flowType;
 }
