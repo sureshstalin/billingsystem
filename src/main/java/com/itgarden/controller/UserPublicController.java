@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/public/users")
+@RequestMapping("api/public/users") // http://localhost:9091/api/public/users POST method
 public class UserPublicController {
 
     @Autowired
     private RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<EmployeeDTO>> saveUser(@RequestBody UserDTO requestBody)  {
+    public ResponseEntity<ResponseMessage<?>> saveUser(@RequestBody UserDTO requestBody)  {
         ResponseMessage responseMessage = registrationService.doRegistration(requestBody);
-        return new ResponseEntity<ResponseMessage<EmployeeDTO>>(responseMessage, HttpStatus.CREATED);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
-
 
 }

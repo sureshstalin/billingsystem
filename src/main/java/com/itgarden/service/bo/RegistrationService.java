@@ -18,12 +18,11 @@ public class RegistrationService {
     @Autowired
     private BillingBaseService billingBaseService;
 
-    public ResponseMessage<BaseDTO> doRegistration(BaseDTO baseDto) {
+    public ResponseMessage<BaseDTO> doRegistration(UserDTO userDTO) {
 
         ResponseMessage<BaseDTO> responseMessage = null;
-        String flowType = baseDto.getFlowType();
-        UserDTO userDto = (UserDTO)baseDto;
-        User user = UserMapper.INSTANCE.userDTOtoUser(userDto);
+        String flowType = userDTO.getFlowType(); // employee
+        User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
         if(flowType.equalsIgnoreCase(Constants.EMPLOYEE_FLOW_TYPE)) {
             Employee employee = new Employee();
             employee.setFullName(Utils.getFullName(user.getFirstName(),user.getMiddleName(),
@@ -31,9 +30,9 @@ public class RegistrationService {
             employee.setEmployeeCode("EMP001");
             employee.setUser(user);
             user.getAddressList().get(0).setUser(user);
-            BaseObject newObject = billingBaseService.save(employee);
+            BaseObject newObject = billingBaseService.save(employee); // Holds the reference of Employee object
             EmployeeDTO employeeDto = EmployeeMapper.INSTANCE.employeeToDTO((Employee)newObject);
-            responseMessage = ResponseMessage.withResponseData(employeeDto);
+            responseMessage = ResponseMessage.withResponseData(employeeDto,"Employee Created Successfully","message");
         }else if(flowType.equalsIgnoreCase(Constants.CUSTOMER_FLOW_TYPE) ) {
             Customer customer = new Customer();
             customer.setCustomerCode("CUS001");
@@ -43,7 +42,7 @@ public class RegistrationService {
             user.getAddressList().get(0).setUser(user);
             BaseObject newObject = billingBaseService.save(customer);
             CustomerDTO customerDto = CustomerMapper.INSTANCE.customerToDTO((Customer) newObject);
-            responseMessage = ResponseMessage.withResponseData(customerDto);
+            responseMessage = ResponseMessage.withResponseData(customerDto,"Customer Created Successfully","message");
         }else if(flowType.equalsIgnoreCase(Constants.VENDOR_FLOW_TYPE)) {
             Vendor vendor = new Vendor();
             vendor.setFullName(Utils.getFullName(user.getFirstName(),
@@ -53,7 +52,7 @@ public class RegistrationService {
             user.getAddressList().get(0).setUser(user);
             BaseObject newObject = billingBaseService.save(vendor);
             VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToVendorDTO((Vendor)newObject);
-            responseMessage = ResponseMessage.withResponseData(vendorDTO);
+            responseMessage = ResponseMessage.withResponseData(vendorDTO,"Vendor Created Successfully","message");
         }
         return responseMessage;
     }
