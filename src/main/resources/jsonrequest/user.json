@@ -1,0 +1,26 @@
+{
+  "firstName": "Karthick_vendor",
+  "middleName":"test_ved1",
+  "lastName": "Stalin",
+  "mobileNo": "987652553",
+  "emailId": "suresh@gmail.com",
+  "flowType": "vendor",
+  "roles":[
+    {
+      "name":"Guru",
+      "description":"This is Guru Role"
+    }
+  ],
+  "addressList": [
+    {
+      "address1": "Ram Street",
+      "address2": "1st Lane",
+      "city": "Trichy",
+      "state": "TN",
+      "country": "India",
+      "landmark": "far",
+      "mobile": "343171771"
+    }
+  ]
+
+}
