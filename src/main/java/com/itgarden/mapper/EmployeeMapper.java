@@ -1,23 +1,18 @@
 package com.itgarden.mapper;
 
-import com.itgarden.common.Constants;
-import com.itgarden.dto.EmployeeDto;
-import com.itgarden.dto.UserDto;
+import com.itgarden.dto.EmployeeDTO;
 import com.itgarden.entity.Employee;
-import com.itgarden.entity.User;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(implementationPackage = "mapper.impl")
 public interface EmployeeMapper {
 
     EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
-    EmployeeDto employeeToDTO(Employee employee);
+    EmployeeDTO employeeToDTO(Employee employee);
     @InheritInverseConfiguration
-    Employee dToToEmployee(EmployeeDto employeeDto);
+    Employee dToToEmployee(EmployeeDTO employeeDto);
 
 //    @AfterMapping
 //    default void afterMapping(@MappingTarget Employee employee, EmployeeDto employeeDto) {

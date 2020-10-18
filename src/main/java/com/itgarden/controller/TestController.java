@@ -1,6 +1,6 @@
 package com.itgarden.controller;
 
-import com.itgarden.dto.UserDto;
+import com.itgarden.dto.UserDTO;
 import com.itgarden.entity.User;
 import com.itgarden.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @PostMapping("/mapper")
-    public ResponseEntity<Void> mapperTesting(@RequestBody UserDto userDto)  {
+    public ResponseEntity<Void> mapperTesting(@RequestBody UserDTO userDto)  {
         User user = UserMapper.INSTANCE.userDTOtoUser(userDto);
         System.out.println("Entity Class......");
         System.out.println("Entity First Name " + user.getFirstName());
         System.out.println("Entity Last Name " + user.getLastName());
-        UserDto userDto2 = UserMapper.INSTANCE.userToUserDTO(user);
+        UserDTO userDto2 = UserMapper.INSTANCE.userToUserDTO(user);
         System.out.println("DTO Class......");
         System.out.println("DTO First Name " + userDto2.getFirstName());
         System.out.println("DTO Last Name " + userDto2.getLastName());

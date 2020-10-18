@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto extends BaseDto {
+public class UserDTO extends BaseDTO {
 
     private String emailId;
 
@@ -21,10 +21,10 @@ public class UserDto extends BaseDto {
 
     private String flowType;
 
-    private List<AddressDto> addressList;
+    private List<AddressDTO> addressList;
 
-    private List<RoleDto> roles;
+    private List<RoleDTO> roles;
 
-    private EmployeeDto employee;
+    private EmployeeDTO employee;
 
 }

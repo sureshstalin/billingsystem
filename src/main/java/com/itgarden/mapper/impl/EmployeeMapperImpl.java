@@ -1,9 +1,9 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AddressDto;
-import com.itgarden.dto.EmployeeDto;
-import com.itgarden.dto.RoleDto;
-import com.itgarden.dto.UserDto;
+import com.itgarden.dto.AddressDTO;
+import com.itgarden.dto.EmployeeDTO;
+import com.itgarden.dto.RoleDTO;
+import com.itgarden.dto.UserDTO;
 import com.itgarden.entity.Address;
 import com.itgarden.entity.Employee;
 import com.itgarden.entity.Role;
@@ -22,12 +22,12 @@ import java.util.List;
 public class EmployeeMapperImpl implements EmployeeMapper {
 
     @Override
-    public EmployeeDto employeeToDTO(Employee employee) {
+    public EmployeeDTO employeeToDTO(Employee employee) {
         if ( employee == null ) {
             return null;
         }
 
-        EmployeeDto employeeDto = new EmployeeDto();
+        EmployeeDTO employeeDto = new EmployeeDTO();
 
         employeeDto.setId( employee.getId() );
         employeeDto.setFlowType( employee.getFlowType() );
@@ -39,7 +39,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
     }
 
     @Override
-    public Employee dToToEmployee(EmployeeDto employeeDto) {
+    public Employee dToToEmployee(EmployeeDTO employeeDto) {
         if ( employeeDto == null ) {
             return null;
         }
@@ -57,12 +57,12 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return employee;
     }
 
-    protected AddressDto addressToAddressDto(Address address) {
+    protected AddressDTO addressToAddressDto(Address address) {
         if ( address == null ) {
             return null;
         }
 
-        AddressDto addressDto = new AddressDto();
+        AddressDTO addressDto = new AddressDTO();
 
         addressDto.setId( address.getId() );
         addressDto.setFlowType( address.getFlowType() );
@@ -77,12 +77,12 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return addressDto;
     }
 
-    protected List<AddressDto> addressListToAddressDtoList(List<Address> list) {
+    protected List<AddressDTO> addressListToAddressDtoList(List<Address> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<AddressDto> list1 = new ArrayList<AddressDto>( list.size() );
+        List<AddressDTO> list1 = new ArrayList<AddressDTO>( list.size() );
         for ( Address address : list ) {
             list1.add( addressToAddressDto( address ) );
         }
@@ -90,12 +90,12 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return list1;
     }
 
-    protected RoleDto roleToRoleDto(Role role) {
+    protected RoleDTO roleToRoleDto(Role role) {
         if ( role == null ) {
             return null;
         }
 
-        RoleDto roleDto = new RoleDto();
+        RoleDTO roleDto = new RoleDTO();
 
         roleDto.setId( role.getId() );
         roleDto.setFlowType( role.getFlowType() );
@@ -105,12 +105,12 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return roleDto;
     }
 
-    protected List<RoleDto> roleListToRoleDtoList(List<Role> list) {
+    protected List<RoleDTO> roleListToRoleDtoList(List<Role> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<RoleDto> list1 = new ArrayList<RoleDto>( list.size() );
+        List<RoleDTO> list1 = new ArrayList<RoleDTO>( list.size() );
         for ( Role role : list ) {
             list1.add( roleToRoleDto( role ) );
         }
@@ -118,12 +118,12 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return list1;
     }
 
-    protected UserDto userToUserDto(User user) {
+    protected UserDTO userToUserDto(User user) {
         if ( user == null ) {
             return null;
         }
 
-        UserDto userDto = new UserDto();
+        UserDTO userDto = new UserDTO();
 
         userDto.setId( user.getId() );
         userDto.setEmailId( user.getEmailId() );
@@ -138,7 +138,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return userDto;
     }
 
-    protected Address addressDtoToAddress(AddressDto addressDto) {
+    protected Address addressDtoToAddress(AddressDTO addressDto) {
         if ( addressDto == null ) {
             return null;
         }
@@ -158,20 +158,20 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return address;
     }
 
-    protected List<Address> addressDtoListToAddressList(List<AddressDto> list) {
+    protected List<Address> addressDtoListToAddressList(List<AddressDTO> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Address> list1 = new ArrayList<Address>( list.size() );
-        for ( AddressDto addressDto : list ) {
+        for ( AddressDTO addressDto : list ) {
             list1.add( addressDtoToAddress( addressDto ) );
         }
 
         return list1;
     }
 
-    protected Role roleDtoToRole(RoleDto roleDto) {
+    protected Role roleDtoToRole(RoleDTO roleDto) {
         if ( roleDto == null ) {
             return null;
         }
@@ -186,20 +186,20 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return role;
     }
 
-    protected List<Role> roleDtoListToRoleList(List<RoleDto> list) {
+    protected List<Role> roleDtoListToRoleList(List<RoleDTO> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Role> list1 = new ArrayList<Role>( list.size() );
-        for ( RoleDto roleDto : list ) {
+        for ( RoleDTO roleDto : list ) {
             list1.add( roleDtoToRole( roleDto ) );
         }
 
         return list1;
     }
 
-    protected User userDtoToUser(UserDto userDto) {
+    protected User userDtoToUser(UserDTO userDto) {
         if ( userDto == null ) {
             return null;
         }

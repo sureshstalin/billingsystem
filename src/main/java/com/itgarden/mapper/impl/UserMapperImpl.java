@@ -1,8 +1,8 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AddressDto;
-import com.itgarden.dto.RoleDto;
-import com.itgarden.dto.UserDto;
+import com.itgarden.dto.AddressDTO;
+import com.itgarden.dto.RoleDTO;
+import com.itgarden.dto.UserDTO;
 import com.itgarden.entity.Address;
 import com.itgarden.entity.Role;
 import com.itgarden.entity.User;
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserMapperImpl implements UserMapper {
 
     @Override
-    public User userDTOtoUser(UserDto userDto) {
+    public User userDTOtoUser(UserDTO userDto) {
         if ( userDto == null ) {
             return null;
         }
@@ -39,12 +39,12 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public UserDto userToUserDTO(User user) {
+    public UserDTO userToUserDTO(User user) {
         if ( user == null ) {
             return null;
         }
 
-        UserDto userDto = new UserDto();
+        UserDTO userDto = new UserDTO();
 
         userDto.setEmailId( user.getEmailId() );
         userDto.setFirstName( user.getFirstName() );
@@ -57,7 +57,7 @@ public class UserMapperImpl implements UserMapper {
         return userDto;
     }
 
-    protected Address addressDtoToAddress(AddressDto addressDto) {
+    protected Address addressDtoToAddress(AddressDTO addressDto) {
         if ( addressDto == null ) {
             return null;
         }
@@ -75,20 +75,20 @@ public class UserMapperImpl implements UserMapper {
         return address;
     }
 
-    protected List<Address> addressDtoListToAddressList(List<AddressDto> list) {
+    protected List<Address> addressDtoListToAddressList(List<AddressDTO> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Address> list1 = new ArrayList<Address>( list.size() );
-        for ( AddressDto addressDto : list ) {
+        for ( AddressDTO addressDto : list ) {
             list1.add( addressDtoToAddress( addressDto ) );
         }
 
         return list1;
     }
 
-    protected Role roleDtoToRole(RoleDto roleDto) {
+    protected Role roleDtoToRole(RoleDTO roleDto) {
         if ( roleDto == null ) {
             return null;
         }
@@ -101,25 +101,25 @@ public class UserMapperImpl implements UserMapper {
         return role;
     }
 
-    protected List<Role> roleDtoListToRoleList(List<RoleDto> list) {
+    protected List<Role> roleDtoListToRoleList(List<RoleDTO> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Role> list1 = new ArrayList<Role>( list.size() );
-        for ( RoleDto roleDto : list ) {
+        for ( RoleDTO roleDto : list ) {
             list1.add( roleDtoToRole( roleDto ) );
         }
 
         return list1;
     }
 
-    protected AddressDto addressToAddressDto(Address address) {
+    protected AddressDTO addressToAddressDto(Address address) {
         if ( address == null ) {
             return null;
         }
 
-        AddressDto addressDto = new AddressDto();
+        AddressDTO addressDto = new AddressDTO();
 
         addressDto.setAddress1( address.getAddress1() );
         addressDto.setAddress2( address.getAddress2() );
@@ -132,12 +132,12 @@ public class UserMapperImpl implements UserMapper {
         return addressDto;
     }
 
-    protected List<AddressDto> addressListToAddressDtoList(List<Address> list) {
+    protected List<AddressDTO> addressListToAddressDtoList(List<Address> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<AddressDto> list1 = new ArrayList<AddressDto>( list.size() );
+        List<AddressDTO> list1 = new ArrayList<AddressDTO>( list.size() );
         for ( Address address : list ) {
             list1.add( addressToAddressDto( address ) );
         }
@@ -145,12 +145,12 @@ public class UserMapperImpl implements UserMapper {
         return list1;
     }
 
-    protected RoleDto roleToRoleDto(Role role) {
+    protected RoleDTO roleToRoleDto(Role role) {
         if ( role == null ) {
             return null;
         }
 
-        RoleDto roleDto = new RoleDto();
+        RoleDTO roleDto = new RoleDTO();
 
         roleDto.setName( role.getName() );
         roleDto.setDescription( role.getDescription() );
@@ -158,12 +158,12 @@ public class UserMapperImpl implements UserMapper {
         return roleDto;
     }
 
-    protected List<RoleDto> roleListToRoleDtoList(List<Role> list) {
+    protected List<RoleDTO> roleListToRoleDtoList(List<Role> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<RoleDto> list1 = new ArrayList<RoleDto>( list.size() );
+        List<RoleDTO> list1 = new ArrayList<RoleDTO>( list.size() );
         for ( Role role : list ) {
             list1.add( roleToRoleDto( role ) );
         }

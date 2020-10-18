@@ -1,16 +1,11 @@
 package com.itgarden.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.itgarden.entity.BaseObject;
-import com.itgarden.entity.User;
 import lombok.Data;
-
-import javax.persistence.*;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AddressDto extends BaseDto {
+public class AddressDTO extends BaseDTO {
 
     private String address1;
 

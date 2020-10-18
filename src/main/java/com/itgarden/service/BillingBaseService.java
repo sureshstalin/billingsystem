@@ -1,5 +1,6 @@
 package com.itgarden.service;
 
+import com.itgarden.entity.BaseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,8 @@ public class BillingBaseService<T, ID> {
     @Autowired
     private JpaRepository<T, ID> repository;
 
-    public <S extends T> S save(S entity) {
-        return repository.save(entity);
+    public BaseObject save(T entity) {
+        return (BaseObject)repository.save(entity);
     }
 
     public List<T> findAll() {
