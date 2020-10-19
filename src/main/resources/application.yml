@@ -18,3 +18,5 @@ logging:
       hibernate:
         SQL=DEBUG:
       springframework: info
+default:
+  role: ROLE_DEFAULT

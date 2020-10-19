@@ -9,8 +9,13 @@ import com.itgarden.mapper.EmployeeMapper;
 import com.itgarden.mapper.UserMapper;
 import com.itgarden.mapper.VendorMapper;
 import com.itgarden.service.BillingBaseService;
+import com.itgarden.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RegistrationService {
@@ -18,11 +23,21 @@ public class RegistrationService {
     @Autowired
     private BillingBaseService billingBaseService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Value("${default.role}")
+    private String defaultRole;
+
     public ResponseMessage<BaseDTO> doRegistration(UserDTO userDTO) {
 
         ResponseMessage<BaseDTO> responseMessage = null;
         String flowType = userDTO.getFlowType(); // employee
         User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
+        Role role = roleService.findByName(defaultRole);
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        user.setRoles(roleList);
         if(flowType.equalsIgnoreCase(Constants.EMPLOYEE_FLOW_TYPE)) {
             Employee employee = new Employee();
             employee.setFullName(Utils.getFullName(user.getFirstName(),user.getMiddleName(),
@@ -30,6 +45,7 @@ public class RegistrationService {
             employee.setEmployeeCode("EMP001");
             employee.setUser(user);
             user.getAddressList().get(0).setUser(user);
+
             BaseObject newObject = billingBaseService.save(employee); // Holds the reference of Employee object
             EmployeeDTO employeeDto = EmployeeMapper.INSTANCE.employeeToDTO((Employee)newObject);
             responseMessage = ResponseMessage.withResponseData(employeeDto,"Employee Created Successfully","message");
