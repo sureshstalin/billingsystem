@@ -8,8 +8,9 @@ import com.itgarden.mapper.CustomerMapper;
 import com.itgarden.mapper.EmployeeMapper;
 import com.itgarden.mapper.UserMapper;
 import com.itgarden.mapper.VendorMapper;
+import com.itgarden.messages.ResponseMessage;
+import com.itgarden.repository.RoleRepository;
 import com.itgarden.service.BillingBaseService;
-import com.itgarden.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class RegistrationService {
     private BillingBaseService billingBaseService;
 
     @Autowired
-    private RoleService roleService;
+    private RoleRepository roleRepository;
 
     @Value("${default.role}")
     private String defaultRole;
@@ -34,7 +35,7 @@ public class RegistrationService {
         ResponseMessage<BaseDTO> responseMessage = null;
         String flowType = userDTO.getFlowType(); // employee
         User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
-        Role role = roleService.findByName(defaultRole);
+        Role role = roleRepository.findByName(defaultRole).orElse(null);
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
         user.setRoles(roleList);
@@ -42,7 +43,7 @@ public class RegistrationService {
             Employee employee = new Employee();
             employee.setFullName(Utils.getFullName(user.getFirstName(),user.getMiddleName(),
                     user.getLastName()));
-            employee.setEmployeeCode("EMP001");
+            employee.setEmployeeCode("EMP003");
             employee.setUser(user);
             user.getAddressList().get(0).setUser(user);
 

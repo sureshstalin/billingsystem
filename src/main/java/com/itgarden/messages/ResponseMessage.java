@@ -1,4 +1,4 @@
-package com.itgarden.dto;
+package com.itgarden.messages;
 
 import lombok.*;
 

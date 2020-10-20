@@ -41,7 +41,7 @@
         <appender-ref ref="Console" />
     </root>
 
-    <logger name="com.itgarden" level="info" additivity="true">
+    <logger name="com.itgarden" level="info" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

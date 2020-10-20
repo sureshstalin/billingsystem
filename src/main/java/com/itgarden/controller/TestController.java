@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/public/test")
 public class TestController {
 
-//    Logger log = LoggerFactory.getLogger(this.getClass());
     @PostMapping("/mapper")
     public ResponseEntity<Void> mapperTesting(@RequestBody UserDTO userDto)  {
         User user = UserMapper.INSTANCE.userDTOtoUser(userDto);
@@ -32,6 +31,7 @@ public class TestController {
         log.info("DTO First Name " + userDto2.getFirstName());
         log.info("DTO Last Name " + userDto2.getLastName());
         log.trace("This is test trace message");
+        log.error("This is error info......");
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

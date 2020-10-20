@@ -2,6 +2,8 @@ package com.itgarden.common;
 
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
+
 public class Utils {
 
     public static String getFullName(String firstName,String middleName,String lastName) {
@@ -15,5 +17,9 @@ public class Utils {
                 .append(middleName).append(" ").append(lastName).toString();
         }
         return fullName;
+    }
+
+    public static LocalDateTime currentDateTime() {
+        return LocalDateTime.now();
     }
 }

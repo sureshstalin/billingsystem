@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 
 @Data
 @MappedSuperclass
-
 public class BaseObject implements Serializable {
 
 
