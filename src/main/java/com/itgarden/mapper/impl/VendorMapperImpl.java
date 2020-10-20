@@ -22,7 +22,7 @@ public class VendorMapperImpl implements VendorMapper {
         Vendor vendor = new Vendor();
 
         vendor.setId( vendorDTO.getId() );
-        vendor.setFlowType( vendorDTO.getFlowType() );
+        vendor.setFlowType( vendorDTO.getType() );
         vendor.setFullName( vendorDTO.getFullName() );
         vendor.setVendorCode( vendorDTO.getVendorCode() );
         vendor.setUser( vendorDTO.getUser() );
@@ -39,7 +39,7 @@ public class VendorMapperImpl implements VendorMapper {
         VendorDTO vendorDTO = new VendorDTO();
 
         vendorDTO.setId( vendor.getId() );
-        vendorDTO.setFlowType( vendor.getFlowType() );
+        vendorDTO.setType( vendor.getFlowType() );
         vendorDTO.setFullName( vendor.getFullName() );
         vendorDTO.setVendorCode( vendor.getVendorCode() );
         vendorDTO.setUser( vendor.getUser() );

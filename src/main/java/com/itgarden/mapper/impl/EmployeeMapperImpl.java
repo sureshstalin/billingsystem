@@ -30,7 +30,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         EmployeeDTO employeeDto = new EmployeeDTO();
 
         employeeDto.setId( employee.getId() );
-        employeeDto.setFlowType( employee.getFlowType() );
+        employeeDto.setType( employee.getFlowType() );
         employeeDto.setFullName( employee.getFullName() );
         employeeDto.setEmployeeCode( employee.getEmployeeCode() );
         employeeDto.setUser( userToUserDto( employee.getUser() ) );
@@ -47,7 +47,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         Employee employee = new Employee();
 
         employee.setId( employeeDto.getId() );
-        employee.setFlowType( employeeDto.getFlowType() );
+        employee.setFlowType( employeeDto.getType() );
         employee.setFullName( employeeDto.getFullName() );
         employee.setEmployeeCode( employeeDto.getEmployeeCode() );
         employee.setUser( userDtoToUser( employeeDto.getUser() ) );
@@ -65,7 +65,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         AddressDTO addressDto = new AddressDTO();
 
         addressDto.setId( address.getId() );
-        addressDto.setFlowType( address.getFlowType() );
+        addressDto.setType( address.getFlowType() );
         addressDto.setAddress1( address.getAddress1() );
         addressDto.setAddress2( address.getAddress2() );
         addressDto.setCity( address.getCity() );
@@ -98,7 +98,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         RoleDTO roleDto = new RoleDTO();
 
         roleDto.setId( role.getId() );
-        roleDto.setFlowType( role.getFlowType() );
+        roleDto.setType( role.getFlowType() );
         roleDto.setName( role.getName() );
         roleDto.setDescription( role.getDescription() );
 
@@ -131,7 +131,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         userDto.setMiddleName( user.getMiddleName() );
         userDto.setLastName( user.getLastName() );
         userDto.setMobileNo( user.getMobileNo() );
-        userDto.setFlowType( user.getFlowType() );
+        userDto.setType( user.getFlowType() );
         userDto.setAddressList( addressListToAddressDtoList( user.getAddressList() ) );
         userDto.setRoles( roleListToRoleDtoList( user.getRoles() ) );
 
@@ -146,7 +146,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         Address address = new Address();
 
         address.setId( addressDto.getId() );
-        address.setFlowType( addressDto.getFlowType() );
+        address.setFlowType( addressDto.getType() );
         address.setAddress1( addressDto.getAddress1() );
         address.setAddress2( addressDto.getAddress2() );
         address.setCity( addressDto.getCity() );
@@ -179,7 +179,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         Role role = new Role();
 
         role.setId( roleDto.getId() );
-        role.setFlowType( roleDto.getFlowType() );
+        role.setFlowType( roleDto.getType());
         role.setName( roleDto.getName() );
         role.setDescription( roleDto.getDescription() );
 
@@ -207,7 +207,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         User user = new User();
 
         user.setId( userDto.getId() );
-        user.setFlowType( userDto.getFlowType() );
+        user.setFlowType( userDto.getType() );
         user.setEmailId( userDto.getEmailId() );
         user.setFirstName( userDto.getFirstName() );
         user.setMiddleName( userDto.getMiddleName() );

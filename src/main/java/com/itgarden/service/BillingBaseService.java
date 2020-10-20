@@ -16,6 +16,7 @@ public class BillingBaseService<T extends BaseObject, ID extends Serializable> {
 
     @Autowired
     private AbstractBaseRepository<T, ID> repository;
+
     public BaseObject save(T entity) {
         return (BaseObject)repository.save(entity);
     }

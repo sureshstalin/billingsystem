@@ -10,5 +10,5 @@ import java.io.Serializable;
 public class BaseDTO implements Serializable {
 
     protected  Long id;
-    protected String flowType;
+    protected String type;
 }

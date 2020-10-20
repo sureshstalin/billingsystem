@@ -23,7 +23,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerDTO customerDTO = new CustomerDTO();
 
         customerDTO.setId( customer.getId() );
-        customerDTO.setFlowType( customer.getFlowType() );
+        customerDTO.setType( customer.getFlowType() );
         customerDTO.setFullName( customer.getFullName() );
         customerDTO.setCustomerCode( customer.getCustomerCode() );
         customerDTO.setUser( customer.getUser() );
@@ -40,7 +40,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         Employee employee = new Employee();
 
         employee.setId( customerVO.getId() );
-        employee.setFlowType( customerVO.getFlowType() );
+        employee.setFlowType( customerVO.getType() );
         employee.setFullName( customerVO.getFullName() );
         employee.setUser( customerVO.getUser() );
 

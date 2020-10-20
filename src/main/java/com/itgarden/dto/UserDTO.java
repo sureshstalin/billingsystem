@@ -21,8 +21,6 @@ public class UserDTO extends BaseDTO {
 
     private String mobileNo;
 
-    private String flowType;
-
     private List<AddressDTO> addressList;
 
     private List<RoleDTO> roles;

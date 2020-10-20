@@ -22,7 +22,7 @@ public class RoleMapperImpl implements RoleMapper {
         Role role = new Role();
 
         role.setId( roleDTO.getId() );
-        role.setFlowType( roleDTO.getFlowType() );
+        role.setFlowType( roleDTO.getType() );
         role.setName( roleDTO.getName() );
         role.setDescription( roleDTO.getDescription() );
 
@@ -38,7 +38,7 @@ public class RoleMapperImpl implements RoleMapper {
         RoleDTO roleDTO = new RoleDTO();
 
         roleDTO.setId( role.getId() );
-        roleDTO.setFlowType( role.getFlowType() );
+        roleDTO.setType( role.getFlowType() );
         roleDTO.setName( role.getName() );
         roleDTO.setDescription( role.getDescription() );
 
