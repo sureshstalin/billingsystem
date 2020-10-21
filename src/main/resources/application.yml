@@ -20,3 +20,6 @@ logging:
       springframework: info
 default:
   role: ROLE_DEFAULT
+user:
+  firstname:
+    empty: First Name cannot be empty.

@@ -8,7 +8,10 @@ public class Utils {
 
     public static String getFullName(String firstName,String middleName,String lastName) {
 
-        String fullName = "";
+        String fullName = null;
+        if(StringUtils.isEmpty(firstName) || StringUtils.isEmpty(middleName) || StringUtils.isEmpty(lastName)) {
+            return fullName;
+        }
         if(StringUtils.isEmpty(middleName)) {
             fullName = new StringBuilder().append(firstName)
                     .append(" ").append(lastName).toString();

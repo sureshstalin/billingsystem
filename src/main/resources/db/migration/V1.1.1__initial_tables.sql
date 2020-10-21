@@ -1,9 +1,9 @@
 CREATE TABLE user (
   id bigint NOT NULL AUTO_INCREMENT,
   is_deleted bit(1) NOT NULL,
-  email_id varchar(255) NOT NULL,
-  first_name varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
+  email_id varchar(255) DEFAULT NULL,
+  first_name varchar(255) DEFAULT NULL,
+  last_name varchar(255) DEFAULT NULL,
   middle_name varchar(255) DEFAULT NULL,
   mobile_no varchar(255) NOT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -14,26 +14,26 @@ CREATE TABLE user (
 CREATE TABLE address (
   id bigint NOT NULL AUTO_INCREMENT,
   is_deleted bit(1) DEFAULT NULL,
-  address1 varchar(255) NOT NULL,
+  address1 varchar(255) DEFAULT NULL,
   address2 varchar(255) DEFAULT NULL,
-  city varchar(255) NOT NULL,
-  country varchar(255) NOT NULL,
+  city varchar(255) DEFAULT NULL,
+  country varchar(255) DEFAULT NULL,
   landmark varchar(255) DEFAULT NULL,
   mobile varchar(255) NOT NULL,
-  state varchar(255) NOT NULL,
+  state varchar(255) DEFAULT NULL,
   user_id bigint DEFAULT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   KEY address_fk_user (user_id),
-  CONSTRAINT `address_fk_user` FOREIGN KEY (user_id) REFERENCES user (id)
+  CONSTRAINT address_fk_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE customer (
   id bigint NOT NULL AUTO_INCREMENT,
   is_deleted bit(1) DEFAULT NULL,
   customer_code varchar(255) NOT NULL,
-  full_name varchar(255) NOT NULL,
+  full_name varchar(255) DEFAULT NULL,
   user_id bigint DEFAULT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
@@ -200,3 +200,12 @@ CREATE TABLE purchase_order (
   KEY purchase_order_fk_vendor (vendor_id),
   CONSTRAINT purchase_order_fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendor (id)
 ) ENGINE=InnoDB;
+
+CREATE TABLE app_entity_code (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  code VARCHAR(10) NOT NULL,
+  code_type VARCHAR(20) NOT NULL,
+  date_created DATETIME NOT NULL,
+  date_modified DATETIME NULL,
+  is_deleted TINYINT NULL,
+  PRIMARY KEY (id));

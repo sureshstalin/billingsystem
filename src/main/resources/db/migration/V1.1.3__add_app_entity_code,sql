@@ -1,8 +1,0 @@
-CREATE TABLE app_entity_code (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  code VARCHAR(10) NOT NULL,
-  code_type VARCHAR(10) NOT NULL,
-  date_created DATETIME NOT NULL,
-  date_modified DATETIME NULL,
-  is_deleted TINYINT NULL,
-  PRIMARY KEY (`id`));

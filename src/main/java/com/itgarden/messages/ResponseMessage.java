@@ -6,7 +6,7 @@ import lombok.*;
   Created by Suresh Stalin on 16 / October / 2020
  */
 @Data
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 //@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class ResponseMessage<T> {
@@ -25,9 +25,9 @@ public class ResponseMessage<T> {
 //        return new ResponseMessage<T>(classType);
 //    }
 
-//    public static ResponseMessage<Void> empty() {
-//        return new ResponseMessage<>();
-//    }
+    public static ResponseMessage<Void> empty() {
+        return new ResponseMessage<>();
+    }
 
 
 }
