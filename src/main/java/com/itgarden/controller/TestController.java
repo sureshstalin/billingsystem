@@ -8,17 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
 @RestController
 @RequestMapping("api/public/test")
 public class TestController {
+
+    @GetMapping("/log")
+    public ResponseEntity<Void> logTest()  {
+        log.info("This is test log1");
+        log.info("This is test log2");
+        log.info("This is test log3");
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 
     @PostMapping("/mapper")
     public ResponseEntity<Void> mapperTesting(@RequestBody UserDTO userDto)  {
@@ -30,7 +35,6 @@ public class TestController {
         log.debug("DTO Class......");
         log.info("DTO First Name " + userDto2.getFirstName());
         log.info("DTO Last Name " + userDto2.getLastName());
-        log.trace("This is test trace message");
         log.error("This is error info......");
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

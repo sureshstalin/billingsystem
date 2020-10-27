@@ -32,14 +32,14 @@ public class UserPublicController {
     @Autowired
     CustomerValidator customerValidator;
 
-    @PostMapping("/employees")
+    @PostMapping("/employees") // http://localhost:9090/api/public/users/employees
     public ResponseEntity<ResponseMessage<?>> updateEmployee(@Valid @RequestBody UserDTO requestBody) throws Exception  {
         requestBody.setType(UserType.EMPLOYEE.name());
         ResponseMessage responseMessage = registrationService.doRegistration(requestBody);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 
-    @PostMapping("/customers")
+    @PostMapping("/customers") // http://localhost:9090/api/public/users/customers
     public ResponseEntity<ResponseMessage<?>> updateCustomer(@RequestBody UserDTO requestBody) throws Exception  {
         requestBody.setType(UserType.CUSTOMER.name());
         customerValidator.validate(requestBody);

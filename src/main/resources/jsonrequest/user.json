@@ -1,16 +1,9 @@
 {
-  "firstName": "Karthick_vendor",
-  "middleName":"test_ved1",
-  "lastName": "Stalin",
-  "mobileNo": "987652553",
-  "emailId": "suresh@gmail.com",
-  "flowType": "vendor",
-  "roles":[
-    {
-      "name":"Guru",
-      "description":"This is Guru Role"
-    }
-  ],
+  "firstName": "raja",
+  "middleName":"kiran",
+  "lastName": "ram",
+  "mobileNo": "98987777",
+  "emailId": "kiarn@gmail.com",
   "addressList": [
     {
       "address1": "Ram Street",
