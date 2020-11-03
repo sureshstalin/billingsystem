@@ -1,28 +1,27 @@
 {
-  "id": 5,
+  "id": 1,
   "type": null,
-  "fullName": "suresh1 customer1",
-  "customerCode": "CUS25504",
+  "fullName": "Suresh Stalin",
+  "customerCode": "CUS29668",
   "user": {
-    "id": 25,
+    "id": 2,
     "type": null,
-    "emailId": "suresh1.customer1@gmail.com",
+    "emailId": "suresh.stalin@gmail.com",
     "password": "123",
     "rePassword": null,
-    "firstName": "suresh",
+    "firstName": "Suresh",
     "middleName": "",
-    "lastName": "customer",
+    "lastName": "Stalin",
     "mobileNo": "87626262",
     "addressList": [
       {
-        "id": 25,
-        "address1": "Ram Street",
-        "address2": "1st Lane",
-        "city": "Trichy",
+        "id": 2,
+        "address1": "address1",
+        "address2": "address2",
+        "city": "Chennai",
         "state": "TN",
         "country": "India",
-        "landmark": "far",
-        "mobile": "343171771"
+        "landmark": ""
       }
     ],
     "roles": [

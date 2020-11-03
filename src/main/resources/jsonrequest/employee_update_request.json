@@ -1,28 +1,26 @@
 {
-
-  "id": 10,
+  "id": 1,
   "fullName": "meenakshi1 employee1",
-  "employeeCode": "EMP24854",
+  "employeeCode": "EMP27304",
   "user": {
-    "id": 24,
+    "id": 1,
     "type": null,
     "emailId": "meenakshi1.employee1@gmail.com",
     "password": "123",
     "rePassword": null,
-    "firstName": "ramani",
+    "firstName": "meenakshi1",
     "middleName": "",
-    "lastName": "raj",
-    "mobileNo": "87626262",
+    "lastName": "employee1",
+    "mobileNo": "11111111",
     "addressList": [
       {
-        "id": 24,
-        "address1": "Ram Street",
-        "address2": "1st Lane",
-        "city": "Trichy",
+        "id": 1,
+        "address1": "Ram Street1",
+        "address2": "1st Lane1",
+        "city": "Chennai",
         "state": "TN",
         "country": "India",
-        "landmark": "far",
-        "mobile": "343171771"
+        "landmark": "Near"
       }
     ],
     "roles": [
@@ -33,5 +31,4 @@
       }
     ]
   }
-
 }

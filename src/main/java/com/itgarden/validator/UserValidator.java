@@ -24,7 +24,7 @@ public class UserValidator<T> {
             }
         }
 
-        if (t instanceof Vendor) {
+        if (t instanceof VendorDTO) {
             VendorDTO vendorDTO = (VendorDTO) t;
             UserDTO userDTO = vendorDTO.getUser();
             validationMessages = validateUser(userDTO);
@@ -33,11 +33,19 @@ public class UserValidator<T> {
             }
         }
 
-        if (t instanceof Customer) {
+        if (t instanceof CustomerDTO) {
             CustomerDTO customerDTO = (CustomerDTO) t;
             UserDTO userDTO = customerDTO.getUser();
             if (StringUtils.isEmpty(userDTO.getMobileNo())) {
                 validationMessages.add("Mobile No can't be empty");
+            }
+            if (userDTO != null && userDTO.getId() == null) {
+                if (StringUtils.isEmpty(userDTO.getPassword())) {
+                    validationMessages.add("Password can't be empty");
+                }
+                if (StringUtils.isEmpty(userDTO.getRePassword())) {
+                    validationMessages.add("Re enter Password can't be empty");
+                }
             }
         }
         if (!validationMessages.isEmpty()) {
@@ -46,13 +54,16 @@ public class UserValidator<T> {
     }
 
 
-    public List<String> validateUser(UserDTO userDTO) {
+    private List<String> validateUser(UserDTO userDTO) {
         List<String> validationMessages = new ArrayList<>();
         if (StringUtils.isEmpty(userDTO.getMobileNo())) {
             validationMessages.add("Mobile No can't be empty");
         }
         if (StringUtils.isEmpty(userDTO.getFirstName())) {
             validationMessages.add("First name can't be empty");
+        }
+        if(StringUtils.isEmpty(userDTO.getEmailId())) {
+            validationMessages.add("Email can't be empty");
         }
         if (StringUtils.isEmpty(userDTO.getLastName())) {
             validationMessages.add("Last Name can't be empty");

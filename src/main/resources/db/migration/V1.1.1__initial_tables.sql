@@ -20,7 +20,7 @@ CREATE TABLE address (
   city varchar(255) DEFAULT NULL,
   country varchar(255) DEFAULT NULL,
   landmark varchar(255) DEFAULT NULL,
-  mobile varchar(255) NOT NULL,
+  mobile varchar(255) DEFAULT NULL,
   state varchar(255) DEFAULT NULL,
   user_id bigint DEFAULT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

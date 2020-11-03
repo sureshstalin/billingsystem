@@ -18,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/private/users")
@@ -30,7 +29,6 @@ public class UserPrivateController {
     private final VendorService vendorService;
     private final RegistrationService registrationService;
     private final UserValidator userValidator;
-//    private final CustomerValidator customerValidator;
 
     @Autowired
     public UserPrivateController(CustomerService customerService,
@@ -43,33 +41,7 @@ public class UserPrivateController {
         this.vendorService = vendorService;
         this.registrationService = registrationService;
         this.userValidator  = userValidator;
-//        this.customerValidator = customerValidator;
     }
-
-    @GetMapping("/customers/{id}")
-    public ResponseEntity<ResponseMessage<?>> viewCustomer(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = customerService.findCustomer(id);
-        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
-    }
-
-    @GetMapping("/employees/{id}")
-    public ResponseEntity<ResponseMessage<?>> viewEmployee(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = employeeService.findEmployee(id);
-        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
-    }
-
-    @GetMapping("/vendors/{id}")
-    public ResponseEntity<ResponseMessage<?>> viewVendor(@PathVariable String id) throws Exception {
-            ResponseMessage responseMessage = vendorService.findVendor(id);
-        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
-    }
-
-    public ResponseEntity<ResponseMessage<?>> login(@RequestBody UserDTO userDTO) {
-        return new ResponseEntity<ResponseMessage<?>>
-                (ResponseMessage.withResponseData("Success",
-                        "User Successfully logged in", "Message"), HttpStatus.OK);
-    }
-
 
     @PostMapping("/employees") // http://localhost:9091/api/public/users/employees
     public ResponseEntity<ResponseMessage<?>> saveEmployee(@Valid @RequestBody EmployeeDTO requestBody) throws Exception {
@@ -93,5 +65,29 @@ public class UserPrivateController {
         userValidator.validate(requestBody);
         ResponseMessage responseMessage = registrationService.doRegistration(requestBody);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/customers/{id}")
+    public ResponseEntity<ResponseMessage<?>> viewCustomer(@PathVariable String id) throws Exception {
+        ResponseMessage responseMessage = customerService.findCustomer(id);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<ResponseMessage<?>> viewEmployee(@PathVariable String id) throws Exception {
+        ResponseMessage responseMessage = employeeService.findEmployee(id);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+    @GetMapping("/vendors/{id}")
+    public ResponseEntity<ResponseMessage<?>> viewVendor(@PathVariable String id) throws Exception {
+        ResponseMessage responseMessage = vendorService.findVendor(id);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+    public ResponseEntity<ResponseMessage<?>> login(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity<ResponseMessage<?>>
+                (ResponseMessage.withResponseData("Success",
+                        "User Successfully logged in", "Message"), HttpStatus.OK);
     }
 }
