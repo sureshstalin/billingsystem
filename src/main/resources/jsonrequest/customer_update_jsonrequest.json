@@ -1,0 +1,36 @@
+{
+  "id": 5,
+  "type": null,
+  "fullName": "suresh1 customer1",
+  "customerCode": "CUS25504",
+  "user": {
+    "id": 25,
+    "type": null,
+    "emailId": "suresh1.customer1@gmail.com",
+    "password": "123",
+    "rePassword": null,
+    "firstName": "suresh",
+    "middleName": "",
+    "lastName": "customer",
+    "mobileNo": "87626262",
+    "addressList": [
+      {
+        "id": 25,
+        "address1": "Ram Street",
+        "address2": "1st Lane",
+        "city": "Trichy",
+        "state": "TN",
+        "country": "India",
+        "landmark": "far",
+        "mobile": "343171771"
+      }
+    ],
+    "roles": [
+      {
+        "id": 1,
+        "name": "ROLE_DEFAULT",
+        "description": "The default role"
+      }
+    ]
+  }
+}

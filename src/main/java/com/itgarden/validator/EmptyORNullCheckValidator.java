@@ -1,6 +1,8 @@
 package com.itgarden.validator;
 
+import com.itgarden.dto.EmployeeDTO;
 import com.itgarden.dto.UserDTO;
+import com.itgarden.entity.Employee;
 import com.itgarden.exception.InvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +20,8 @@ import java.util.Set;
 
 @Slf4j
 @Service
-public class EmptyORNullCheckValidator implements ConstraintValidator<EmptyOrNullCheck,UserDTO> {
+public class EmptyORNullCheckValidator implements
+        ConstraintValidator<EmptyOrNullCheck, EmployeeDTO> {
 
     @Autowired
     Validator validator;
@@ -29,12 +32,12 @@ public class EmptyORNullCheckValidator implements ConstraintValidator<EmptyOrNul
     }
 
     @Override
-    public boolean isValid(UserDTO userDTO, ConstraintValidatorContext constraintValidatorContext)  {
+    public boolean isValid(EmployeeDTO employeeDTO, ConstraintValidatorContext constraintValidatorContext)  {
         boolean isValid = true;
-        if(StringUtils.isEmpty(userDTO.getMobileNo())) {
+        if(StringUtils.isEmpty(employeeDTO.getUser().getFirstName())) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
-                    .buildConstraintViolationWithTemplate("Enter valid mobile no.")
+                    .buildConstraintViolationWithTemplate("First Name can't be empty")
                     .addConstraintViolation();
             // return false if validation fails
             isValid = false;

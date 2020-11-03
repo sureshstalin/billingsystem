@@ -8,7 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "ADDRESS")
 public class Address extends BaseObject {

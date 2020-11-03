@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "vendor")
 public class Vendor extends BaseObject {

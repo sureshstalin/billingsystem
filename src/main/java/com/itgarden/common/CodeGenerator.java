@@ -1,6 +1,7 @@
 package com.itgarden.common;
 
 import com.itgarden.common.staticdata.CodeType;
+import com.itgarden.common.staticdata.UserType;
 import com.itgarden.entity.AppEntityCode;
 import com.itgarden.repository.AppEntityCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class CodeGenerator {
         String code = "";
         AppEntityCode appEntityCode = null;
         do {
-            String newCode =  getCode();
+            String newCode =  getCode(codeType.name());
             appEntityCode = appEntityCodeRepository.findByCode(newCode);
             if(appEntityCode == null) {
                 code = newCode;
@@ -31,9 +32,18 @@ public class CodeGenerator {
         return appEntityCode.getCode();
     }
 
-    private String getCode() {
+    private String getCode(String codeType) {
         Random r = new Random( System.currentTimeMillis() );
         int id =  ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
-        return String.valueOf(id);
+        if(CodeType.EMPLOYEE_CODE.name().equalsIgnoreCase(codeType)) {
+            return "EMP"+id;
+        }
+        if(CodeType.CUSTOMER_CODE.name().equalsIgnoreCase(codeType)) {
+            return "CUS"+id;
+        }
+        if(CodeType.VENDOR_CODE.name().equalsIgnoreCase(codeType)) {
+            return "VEN"+id;
+        }
+        return null;
     }
 }

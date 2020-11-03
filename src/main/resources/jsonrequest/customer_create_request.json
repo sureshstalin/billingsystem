@@ -1,0 +1,24 @@
+{
+  "fullName": "suresh customer",
+  "user": {
+    "type": null,
+    "emailId": "suresh.customer@gmail.com",
+    "password": "123",
+    "rePassword": 123,
+    "firstName": "suresh",
+    "middleName": "",
+    "lastName": "customer",
+    "mobileNo": "87626262",
+    "addressList": [
+      {
+        "address1": "Ram Street",
+        "address2": "1st Lane",
+        "city": "Trichy",
+        "state": "TN",
+        "country": "India",
+        "landmark": "far",
+        "mobile": "343171771"
+      }
+    ]
+  }
+}

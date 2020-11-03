@@ -37,47 +37,45 @@ public class RegistrationService {
     @Value("${default.role}")
     private String defaultRole;
 
-    public ResponseMessage<BaseDTO> doRegistration(UserDTO userDTO) throws Exception {
+    public ResponseMessage<BaseDTO> doRegistration(BaseDTO baseDTO) throws Exception {
 
         ResponseMessage<BaseDTO> responseMessage = null;
-        String type = userDTO.getType();
+        String type = baseDTO.getType();
         try {
-            UserType userType = UserType.valueOf(type.toUpperCase());
-            User user = UserMapper.INSTANCE.userDTOtoUser(userDTO);
             Role role = roleRepository.findByName(defaultRole).orElse(null);
             List<Role> roleList = new ArrayList<>();
             roleList.add(role);
-            user.setRoles(roleList);
             if (type.equalsIgnoreCase(UserType.EMPLOYEE.name())) {
-                Employee employee = new Employee();
-                employee.setFullName(Utils.getFullName(user.getFirstName(), user.getMiddleName(),
-                        user.getLastName()));
-                employee.setEmployeeCode(codeGenerator.newCode(CodeType.EMPLOYEE_CODE));
-                employee.setUser(user);
-                user.getAddressList().get(0).setUser(user);
-
+                Employee employee = EmployeeMapper.INSTANCE.dtoToEmployee((EmployeeDTO) baseDTO);
+                employee.getUser().setRoles(roleList);
+                if(employee.getId() == null) {
+                    employee.setEmployeeCode(codeGenerator.newCode(CodeType.EMPLOYEE_CODE));
+                }
+                employee.getUser().getAddressList().get(0).setUser(employee.getUser());
                 BaseObject newObject = billingBaseService.save(employee); // Holds the reference of Employee object
                 EmployeeDTO employeeDto = EmployeeMapper.INSTANCE.employeeToDTO((Employee) newObject);
                 responseMessage = ResponseMessage.withResponseData(employeeDto, "Employee Created Successfully", "message");
-            } else if (type.equalsIgnoreCase(UserType.CUSTOMER.name())) {
-                Customer customer = new Customer();
-                customer.setCustomerCode(codeGenerator.newCode(CodeType.CUSTOMER_CODE));
-                customer.setFullName(Utils.getFullName(user.getFirstName(), user.getMiddleName(),
-                        user.getLastName()));
-                customer.setUser(user);
-                user.getAddressList().get(0).setUser(user);
+            }
+            else if (type.equalsIgnoreCase(UserType.CUSTOMER.name())) {
+                Customer customer =  CustomerMapper.INSTANCE.dtoToCustomer((CustomerDTO) baseDTO);
+                customer.getUser().setRoles(roleList);
+                if(customer.getId() == null) {
+                    customer.setCustomerCode(codeGenerator.newCode(CodeType.CUSTOMER_CODE));
+                }
+                customer.getUser().getAddressList().get(0).setUser(customer.getUser());
                 BaseObject newObject = billingBaseService.save(customer);
                 CustomerDTO customerDto = CustomerMapper.INSTANCE.customerToDTO((Customer) newObject);
                 responseMessage = ResponseMessage.withResponseData(customerDto, "Customer Created Successfully", "message");
-            } else if (type.equalsIgnoreCase(UserType.VENDOR.name())) {
-                Vendor vendor = new Vendor();
-                vendor.setFullName(Utils.getFullName(user.getFirstName(),
-                        user.getMiddleName(), user.getLastName()));
-                vendor.setVendorCode(codeGenerator.newCode(CodeType.VENDOR_CODE));
-                vendor.setUser(user);
-                user.getAddressList().get(0).setUser(user);
+            }
+            else if (type.equalsIgnoreCase(UserType.VENDOR.name())) {
+                Vendor vendor = VendorMapper.INSTANCE.dtoToVendor((VendorDTO)baseDTO);
+                vendor.getUser().setRoles(roleList);
+                if(vendor.getId() == null) {
+                    vendor.setVendorCode(codeGenerator.newCode(CodeType.VENDOR_CODE));
+                }
+                vendor.getUser().getAddressList().get(0).setUser(vendor.getUser());
                 BaseObject newObject = billingBaseService.save(vendor);
-                VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToVendorDTO((Vendor) newObject);
+                VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToDTO((Vendor) newObject);
                 responseMessage = ResponseMessage.withResponseData(vendorDTO, "Vendor Created Successfully", "message");
             }
         } catch (IllegalArgumentException e) {

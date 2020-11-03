@@ -1,0 +1,24 @@
+{
+  "fullName": "raga veena",
+  "user": {
+    "type": null,
+    "emailId": "raga.veena@gmail.com",
+    "password": "123",
+    "rePassword": 123,
+    "firstName": "raga.veena@gmail.com",
+    "middleName": "",
+    "lastName": "veena",
+    "mobileNo": "39399393",
+    "addressList": [
+      {
+        "address1": "karim Street",
+        "address2": "third Lane",
+        "city": "sansjos",
+        "state": "TN",
+        "country": "India",
+        "landmark": "far",
+        "mobile": "3434343"
+      }
+    ]
+  }
+}

@@ -10,5 +10,5 @@ public class CustomerDTO extends BaseDTO {
 
     private String customerCode;
 
-    private User user;
+    private UserDTO user;
 }

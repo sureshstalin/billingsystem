@@ -1,0 +1,24 @@
+{
+  "fullName": "meenakshi employee",
+  "user": {
+    "type": null,
+    "emailId": "meenakshi.employee@gmail.com",
+    "password": "123",
+    "rePassword": 123,
+    "firstName": "ramani",
+    "middleName": "",
+    "lastName": "raj",
+    "mobileNo": "87626262",
+    "addressList": [
+      {
+        "address1": "Ram Street",
+        "address2": "1st Lane",
+        "city": "Trichy",
+        "state": "TN",
+        "country": "India",
+        "landmark": "far",
+        "mobile": "343171771"
+      }
+    ]
+  }
+}

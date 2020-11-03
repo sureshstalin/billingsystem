@@ -1,0 +1,39 @@
+{
+
+  "id": 5,
+  "type": null,
+  "fullName": "raga1 veena1",
+  "vendorCode": "VEN27034",
+  "user": {
+    "id": 21,
+    "flowType": null,
+    "emailId": "raga1.veena1@gmail.com",
+    "firstName": "raga",
+    "password": "123",
+    "middleName": "",
+    "lastName": "veena",
+    "mobileNo": "39399393",
+    "addressList": [
+      {
+        "id": 21,
+        "flowType": null,
+        "address1": "karim Street",
+        "address2": "third Lane",
+        "city": "sansjos",
+        "state": "TN",
+        "country": "India",
+        "landmark": "far",
+        "mobile": "3434343"
+      }
+    ],
+    "roles": [
+      {
+        "id": 1,
+        "flowType": null,
+        "name": "ROLE_DEFAULT",
+        "description": "The default role"
+      }
+    ]
+  }
+
+}

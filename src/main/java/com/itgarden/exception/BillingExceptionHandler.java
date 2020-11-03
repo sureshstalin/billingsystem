@@ -43,24 +43,7 @@ public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(validationMessages, HttpStatus.BAD_REQUEST);
     }
 
-//    private List<String> employeeValidation(BindingResult bindingResult) {
-//       List<String> validationMessages = new ArrayList<>();
-//        List<ObjectError> objectErrors = bindingResult.getAllErrors();
-//        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-//        String typeValue = String.valueOf(bindingResult.getRawFieldValue("type"));
-//
-//        if (UserType.CUSTOMER.name().equalsIgnoreCase(typeValue)) {
-//            FieldError fieldError = bindingResult.getFieldError("mobileNo");
-//            if(fieldError != null) {
-//                String message = String.valueOf(fieldError.getDefaultMessage());
-//                validationMessages.add(message);
-//            }
-//        }else{
-//            addErrorMessages(fieldErrors);
-//        }
-//
-//        return validationMessages;
-//    }
+
     private List<String> addErrorMessages(List<FieldError> fieldErrors) {
         List<String> validationMessages = new ArrayList<>();
         for (FieldError fieldError : fieldErrors) {
@@ -82,12 +65,11 @@ public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidInputException.class)
     public final ResponseEntity<Object> invalidInputException(InvalidInputException ex, WebRequest request) throws Exception {
-        ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), Utils.currentDateTime());
-        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getErrorList(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public final ResponseEntity<Object> resourceNotFund(ResourceNotFoundException ex, WebRequest request) throws Exception {
+    public final ResponseEntity<Object> resourceNotFound(ResourceNotFoundException ex, WebRequest request) throws Exception {
         ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), Utils.currentDateTime());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }

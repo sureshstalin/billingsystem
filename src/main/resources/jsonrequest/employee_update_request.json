@@ -1,0 +1,37 @@
+{
+
+  "id": 10,
+  "fullName": "meenakshi1 employee1",
+  "employeeCode": "EMP24854",
+  "user": {
+    "id": 24,
+    "type": null,
+    "emailId": "meenakshi1.employee1@gmail.com",
+    "password": "123",
+    "rePassword": null,
+    "firstName": "ramani",
+    "middleName": "",
+    "lastName": "raj",
+    "mobileNo": "87626262",
+    "addressList": [
+      {
+        "id": 24,
+        "address1": "Ram Street",
+        "address2": "1st Lane",
+        "city": "Trichy",
+        "state": "TN",
+        "country": "India",
+        "landmark": "far",
+        "mobile": "343171771"
+      }
+    ],
+    "roles": [
+      {
+        "id": 1,
+        "name": "ROLE_DEFAULT",
+        "description": "The default role"
+      }
+    ]
+  }
+
+}

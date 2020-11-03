@@ -27,11 +27,11 @@ public class TestController {
 
     @PostMapping("/mapper")
     public ResponseEntity<Void> mapperTesting(@RequestBody UserDTO userDto)  {
-        User user = UserMapper.INSTANCE.userDTOtoUser(userDto);
+        User user = UserMapper.INSTANCE.dtoToUser(userDto);
         log.debug("Entity Class......");
         log.info("Entity First Name " + user.getFirstName());
         log.info("Entity Last Name " + user.getLastName());
-        UserDTO userDto2 = UserMapper.INSTANCE.userToUserDTO(user);
+        UserDTO userDto2 = UserMapper.INSTANCE.userToDTO(user);
         log.debug("DTO Class......");
         log.info("DTO First Name " + userDto2.getFirstName());
         log.info("DTO Last Name " + userDto2.getLastName());

@@ -13,5 +13,5 @@ public class VendorDTO extends BaseDTO {
 
     private String vendorCode;
 
-    private User user;
+    private UserDTO user;
 }

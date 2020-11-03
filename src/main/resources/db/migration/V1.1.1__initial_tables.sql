@@ -6,6 +6,7 @@ CREATE TABLE user (
   last_name varchar(255) DEFAULT NULL,
   middle_name varchar(255) DEFAULT NULL,
   mobile_no varchar(255) NOT NULL,
+  password varchar(10) NOT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id)

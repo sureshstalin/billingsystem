@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({FIELD,PARAMETER})
+@Target({FIELD})
 @Retention(RUNTIME)
 @Constraint(validatedBy = EmptyORNullCheckValidator.class)
 @Documented

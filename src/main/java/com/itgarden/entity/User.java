@@ -7,7 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "user")
 public class User extends BaseObject {
@@ -17,6 +18,9 @@ public class User extends BaseObject {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "middle_name", nullable = true)
     private String middleName;
