@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class VendorService {
+public class VendorService extends UserService{
 
     private final VendorRepository repository;
 
@@ -28,8 +28,10 @@ public class VendorService {
         this.repository = repository;
     }
 
+
     @Transactional
-    public ResponseMessage findVendor(String id) throws Exception {
+    @Override
+    public ResponseMessage findUser(String id) throws Exception {
         Vendor vendor = null;
         if(id.contains("VEN")) {
             vendor = repository.findByVendorCode(id);
@@ -46,6 +48,4 @@ public class VendorService {
         }
         return responseMessage;
     }
-
-
 }

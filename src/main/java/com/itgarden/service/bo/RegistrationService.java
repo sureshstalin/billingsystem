@@ -16,6 +16,8 @@ import com.itgarden.repository.RoleRepository;
 import com.itgarden.service.BillingBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,8 +36,13 @@ public class RegistrationService {
     @Autowired
     private CodeGenerator codeGenerator;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Value("${default.role}")
     private String defaultRole;
+
+
 
     public ResponseMessage<BaseDTO> doRegistration(BaseDTO baseDTO) throws Exception {
 
@@ -52,6 +59,8 @@ public class RegistrationService {
                     employee.setEmployeeCode(codeGenerator.newCode(CodeType.EMPLOYEE_CODE));
                 }
                 employee.getUser().getAddressList().get(0).setUser(employee.getUser());
+//                employee.getUser().setPassword(passwordEncoder.encode(employee.getUser().getPassword()));
+                employee.getUser().setPassword(employee.getUser().getPassword());
                 BaseObject newObject = billingBaseService.save(employee); // Holds the reference of Employee object
                 EmployeeDTO employeeDto = EmployeeMapper.INSTANCE.employeeToDTO((Employee) newObject);
                 responseMessage = ResponseMessage.withResponseData(employeeDto, "Employee Created Successfully", "message");
@@ -63,6 +72,8 @@ public class RegistrationService {
                     customer.setCustomerCode(codeGenerator.newCode(CodeType.CUSTOMER_CODE));
                 }
                 customer.getUser().getAddressList().get(0).setUser(customer.getUser());
+//                customer.getUser().setPassword(passwordEncoder.encode(customer.getUser().getPassword()));
+                customer.getUser().setPassword(customer.getUser().getPassword());
                 BaseObject newObject = billingBaseService.save(customer);
                 CustomerDTO customerDto = CustomerMapper.INSTANCE.customerToDTO((Customer) newObject);
                 responseMessage = ResponseMessage.withResponseData(customerDto, "Customer Created Successfully", "message");
@@ -73,6 +84,8 @@ public class RegistrationService {
                 if(vendor.getId() == null) {
                     vendor.setVendorCode(codeGenerator.newCode(CodeType.VENDOR_CODE));
                 }
+//                vendor.getUser().setPassword(passwordEncoder.encode(vendor.getUser().getPassword()));
+                vendor.getUser().setPassword(vendor.getUser().getPassword());
                 vendor.getUser().getAddressList().get(0).setUser(vendor.getUser());
                 BaseObject newObject = billingBaseService.save(vendor);
                 VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToDTO((Vendor) newObject);

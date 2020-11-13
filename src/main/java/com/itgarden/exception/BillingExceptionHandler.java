@@ -4,6 +4,7 @@ import com.itgarden.common.Utils;
 import com.itgarden.common.staticdata.UserType;
 import com.itgarden.messages.ErrorMessage;
 import com.itgarden.messages.ValidationMessage;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -27,8 +28,6 @@ import java.util.List;
 @ControllerAdvice
 @RestController
 public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
-
-
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException arguments, HttpHeaders headers,
@@ -90,7 +89,19 @@ public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-    @ExceptionHandler(ValidationException.class)
+    @ExceptionHandler(ExpiredJwtException.class)
+    public final ResponseEntity<Object> tokenExpired(ExpiredJwtException ex,WebRequest webRequest) {
+        ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), Utils.currentDateTime());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public final ResponseEntity<Object> invalidToken(InvalidTokenException ex,WebRequest webRequest) {
+        ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), Utils.currentDateTime());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+   /* @ExceptionHandler(ValidationException.class)
     public final ResponseEntity<Object> validationException(ValidationException ex, WebRequest request) throws Exception {
         BindingResult bindingResult = ex.getBindingResult();
         List<String> validationMessages = new ArrayList<>();
@@ -104,12 +115,12 @@ public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
         for (ObjectError objectError : objectErrors) {
             objectError.getObjectName();
             String defaultMessage = objectError.getDefaultMessage();
-            validationMessages.add(defaultMessage);
+            validationMessages.add(defaultMessage + " Test");
         }
         return new ResponseEntity<>(validationMessages, HttpStatus.BAD_REQUEST);
 
     }
-
+*/
     private LocalDateTime getCurrentDateTime() {
         return LocalDateTime.now();
     }

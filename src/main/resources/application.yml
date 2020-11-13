@@ -12,6 +12,7 @@ spring:
     username: billing
     password: billing123$$
     driver-class-name: com.mysql.cj.jdbc.Driver
+
 logging:
   level:
     org:
@@ -23,3 +24,7 @@ default:
 user:
   firstname:
     empty: First Name cannot be empty.
+jwt:
+  secretkey: secrete
+  access-token-expiration: 5000000
+  refresh-token-expiration: 9000000

@@ -1,22 +1,18 @@
 package com.itgarden.service.bo;
 
 import com.itgarden.dto.CustomerDTO;
-import com.itgarden.dto.EmployeeDTO;
 import com.itgarden.entity.Customer;
-import com.itgarden.entity.Employee;
 import com.itgarden.exception.ResourceNotFoundException;
 import com.itgarden.mapper.CustomerMapper;
-import com.itgarden.mapper.EmployeeMapper;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.repository.CustomerRepository;
-import com.itgarden.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
-public class CustomerService {
+public class CustomerService extends UserService {
 
     private final CustomerRepository repository;
 
@@ -25,8 +21,10 @@ public class CustomerService {
         this.repository = repository;
     }
 
+
     @Transactional
-    public ResponseMessage findCustomer(String id) throws Exception {
+    @Override
+    public ResponseMessage findUser(String id) throws Exception {
         Customer customer = null;
         if(id.contains("CUS")) {
             customer = repository.findByCustomerCode(id);
@@ -43,5 +41,4 @@ public class CustomerService {
         }
         return responseMessage;
     }
-
 }

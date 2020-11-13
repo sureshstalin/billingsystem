@@ -1,0 +1,26 @@
+package com.itgarden.service.bo;
+
+import com.itgarden.entity.User;
+import com.itgarden.messages.ResponseMessage;
+import com.itgarden.repository.UserRepository;
+import com.itgarden.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+
+@Service("userService")
+class UserService extends BaseService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public ResponseMessage findUser(String id) throws Exception {
+
+        User user = userRepository.findById(Long.parseLong(id)).orElse(null);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(user, "", "");
+        return responseMessage;
+
+    }
+
+}

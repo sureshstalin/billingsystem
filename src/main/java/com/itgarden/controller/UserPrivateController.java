@@ -1,10 +1,7 @@
 package com.itgarden.controller;
 
 import com.itgarden.common.staticdata.UserType;
-import com.itgarden.dto.CustomerDTO;
-import com.itgarden.dto.EmployeeDTO;
-import com.itgarden.dto.UserDTO;
-import com.itgarden.dto.VendorDTO;
+import com.itgarden.dto.*;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.service.bo.CustomerService;
 import com.itgarden.service.bo.EmployeeService;
@@ -14,10 +11,14 @@ import com.itgarden.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/private/users")
@@ -40,7 +41,7 @@ public class UserPrivateController {
         this.employeeService = employeeService;
         this.vendorService = vendorService;
         this.registrationService = registrationService;
-        this.userValidator  = userValidator;
+        this.userValidator = userValidator;
     }
 
     @PostMapping("/employees") // http://localhost:9091/api/public/users/employees
@@ -69,19 +70,19 @@ public class UserPrivateController {
 
     @GetMapping("/customers/{id}")
     public ResponseEntity<ResponseMessage<?>> viewCustomer(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = customerService.findCustomer(id);
+        ResponseMessage responseMessage = customerService.findUser(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping("/employees/{id}")
     public ResponseEntity<ResponseMessage<?>> viewEmployee(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = employeeService.findEmployee(id);
+        ResponseMessage responseMessage = employeeService.findUser(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping("/vendors/{id}")
     public ResponseEntity<ResponseMessage<?>> viewVendor(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = vendorService.findVendor(id);
+        ResponseMessage responseMessage = vendorService.findUser(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
@@ -90,4 +91,7 @@ public class UserPrivateController {
                 (ResponseMessage.withResponseData("Success",
                         "User Successfully logged in", "Message"), HttpStatus.OK);
     }
+
+
+
 }
