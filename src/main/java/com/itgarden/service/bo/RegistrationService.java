@@ -3,6 +3,7 @@ package com.itgarden.service.bo;
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.Utils;
 import com.itgarden.common.staticdata.CodeType;
+import com.itgarden.common.staticdata.ROLES;
 import com.itgarden.common.staticdata.UserType;
 import com.itgarden.dto.*;
 import com.itgarden.entity.*;
@@ -49,11 +50,11 @@ public class RegistrationService {
         ResponseMessage<BaseDTO> responseMessage = null;
         String type = baseDTO.getType();
         try {
-            Role role = roleRepository.findByName(defaultRole).orElse(null);
-            List<Role> roleList = new ArrayList<>();
-            roleList.add(role);
             if (type.equalsIgnoreCase(UserType.EMPLOYEE.name())) {
                 Employee employee = EmployeeMapper.INSTANCE.dtoToEmployee((EmployeeDTO) baseDTO);
+                Role role = roleRepository.findByName(ROLES.EMPLOYEE_ROLE.name()).orElse(null);
+                List<Role> roleList = new ArrayList<>();
+                roleList.add(role);
                 employee.getUser().setRoles(roleList);
                 if(employee.getId() == null) {
                     employee.setEmployeeCode(codeGenerator.newCode(CodeType.EMPLOYEE_CODE));
@@ -67,6 +68,9 @@ public class RegistrationService {
             }
             else if (type.equalsIgnoreCase(UserType.CUSTOMER.name())) {
                 Customer customer =  CustomerMapper.INSTANCE.dtoToCustomer((CustomerDTO) baseDTO);
+                Role role = roleRepository.findByName(ROLES.CUSTOMER_ROLE.name()).orElse(null);
+                List<Role> roleList = new ArrayList<>();
+                roleList.add(role);
                 customer.getUser().setRoles(roleList);
                 if(customer.getId() == null) {
                     customer.setCustomerCode(codeGenerator.newCode(CodeType.CUSTOMER_CODE));
@@ -80,6 +84,9 @@ public class RegistrationService {
             }
             else if (type.equalsIgnoreCase(UserType.VENDOR.name())) {
                 Vendor vendor = VendorMapper.INSTANCE.dtoToVendor((VendorDTO)baseDTO);
+                Role role = roleRepository.findByName(ROLES.VENDOR_ROLE.name()).orElse(null);
+                List<Role> roleList = new ArrayList<>();
+                roleList.add(role);
                 vendor.getUser().setRoles(roleList);
                 if(vendor.getId() == null) {
                     vendor.setVendorCode(codeGenerator.newCode(CodeType.VENDOR_CODE));

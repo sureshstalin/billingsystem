@@ -14,8 +14,5 @@ public class BillingsystemApplication {
 		SpringApplication.run(BillingsystemApplication.class, args);
 	}
 
-//	@Bean
-//	public PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
+
 }

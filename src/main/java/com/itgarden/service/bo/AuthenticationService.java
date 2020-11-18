@@ -3,7 +3,9 @@ package com.itgarden.service.bo;
 import com.itgarden.common.Utils;
 import com.itgarden.common.staticdata.TokenType;
 import com.itgarden.dto.AuthenticationResponseDTO;
+import com.itgarden.dto.GrandAuthorityRole;
 import com.itgarden.entity.JwtToken;
+import com.itgarden.entity.Role;
 import com.itgarden.mapper.JwtResponseMapper;
 import com.itgarden.repository.JwtTokenRepository;
 import com.itgarden.repository.UserRepository;
@@ -11,31 +13,43 @@ import com.itgarden.security.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AuthenticationService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+        @Autowired
+        private UserRepository userRepository;
 
-    @Autowired
-    private JwtTokenRepository jwtTokenRepository;
+        @Autowired
+        private JwtTokenRepository jwtTokenRepository;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+        @Autowired
+        private JwtUtils jwtUtils;
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
 
     @Override
     public UserDetails loadUserByUsername(String emailId) throws UsernameNotFoundException {
         com.itgarden.entity.User user = userRepository.findByEmailId(emailId);
-        UserDetails userDetails = new User(user.getEmailId(), user.getPassword(), new ArrayList<>());
+        GrandAuthorityRole grandAuthorityRoleSuperAdmin = new GrandAuthorityRole("SUPER_ADMIN");
+        GrandAuthorityRole grandAuthorityRoleEmployee = new GrandAuthorityRole("ROLE_EMPLOYEE");
+        List<GrandAuthorityRole> authorities = new ArrayList<>();
+        authorities.add(grandAuthorityRoleSuperAdmin);
+        authorities.add(grandAuthorityRoleEmployee);
+        UserDetails userDetails = new User(user.getEmailId(), user.getPassword(), authorities);
         return userDetails;
     }
 
@@ -44,12 +58,6 @@ public class AuthenticationService implements UserDetailsService {
         JwtToken jwtToken = JwtResponseMapper.INSTANCE.authResponseToJwt(authenticationResponseDto);
         JwtToken jwtTokenResponse = jwtTokenRepository.save(jwtToken);
         return jwtTokenResponse;
-    }
-
-    public String isAccessTokenExpired() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        return currentPrincipalName;
     }
 
     public AuthenticationResponseDTO generateAuthResponse(UserDetails userDetails, TokenType tokenType) {

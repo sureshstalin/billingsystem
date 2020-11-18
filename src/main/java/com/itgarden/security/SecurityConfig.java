@@ -1,6 +1,6 @@
 package com.itgarden.security;
 
-import com.itgarden.JwtRequetFilter;
+import com.itgarden.JwtRequestFilter;
 import com.itgarden.service.bo.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,25 +21,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationService userDetailsService;
 
     @Autowired
-    JwtRequetFilter jwtFilter;
+    JwtRequestFilter jwtFilter;
 
-    public SecurityConfig(AuthenticationService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService);
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService);//.passwordEncoder(passwordEncoder());
     }
 
+    //    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable()
+//                .authorizeRequests().antMatchers("/api/public/authenticate",
+//                "/api/public/refreshtoken").permitAll()
+//                .anyRequest().authenticated()
+//                .and().sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/api/public/authenticate","/api/public/refreshtoken").permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/public/authenticate","/api/public/refreshtoken").permitAll()
+                .antMatchers("/api/private/users/**")
+                    .hasAnyAuthority("ROLE_EMPLOYEE","SUPER_ADMIN")
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -52,5 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }
 

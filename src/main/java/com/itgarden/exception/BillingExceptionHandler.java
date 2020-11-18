@@ -6,6 +6,7 @@ import com.itgarden.messages.ErrorMessage;
 import com.itgarden.messages.ValidationMessage;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -64,7 +65,8 @@ public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidInputException.class)
     public final ResponseEntity<Object> invalidInputException(InvalidInputException ex, WebRequest request) throws Exception {
-        return new ResponseEntity<>(ex.getErrorList(), HttpStatus.BAD_REQUEST);
+        ErrorMessage errorMessage = new ErrorMessage(StringUtils.join(ex.getErrorList(), "\n"), Utils.currentDateTime());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

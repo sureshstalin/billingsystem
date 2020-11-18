@@ -44,6 +44,7 @@ public class UserPrivateController {
         this.userValidator = userValidator;
     }
 
+
     @PostMapping("/employees") // http://localhost:9091/api/public/users/employees
     public ResponseEntity<ResponseMessage<?>> saveEmployee(@Valid @RequestBody EmployeeDTO requestBody) throws Exception {
         requestBody.setType(UserType.EMPLOYEE.name());
@@ -86,11 +87,7 @@ public class UserPrivateController {
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
-    public ResponseEntity<ResponseMessage<?>> login(@RequestBody UserDTO userDTO) {
-        return new ResponseEntity<ResponseMessage<?>>
-                (ResponseMessage.withResponseData("Success",
-                        "User Successfully logged in", "Message"), HttpStatus.OK);
-    }
+
 
 
 

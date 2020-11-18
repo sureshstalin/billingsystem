@@ -55,15 +55,6 @@ public class JwtUtils {
         }
     }
 
-//    public String extractUsername(String token) {
-//        String userName = extractClaim(token, Claims::getSubject);
-//        JwtToken jwtToken = jwtTokenRepository.findByUserName(userName);
-//        if (jwtToken == null) {
-//            throw new InvalidTokenException("Invalid Token: User Name is not found ");
-//        } else {
-//            return jwtToken.getUserName();
-//        }
-//    }
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
@@ -121,9 +112,6 @@ public class JwtUtils {
 
     public Boolean isValidToken(String token, TokenType tokenType) throws InvalidTokenException {
         List<String> errorList = new ArrayList<>();
-//        if (!isValidateUser(token)) {
-//            errorList.add("Invalid Token: Invalid User Name");
-//        }
         if (tokenType.equals(TokenType.REFRESH_TOKEN)) {
             if (isRefreshTokenExpired(token)) {
                 errorList.add("Invalid Refresh Token: Refresh Token is expired");
@@ -139,24 +127,4 @@ public class JwtUtils {
         }
         return true;
     }
-
-//    public Boolean isValidateUser(String token) throws InvalidTokenException {
-//        final String username = extractUsername(token);
-//        JwtToken jwtToken = jwtTokenRepository.findByUserName(username);
-//        if (username.equalsIgnoreCase(jwtToken.getUserName())) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
-    public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpiration))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
-
-    }
-
-
 }

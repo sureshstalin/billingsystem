@@ -5,12 +5,13 @@ import com.itgarden.entity.Customer;
 import com.itgarden.entity.Vendor;
 import com.itgarden.exception.InvalidInputException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Component
 public class UserValidator<T> {
 
     public void validate(T t) {

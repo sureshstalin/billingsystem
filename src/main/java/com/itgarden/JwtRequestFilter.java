@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtRequetFilter extends OncePerRequestFilter {
+public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private AuthenticationService userDetailsService;
@@ -82,4 +82,6 @@ public class JwtRequetFilter extends OncePerRequestFilter {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return userDetails;
     }
+
+
 }
