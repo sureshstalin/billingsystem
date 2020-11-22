@@ -1,6 +1,6 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.BaseDTO;
+import com.itgarden.dto.BaseInfo;
 import com.itgarden.entity.BaseObject;
 import com.itgarden.mapper.BaseMapper;
 
@@ -8,34 +8,34 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-02T21:19:55+0530",
+    date = "2020-11-22T16:13:34+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class BaseMapperImpl implements BaseMapper {
 
     @Override
-    public BaseObject dtoToBaseObject(BaseDTO baseDTO) {
-        if ( baseDTO == null ) {
+    public BaseObject baseInfoToBaseObject(BaseInfo baseInfo) {
+        if ( baseInfo == null ) {
             return null;
         }
 
         BaseObject baseObject = new BaseObject();
 
-        baseObject.setId( baseDTO.getId() );
+        baseObject.setId( baseInfo.getId() );
 
         return baseObject;
     }
 
     @Override
-    public BaseDTO baseObjectToDTO(BaseObject baseObject) {
+    public BaseInfo baseObjectToBaseInfo(BaseObject baseObject) {
         if ( baseObject == null ) {
             return null;
         }
 
-        BaseDTO baseDTO = new BaseDTO();
+        BaseInfo baseInfo = new BaseInfo();
 
-        baseDTO.setId( baseObject.getId() );
+        baseInfo.setId( baseObject.getId() );
 
-        return baseDTO;
+        return baseInfo;
     }
 }

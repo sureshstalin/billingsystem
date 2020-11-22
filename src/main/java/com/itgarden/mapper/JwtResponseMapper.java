@@ -1,6 +1,6 @@
 package com.itgarden.mapper;
 
-import com.itgarden.dto.AuthenticationResponseDTO;
+import com.itgarden.dto.AuthenticationResponseInfo;
 import com.itgarden.entity.JwtToken;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -11,8 +11,8 @@ public interface JwtResponseMapper {
 
     JwtResponseMapper INSTANCE = Mappers.getMapper(JwtResponseMapper.class);
 
-    JwtToken authResponseToJwt(AuthenticationResponseDTO authenticationResponseDTO);
+    JwtToken authResponseToJwt(AuthenticationResponseInfo authenticationResponseDTO);
 
     @InheritInverseConfiguration
-    AuthenticationResponseDTO jwtToAuthResponse(JwtToken jwtToken);
+    AuthenticationResponseInfo jwtToAuthResponse(JwtToken jwtToken);
 }

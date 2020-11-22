@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoleDTO extends BaseDTO {
+public class RoleInfo extends BaseInfo {
 
     private String name;
 

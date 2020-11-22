@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AuthenticationService userDetailsService;
+    private AuthenticationService authenticationService;
 
     @Autowired
     JwtRequestFilter jwtFilter;
@@ -30,26 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);//.passwordEncoder(passwordEncoder());
+        auth.userDetailsService(authenticationService);//.passwordEncoder(passwordEncoder());
     }
 
-    //    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .authorizeRequests().antMatchers("/api/public/authenticate",
-//                "/api/public/refreshtoken").permitAll()
-//                .anyRequest().authenticated()
-//                .and().sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-//    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/public/authenticate","/api/public/refreshtoken").permitAll()
                 .antMatchers("/api/private/users/**")
-                    .hasAnyAuthority("ROLE_EMPLOYEE","SUPER_ADMIN")
+                    .hasAnyAuthority("EMPLOYEE_ROLE","SUPER_ADMIN")
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -1,6 +1,6 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AuthenticationResponseDTO;
+import com.itgarden.dto.AuthenticationResponseInfo;
 import com.itgarden.entity.JwtToken;
 import com.itgarden.mapper.JwtResponseMapper;
 
@@ -8,13 +8,13 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-11T09:47:20+0530",
+    date = "2020-11-22T16:13:34+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class JwtResponseMapperImpl implements JwtResponseMapper {
 
     @Override
-    public JwtToken authResponseToJwt(AuthenticationResponseDTO authenticationResponseDTO) {
+    public JwtToken authResponseToJwt(AuthenticationResponseInfo authenticationResponseDTO) {
         if ( authenticationResponseDTO == null ) {
             return null;
         }
@@ -32,20 +32,20 @@ public class JwtResponseMapperImpl implements JwtResponseMapper {
     }
 
     @Override
-    public AuthenticationResponseDTO jwtToAuthResponse(JwtToken jwtToken) {
+    public AuthenticationResponseInfo jwtToAuthResponse(JwtToken jwtToken) {
         if ( jwtToken == null ) {
             return null;
         }
 
-        AuthenticationResponseDTO authenticationResponseDTO = new AuthenticationResponseDTO();
+        AuthenticationResponseInfo authenticationResponseInfo = new AuthenticationResponseInfo();
 
-        authenticationResponseDTO.setId( jwtToken.getId() );
-        authenticationResponseDTO.setAccessToken( jwtToken.getAccessToken() );
-        authenticationResponseDTO.setRefreshToken( jwtToken.getRefreshToken() );
-        authenticationResponseDTO.setAccessTokenExpiration( jwtToken.getAccessTokenExpiration() );
-        authenticationResponseDTO.setRefreshTokenExpiration( jwtToken.getRefreshTokenExpiration() );
-        authenticationResponseDTO.setUserName( jwtToken.getUserName() );
+        authenticationResponseInfo.setId( jwtToken.getId() );
+        authenticationResponseInfo.setAccessToken( jwtToken.getAccessToken() );
+        authenticationResponseInfo.setRefreshToken( jwtToken.getRefreshToken() );
+        authenticationResponseInfo.setAccessTokenExpiration( jwtToken.getAccessTokenExpiration() );
+        authenticationResponseInfo.setRefreshTokenExpiration( jwtToken.getRefreshTokenExpiration() );
+        authenticationResponseInfo.setUserName( jwtToken.getUserName() );
 
-        return authenticationResponseDTO;
+        return authenticationResponseInfo;
     }
 }

@@ -1,17 +1,10 @@
 package com.itgarden.service.bo;
 
-import com.itgarden.dto.CustomerDTO;
-import com.itgarden.dto.EmployeeDTO;
-import com.itgarden.dto.VendorDTO;
-import com.itgarden.entity.Customer;
-import com.itgarden.entity.Employee;
+import com.itgarden.dto.VendorInfo;
 import com.itgarden.entity.Vendor;
 import com.itgarden.exception.ResourceNotFoundException;
-import com.itgarden.mapper.CustomerMapper;
-import com.itgarden.mapper.EmployeeMapper;
 import com.itgarden.mapper.VendorMapper;
 import com.itgarden.messages.ResponseMessage;
-import com.itgarden.repository.EmployeeRepository;
 import com.itgarden.repository.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class VendorService extends UserService{
+public class VendorService extends UserService {
 
     private final VendorRepository repository;
 
@@ -31,18 +24,17 @@ public class VendorService extends UserService{
 
     @Transactional
     @Override
-    public ResponseMessage findUser(String id) throws Exception {
+    public ResponseMessage findResourceById(String id) throws Exception {
         Vendor vendor = null;
-        if(id.contains("VEN")) {
+        if (id.contains("VEN")) {
             vendor = repository.findByVendorCode(id);
-        }
-        else {
+        } else {
             vendor = repository.findById(Long.parseLong(id)).orElse(null);
         }
         ResponseMessage responseMessage = new ResponseMessage();
         if (vendor != null) {
-            VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToDTO(vendor);
-            responseMessage.setResponseClassType(vendorDTO);
+            VendorInfo vendorInfo = VendorMapper.INSTANCE.vendorToVendorInfo(vendor);
+            responseMessage.setResponseClassType(vendorInfo);
         } else {
             throw new ResourceNotFoundException("Vendor not found");
         }

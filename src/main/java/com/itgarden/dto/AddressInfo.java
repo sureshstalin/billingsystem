@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AddressDTO extends BaseDTO {
+public class AddressInfo extends BaseInfo {
 
     private String address1;
 

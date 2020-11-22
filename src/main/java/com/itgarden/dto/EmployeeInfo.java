@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class EmployeeDTO extends BaseDTO {
+public class EmployeeInfo extends BaseInfo {
 
     private String fullName;
 
     private String employeeCode;
 
-    private UserDTO user;
+    private UserInfo user;
 }

@@ -1,11 +1,8 @@
 package com.itgarden.mapper;
 
-import com.itgarden.dto.EmployeeDTO;
-import com.itgarden.dto.RoleDTO;
-import com.itgarden.dto.UserDTO;
+import com.itgarden.dto.RoleInfo;
 import com.itgarden.entity.Employee;
 import com.itgarden.entity.Role;
-import com.itgarden.entity.User;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -14,8 +11,8 @@ import org.mapstruct.factory.Mappers;
 public interface RoleMapper {
 
     RoleMapper INSTANCE =  Mappers.getMapper(RoleMapper.class);
-    Employee dtoToRole(RoleDTO roleDTO);
+    Employee roleInfoToRole(RoleInfo roleInfo);
     @InheritInverseConfiguration
-    RoleDTO roleToDTO(Role role);
+    RoleInfo roleToRoleInfo(Role role);
 
 }

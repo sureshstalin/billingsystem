@@ -1,9 +1,8 @@
 package com.itgarden.controller;
 
 import com.itgarden.common.staticdata.TokenType;
-import com.itgarden.dto.AuthenticationRequestDTO;
-import com.itgarden.dto.AuthenticationResponseDTO;
-import com.itgarden.dto.UserDTO;
+import com.itgarden.dto.AuthenticationRequestInfo;
+import com.itgarden.dto.AuthenticationResponseInfo;
 import com.itgarden.entity.JwtToken;
 import com.itgarden.exception.InvalidTokenException;
 import com.itgarden.exception.InvalidUserNamePasswordException;
@@ -40,9 +39,10 @@ public class UserPublicController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<ResponseMessage<AuthenticationResponseDTO>>
-        authenticate(@org.jetbrains.annotations.NotNull @RequestBody AuthenticationRequestDTO authenticationRequest) {
+    public ResponseEntity<ResponseMessage<AuthenticationResponseInfo>>
+        authenticate(@RequestBody AuthenticationRequestInfo authenticationRequest) {
         try {
+            // This authenticate method call AuthenticationService.loadUserByUsername
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(),
                     authenticationRequest.getPassword()));
@@ -50,19 +50,19 @@ public class UserPublicController {
             throw new InvalidUserNamePasswordException(bce.getMessage());
         }
         UserDetails userDetails = authenticationService.loadUserByUsername(authenticationRequest.getUserName());
-        AuthenticationResponseDTO authenticationResponseDTO = authenticationService.generateAuthResponse(userDetails, TokenType.ACCESS_TOKEN);
+        AuthenticationResponseInfo authenticationResponseDTO = authenticationService.generateAuthResponse(userDetails, TokenType.ACCESS_TOKEN);
         JwtToken jwtTokenResponse = authenticationService.saveJwt(authenticationResponseDTO);
         if (jwtTokenResponse != null) {
             ResponseMessage responseMessage = ResponseMessage.withResponseData(authenticationResponseDTO, "Authentication Success", "Message");
-            return new ResponseEntity<ResponseMessage<AuthenticationResponseDTO>>(responseMessage, HttpStatus.OK);
+            return new ResponseEntity<ResponseMessage<AuthenticationResponseInfo>>(responseMessage, HttpStatus.OK);
         } else {
-            ResponseMessage responseMessage = ResponseMessage.withResponseData(new AuthenticationResponseDTO(), "Authentication Failure", "Error");
-            return new ResponseEntity<ResponseMessage<AuthenticationResponseDTO>>(responseMessage, HttpStatus.BAD_REQUEST);
+            ResponseMessage responseMessage = ResponseMessage.withResponseData(new AuthenticationResponseInfo(), "Authentication Failure", "Error");
+            return new ResponseEntity<ResponseMessage<AuthenticationResponseInfo>>(responseMessage, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@RequestBody AuthenticationRequestDTO authenticationRequest) throws Exception {
+    public ResponseEntity<?> refreshToken(@RequestBody AuthenticationRequestInfo authenticationRequest) throws Exception {
         String refreshToken = authenticationRequest.getRefreshToken();
         //Validate the token while extracting user.
         if(jwtUtils.isRefreshTokenExpired(refreshToken)) {
@@ -76,16 +76,16 @@ public class UserPublicController {
         } catch (BadCredentialsException bce) {
             throw new InvalidUserNamePasswordException(bce.getMessage());
         }
-        AuthenticationResponseDTO authenticationResponseDTO = authenticationService.generateAuthResponse(userDetails, TokenType.REFRESH_TOKEN);
+        AuthenticationResponseInfo authenticationResponseDTO = authenticationService.generateAuthResponse(userDetails, TokenType.REFRESH_TOKEN);
         JwtToken jwtTokenResponse = authenticationService.saveJwt(authenticationResponseDTO);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(authenticationResponseDTO, "Refresh Token Generated", "Message");
-        return new ResponseEntity<ResponseMessage<AuthenticationResponseDTO>>(responseMessage, HttpStatus.OK);
+        return new ResponseEntity<ResponseMessage<AuthenticationResponseInfo>>(responseMessage, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<ResponseMessage<?>> login(@RequestBody UserDTO userDTO) {
-        return new ResponseEntity<ResponseMessage<?>>
-                (ResponseMessage.withResponseData("Success",
-                        "User Successfully logged in", "Message"), HttpStatus.OK);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<ResponseMessage<?>> login(@RequestBody UserDTO userDTO) {
+//        return new ResponseEntity<ResponseMessage<?>>
+//                (ResponseMessage.withResponseData("Success",
+//                        "User Successfully logged in", "Message"), HttpStatus.OK);
+//    }
 }

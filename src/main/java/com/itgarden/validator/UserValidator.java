@@ -1,12 +1,9 @@
 package com.itgarden.validator;
 
 import com.itgarden.dto.*;
-import com.itgarden.entity.Customer;
-import com.itgarden.entity.Vendor;
 import com.itgarden.exception.InvalidInputException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,27 +13,27 @@ public class UserValidator<T> {
 
     public void validate(T t) {
         List<String> validationMessages = new ArrayList<>();
-        if (t instanceof EmployeeDTO) {
-            EmployeeDTO employeeDTO = (EmployeeDTO) t;
-            UserDTO userDTO = employeeDTO.getUser();
+        if (t instanceof EmployeeInfo) {
+            EmployeeInfo employeeDTO = (EmployeeInfo) t;
+            UserInfo userDTO = employeeDTO.getUser();
             validationMessages = validateUser(userDTO);
             if (StringUtils.isEmpty(employeeDTO.getFullName())) {
                 validationMessages.add("Full Name can't be empty");
             }
         }
 
-        if (t instanceof VendorDTO) {
-            VendorDTO vendorDTO = (VendorDTO) t;
-            UserDTO userDTO = vendorDTO.getUser();
+        if (t instanceof VendorInfo) {
+            VendorInfo vendorInfo = (VendorInfo) t;
+            UserInfo userDTO = vendorInfo.getUserInfo();
             validationMessages = validateUser(userDTO);
-            if (StringUtils.isEmpty(vendorDTO.getFullName())) {
+            if (StringUtils.isEmpty(vendorInfo.getFullName())) {
                 validationMessages.add("Full Name can't be empty");
             }
         }
 
-        if (t instanceof CustomerDTO) {
-            CustomerDTO customerDTO = (CustomerDTO) t;
-            UserDTO userDTO = customerDTO.getUser();
+        if (t instanceof CustomerInfo) {
+            CustomerInfo customerDTO = (CustomerInfo) t;
+            UserInfo userDTO = customerDTO.getUser();
             if (StringUtils.isEmpty(userDTO.getMobileNo())) {
                 validationMessages.add("Mobile No can't be empty");
             }
@@ -55,7 +52,7 @@ public class UserValidator<T> {
     }
 
 
-    private List<String> validateUser(UserDTO userDTO) {
+    private List<String> validateUser(UserInfo userDTO) {
         List<String> validationMessages = new ArrayList<>();
         if (StringUtils.isEmpty(userDTO.getMobileNo())) {
             validationMessages.add("Mobile No can't be empty");
@@ -77,7 +74,7 @@ public class UserValidator<T> {
                 validationMessages.add("Re enter Password can't be empty");
             }
         }
-        AddressDTO addressDTO = userDTO.getAddressList().get(0);
+        AddressInfo addressDTO = userDTO.getAddressList().get(0);
         if (StringUtils.isEmpty(addressDTO.getAddress1())) {
             validationMessages.add("Address1 can't be empty");
         }

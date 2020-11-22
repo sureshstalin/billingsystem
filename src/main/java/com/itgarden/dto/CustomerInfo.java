@@ -1,14 +1,13 @@
 package com.itgarden.dto;
 
-import com.itgarden.entity.User;
 import lombok.Data;
 
 @Data
-public class CustomerDTO extends BaseDTO {
+public class CustomerInfo extends BaseInfo {
 
     private String fullName;
 
     private String customerCode;
 
-    private UserDTO user;
+    private UserInfo user;
 }

@@ -1,6 +1,6 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.RoleDTO;
+import com.itgarden.dto.RoleInfo;
 import com.itgarden.entity.Employee;
 import com.itgarden.entity.Role;
 import com.itgarden.mapper.RoleMapper;
@@ -9,36 +9,36 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-02T21:19:55+0530",
+    date = "2020-11-22T16:13:34+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class RoleMapperImpl implements RoleMapper {
 
     @Override
-    public Employee dtoToRole(RoleDTO roleDTO) {
-        if ( roleDTO == null ) {
+    public Employee roleInfoToRole(RoleInfo roleInfo) {
+        if ( roleInfo == null ) {
             return null;
         }
 
         Employee employee = new Employee();
 
-        employee.setId( roleDTO.getId() );
+        employee.setId( roleInfo.getId() );
 
         return employee;
     }
 
     @Override
-    public RoleDTO roleToDTO(Role role) {
+    public RoleInfo roleToRoleInfo(Role role) {
         if ( role == null ) {
             return null;
         }
 
-        RoleDTO roleDTO = new RoleDTO();
+        RoleInfo roleInfo = new RoleInfo();
 
-        roleDTO.setId( role.getId() );
-        roleDTO.setName( role.getName() );
-        roleDTO.setDescription( role.getDescription() );
+        roleInfo.setId( role.getId() );
+        roleInfo.setName( role.getName() );
+        roleInfo.setDescription( role.getDescription() );
 
-        return roleDTO;
+        return roleInfo;
     }
 }

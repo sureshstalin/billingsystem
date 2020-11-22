@@ -97,6 +97,9 @@ public class JwtUtils {
         return createToken(claims, userDetails.getUsername(), TokenType.REFRESH_TOKEN);
     }
 
+    /*
+     * Generates JWT Token with Claims (subject,issued At,Expiration)
+     */
     private String createToken(Map<String, Object> claims, String subject, TokenType tokenType) {
 
         if (tokenType.equals(TokenType.ACCESS_TOKEN)) {

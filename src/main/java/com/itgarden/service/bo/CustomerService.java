@@ -1,6 +1,6 @@
 package com.itgarden.service.bo;
 
-import com.itgarden.dto.CustomerDTO;
+import com.itgarden.dto.CustomerInfo;
 import com.itgarden.entity.Customer;
 import com.itgarden.exception.ResourceNotFoundException;
 import com.itgarden.mapper.CustomerMapper;
@@ -24,7 +24,7 @@ public class CustomerService extends UserService {
 
     @Transactional
     @Override
-    public ResponseMessage findUser(String id) throws Exception {
+    public ResponseMessage findResourceById(String id) throws Exception {
         Customer customer = null;
         if(id.contains("CUS")) {
             customer = repository.findByCustomerCode(id);
@@ -34,7 +34,7 @@ public class CustomerService extends UserService {
         }
         ResponseMessage responseMessage = new ResponseMessage();
         if (customer != null) {
-            CustomerDTO customerDTO = CustomerMapper.INSTANCE.customerToDTO(customer);
+            CustomerInfo customerDTO = CustomerMapper.INSTANCE.customerToCustomerInfo(customer);
             responseMessage.setResponseClassType(customerDTO);
         } else {
             throw new ResourceNotFoundException("Customer not found");

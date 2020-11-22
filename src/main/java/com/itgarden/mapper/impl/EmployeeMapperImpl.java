@@ -1,9 +1,9 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AddressDTO;
-import com.itgarden.dto.EmployeeDTO;
-import com.itgarden.dto.RoleDTO;
-import com.itgarden.dto.UserDTO;
+import com.itgarden.dto.AddressInfo;
+import com.itgarden.dto.EmployeeInfo;
+import com.itgarden.dto.RoleInfo;
+import com.itgarden.dto.UserInfo;
 import com.itgarden.entity.Address;
 import com.itgarden.entity.Employee;
 import com.itgarden.entity.Role;
@@ -16,198 +16,198 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-02T21:19:55+0530",
+    date = "2020-11-22T16:13:34+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class EmployeeMapperImpl implements EmployeeMapper {
 
     @Override
-    public Employee dtoToEmployee(EmployeeDTO employeeDTO) {
-        if ( employeeDTO == null ) {
+    public Employee employeeInfoToEmployee(EmployeeInfo employeeInfo) {
+        if ( employeeInfo == null ) {
             return null;
         }
 
         Employee employee = new Employee();
 
-        employee.setId( employeeDTO.getId() );
-        employee.setFullName( employeeDTO.getFullName() );
-        employee.setEmployeeCode( employeeDTO.getEmployeeCode() );
-        employee.setUser( userDTOToUser( employeeDTO.getUser() ) );
+        employee.setId( employeeInfo.getId() );
+        employee.setFullName( employeeInfo.getFullName() );
+        employee.setEmployeeCode( employeeInfo.getEmployeeCode() );
+        employee.setUser( userInfoToUser( employeeInfo.getUser() ) );
 
         return employee;
     }
 
     @Override
-    public EmployeeDTO employeeToDTO(Employee employee) {
+    public EmployeeInfo employeeToEmployeeInfo(Employee employee) {
         if ( employee == null ) {
             return null;
         }
 
-        EmployeeDTO employeeDTO = new EmployeeDTO();
+        EmployeeInfo employeeInfo = new EmployeeInfo();
 
-        employeeDTO.setId( employee.getId() );
-        employeeDTO.setFullName( employee.getFullName() );
-        employeeDTO.setEmployeeCode( employee.getEmployeeCode() );
-        employeeDTO.setUser( userToUserDTO( employee.getUser() ) );
+        employeeInfo.setId( employee.getId() );
+        employeeInfo.setFullName( employee.getFullName() );
+        employeeInfo.setEmployeeCode( employee.getEmployeeCode() );
+        employeeInfo.setUser( userToUserInfo( employee.getUser() ) );
 
-        return employeeDTO;
+        return employeeInfo;
     }
 
-    protected Address addressDTOToAddress(AddressDTO addressDTO) {
-        if ( addressDTO == null ) {
+    protected Address addressInfoToAddress(AddressInfo addressInfo) {
+        if ( addressInfo == null ) {
             return null;
         }
 
         Address address = new Address();
 
-        address.setId( addressDTO.getId() );
-        address.setAddress1( addressDTO.getAddress1() );
-        address.setAddress2( addressDTO.getAddress2() );
-        address.setCity( addressDTO.getCity() );
-        address.setState( addressDTO.getState() );
-        address.setCountry( addressDTO.getCountry() );
-        address.setLandmark( addressDTO.getLandmark() );
-        address.setMobile( addressDTO.getMobile() );
+        address.setId( addressInfo.getId() );
+        address.setAddress1( addressInfo.getAddress1() );
+        address.setAddress2( addressInfo.getAddress2() );
+        address.setCity( addressInfo.getCity() );
+        address.setState( addressInfo.getState() );
+        address.setCountry( addressInfo.getCountry() );
+        address.setLandmark( addressInfo.getLandmark() );
+        address.setMobile( addressInfo.getMobile() );
 
         return address;
     }
 
-    protected List<Address> addressDTOListToAddressList(List<AddressDTO> list) {
+    protected List<Address> addressInfoListToAddressList(List<AddressInfo> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Address> list1 = new ArrayList<Address>( list.size() );
-        for ( AddressDTO addressDTO : list ) {
-            list1.add( addressDTOToAddress( addressDTO ) );
+        for ( AddressInfo addressInfo : list ) {
+            list1.add( addressInfoToAddress( addressInfo ) );
         }
 
         return list1;
     }
 
-    protected Role roleDTOToRole(RoleDTO roleDTO) {
-        if ( roleDTO == null ) {
+    protected Role roleInfoToRole(RoleInfo roleInfo) {
+        if ( roleInfo == null ) {
             return null;
         }
 
         Role role = new Role();
 
-        role.setId( roleDTO.getId() );
-        role.setName( roleDTO.getName() );
-        role.setDescription( roleDTO.getDescription() );
+        role.setId( roleInfo.getId() );
+        role.setName( roleInfo.getName() );
+        role.setDescription( roleInfo.getDescription() );
 
         return role;
     }
 
-    protected List<Role> roleDTOListToRoleList(List<RoleDTO> list) {
+    protected List<Role> roleInfoListToRoleList(List<RoleInfo> list) {
         if ( list == null ) {
             return null;
         }
 
         List<Role> list1 = new ArrayList<Role>( list.size() );
-        for ( RoleDTO roleDTO : list ) {
-            list1.add( roleDTOToRole( roleDTO ) );
+        for ( RoleInfo roleInfo : list ) {
+            list1.add( roleInfoToRole( roleInfo ) );
         }
 
         return list1;
     }
 
-    protected User userDTOToUser(UserDTO userDTO) {
-        if ( userDTO == null ) {
+    protected User userInfoToUser(UserInfo userInfo) {
+        if ( userInfo == null ) {
             return null;
         }
 
         User user = new User();
 
-        user.setId( userDTO.getId() );
-        user.setEmailId( userDTO.getEmailId() );
-        user.setFirstName( userDTO.getFirstName() );
-        user.setPassword( userDTO.getPassword() );
-        user.setMiddleName( userDTO.getMiddleName() );
-        user.setLastName( userDTO.getLastName() );
-        user.setMobileNo( userDTO.getMobileNo() );
-        user.setAddressList( addressDTOListToAddressList( userDTO.getAddressList() ) );
-        user.setRoles( roleDTOListToRoleList( userDTO.getRoles() ) );
+        user.setId( userInfo.getId() );
+        user.setEmailId( userInfo.getEmailId() );
+        user.setFirstName( userInfo.getFirstName() );
+        user.setPassword( userInfo.getPassword() );
+        user.setMiddleName( userInfo.getMiddleName() );
+        user.setLastName( userInfo.getLastName() );
+        user.setMobileNo( userInfo.getMobileNo() );
+        user.setAddressList( addressInfoListToAddressList( userInfo.getAddressList() ) );
+        user.setRoles( roleInfoListToRoleList( userInfo.getRoles() ) );
 
         return user;
     }
 
-    protected AddressDTO addressToAddressDTO(Address address) {
+    protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
         }
 
-        AddressDTO addressDTO = new AddressDTO();
+        AddressInfo addressInfo = new AddressInfo();
 
-        addressDTO.setId( address.getId() );
-        addressDTO.setAddress1( address.getAddress1() );
-        addressDTO.setAddress2( address.getAddress2() );
-        addressDTO.setCity( address.getCity() );
-        addressDTO.setState( address.getState() );
-        addressDTO.setCountry( address.getCountry() );
-        addressDTO.setLandmark( address.getLandmark() );
-        addressDTO.setMobile( address.getMobile() );
+        addressInfo.setId( address.getId() );
+        addressInfo.setAddress1( address.getAddress1() );
+        addressInfo.setAddress2( address.getAddress2() );
+        addressInfo.setCity( address.getCity() );
+        addressInfo.setState( address.getState() );
+        addressInfo.setCountry( address.getCountry() );
+        addressInfo.setLandmark( address.getLandmark() );
+        addressInfo.setMobile( address.getMobile() );
 
-        return addressDTO;
+        return addressInfo;
     }
 
-    protected List<AddressDTO> addressListToAddressDTOList(List<Address> list) {
+    protected List<AddressInfo> addressListToAddressInfoList(List<Address> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<AddressDTO> list1 = new ArrayList<AddressDTO>( list.size() );
+        List<AddressInfo> list1 = new ArrayList<AddressInfo>( list.size() );
         for ( Address address : list ) {
-            list1.add( addressToAddressDTO( address ) );
+            list1.add( addressToAddressInfo( address ) );
         }
 
         return list1;
     }
 
-    protected RoleDTO roleToRoleDTO(Role role) {
+    protected RoleInfo roleToRoleInfo(Role role) {
         if ( role == null ) {
             return null;
         }
 
-        RoleDTO roleDTO = new RoleDTO();
+        RoleInfo roleInfo = new RoleInfo();
 
-        roleDTO.setId( role.getId() );
-        roleDTO.setName( role.getName() );
-        roleDTO.setDescription( role.getDescription() );
+        roleInfo.setId( role.getId() );
+        roleInfo.setName( role.getName() );
+        roleInfo.setDescription( role.getDescription() );
 
-        return roleDTO;
+        return roleInfo;
     }
 
-    protected List<RoleDTO> roleListToRoleDTOList(List<Role> list) {
+    protected List<RoleInfo> roleListToRoleInfoList(List<Role> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<RoleDTO> list1 = new ArrayList<RoleDTO>( list.size() );
+        List<RoleInfo> list1 = new ArrayList<RoleInfo>( list.size() );
         for ( Role role : list ) {
-            list1.add( roleToRoleDTO( role ) );
+            list1.add( roleToRoleInfo( role ) );
         }
 
         return list1;
     }
 
-    protected UserDTO userToUserDTO(User user) {
+    protected UserInfo userToUserInfo(User user) {
         if ( user == null ) {
             return null;
         }
 
-        UserDTO userDTO = new UserDTO();
+        UserInfo userInfo = new UserInfo();
 
-        userDTO.setId( user.getId() );
-        userDTO.setEmailId( user.getEmailId() );
-        userDTO.setPassword( user.getPassword() );
-        userDTO.setFirstName( user.getFirstName() );
-        userDTO.setMiddleName( user.getMiddleName() );
-        userDTO.setLastName( user.getLastName() );
-        userDTO.setMobileNo( user.getMobileNo() );
-        userDTO.setAddressList( addressListToAddressDTOList( user.getAddressList() ) );
-        userDTO.setRoles( roleListToRoleDTOList( user.getRoles() ) );
+        userInfo.setId( user.getId() );
+        userInfo.setEmailId( user.getEmailId() );
+        userInfo.setPassword( user.getPassword() );
+        userInfo.setFirstName( user.getFirstName() );
+        userInfo.setMiddleName( user.getMiddleName() );
+        userInfo.setLastName( user.getLastName() );
+        userInfo.setMobileNo( user.getMobileNo() );
+        userInfo.setAddressList( addressListToAddressInfoList( user.getAddressList() ) );
+        userInfo.setRoles( roleListToRoleInfoList( user.getRoles() ) );
 
-        return userDTO;
+        return userInfo;
     }
 }

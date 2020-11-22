@@ -1,7 +1,6 @@
 package com.itgarden.service.bo;
 
 import com.itgarden.common.CodeGenerator;
-import com.itgarden.common.Utils;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.common.staticdata.ROLES;
 import com.itgarden.common.staticdata.UserType;
@@ -10,19 +9,16 @@ import com.itgarden.entity.*;
 import com.itgarden.exception.InvalidInputException;
 import com.itgarden.mapper.CustomerMapper;
 import com.itgarden.mapper.EmployeeMapper;
-import com.itgarden.mapper.UserMapper;
 import com.itgarden.mapper.VendorMapper;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.repository.RoleRepository;
 import com.itgarden.service.BillingBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -45,13 +41,13 @@ public class RegistrationService {
 
 
 
-    public ResponseMessage<BaseDTO> doRegistration(BaseDTO baseDTO) throws Exception {
+    public ResponseMessage<BaseInfo> doRegistration(BaseInfo baseInfo) throws Exception {
 
-        ResponseMessage<BaseDTO> responseMessage = null;
-        String type = baseDTO.getType();
+        ResponseMessage<BaseInfo> responseMessage = null;
+        String type = baseInfo.getType();
         try {
             if (type.equalsIgnoreCase(UserType.EMPLOYEE.name())) {
-                Employee employee = EmployeeMapper.INSTANCE.dtoToEmployee((EmployeeDTO) baseDTO);
+                Employee employee = EmployeeMapper.INSTANCE.employeeInfoToEmployee((EmployeeInfo) baseInfo);
                 Role role = roleRepository.findByName(ROLES.EMPLOYEE_ROLE.name()).orElse(null);
                 List<Role> roleList = new ArrayList<>();
                 roleList.add(role);
@@ -63,11 +59,11 @@ public class RegistrationService {
 //                employee.getUser().setPassword(passwordEncoder.encode(employee.getUser().getPassword()));
                 employee.getUser().setPassword(employee.getUser().getPassword());
                 BaseObject newObject = billingBaseService.save(employee); // Holds the reference of Employee object
-                EmployeeDTO employeeDto = EmployeeMapper.INSTANCE.employeeToDTO((Employee) newObject);
+                EmployeeInfo employeeDto = EmployeeMapper.INSTANCE.employeeToEmployeeInfo((Employee) newObject);
                 responseMessage = ResponseMessage.withResponseData(employeeDto, "Employee Created Successfully", "message");
             }
             else if (type.equalsIgnoreCase(UserType.CUSTOMER.name())) {
-                Customer customer =  CustomerMapper.INSTANCE.dtoToCustomer((CustomerDTO) baseDTO);
+                Customer customer =  CustomerMapper.INSTANCE.customerInfoToCustomer((CustomerInfo) baseInfo);
                 Role role = roleRepository.findByName(ROLES.CUSTOMER_ROLE.name()).orElse(null);
                 List<Role> roleList = new ArrayList<>();
                 roleList.add(role);
@@ -79,11 +75,11 @@ public class RegistrationService {
 //                customer.getUser().setPassword(passwordEncoder.encode(customer.getUser().getPassword()));
                 customer.getUser().setPassword(customer.getUser().getPassword());
                 BaseObject newObject = billingBaseService.save(customer);
-                CustomerDTO customerDto = CustomerMapper.INSTANCE.customerToDTO((Customer) newObject);
+                CustomerInfo customerDto = CustomerMapper.INSTANCE.customerToCustomerInfo((Customer) newObject);
                 responseMessage = ResponseMessage.withResponseData(customerDto, "Customer Created Successfully", "message");
             }
             else if (type.equalsIgnoreCase(UserType.VENDOR.name())) {
-                Vendor vendor = VendorMapper.INSTANCE.dtoToVendor((VendorDTO)baseDTO);
+                Vendor vendor = VendorMapper.INSTANCE.vendorInfoToVendor((VendorInfo) baseInfo);
                 Role role = roleRepository.findByName(ROLES.VENDOR_ROLE.name()).orElse(null);
                 List<Role> roleList = new ArrayList<>();
                 roleList.add(role);
@@ -95,8 +91,8 @@ public class RegistrationService {
                 vendor.getUser().setPassword(vendor.getUser().getPassword());
                 vendor.getUser().getAddressList().get(0).setUser(vendor.getUser());
                 BaseObject newObject = billingBaseService.save(vendor);
-                VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToDTO((Vendor) newObject);
-                responseMessage = ResponseMessage.withResponseData(vendorDTO, "Vendor Created Successfully", "message");
+                VendorInfo vendorInfo = VendorMapper.INSTANCE.vendorToVendorInfo((Vendor) newObject);
+                responseMessage = ResponseMessage.withResponseData(vendorInfo, "Vendor Created Successfully", "message");
             }
         } catch (IllegalArgumentException e) {
             throw new InvalidInputException(String.format("Invalid user type %s ", type));

@@ -1,9 +1,7 @@
 package com.itgarden.mapper;
 
-import com.itgarden.dto.CustomerDTO;
-import com.itgarden.dto.EmployeeDTO;
+import com.itgarden.dto.CustomerInfo;
 import com.itgarden.entity.Customer;
-import com.itgarden.entity.Employee;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -12,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface CustomerMapper {
 
     CustomerMapper INSTANCE =  Mappers.getMapper(CustomerMapper.class);
-    Customer dtoToCustomer(CustomerDTO customerDTO);
+    Customer customerInfoToCustomer(CustomerInfo customerInfo);
     @InheritInverseConfiguration
-    CustomerDTO customerToDTO(Customer customer);
+    CustomerInfo customerToCustomerInfo(Customer customer);
 }

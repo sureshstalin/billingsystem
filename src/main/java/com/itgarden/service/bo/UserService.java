@@ -15,7 +15,7 @@ class UserService extends BaseService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseMessage findUser(String id) throws Exception {
+    public ResponseMessage findResourceById(String id) throws Exception {
 
         User user = userRepository.findById(Long.parseLong(id)).orElse(null);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(user, "", "");

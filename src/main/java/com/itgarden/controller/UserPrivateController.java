@@ -11,14 +11,10 @@ import com.itgarden.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/private/users")
@@ -46,7 +42,7 @@ public class UserPrivateController {
 
 
     @PostMapping("/employees") // http://localhost:9091/api/public/users/employees
-    public ResponseEntity<ResponseMessage<?>> saveEmployee(@Valid @RequestBody EmployeeDTO requestBody) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> saveEmployee(@Valid @RequestBody EmployeeInfo requestBody) throws Exception {
         requestBody.setType(UserType.EMPLOYEE.name());
         userValidator.validate(requestBody);
         ResponseMessage responseMessage = registrationService.doRegistration(requestBody);
@@ -54,7 +50,7 @@ public class UserPrivateController {
     }
 
     @PostMapping("/customers") // http://localhost:9091/api/public/users/customers
-    public ResponseEntity<ResponseMessage<?>> saveCustomer(@Valid @RequestBody CustomerDTO requestBody) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> saveCustomer(@Valid @RequestBody CustomerInfo requestBody) throws Exception {
         requestBody.setType(UserType.CUSTOMER.name());
         userValidator.validate(requestBody);
         ResponseMessage responseMessage = registrationService.doRegistration(requestBody);
@@ -62,7 +58,7 @@ public class UserPrivateController {
     }
 
     @PostMapping("/vendors")
-    public ResponseEntity<ResponseMessage<?>> saveVendor(@Valid @RequestBody VendorDTO requestBody) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> saveVendor(@Valid @RequestBody VendorInfo requestBody) throws Exception {
         requestBody.setType(UserType.VENDOR.name());
         userValidator.validate(requestBody);
         ResponseMessage responseMessage = registrationService.doRegistration(requestBody);
@@ -71,19 +67,19 @@ public class UserPrivateController {
 
     @GetMapping("/customers/{id}")
     public ResponseEntity<ResponseMessage<?>> viewCustomer(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = customerService.findUser(id);
+        ResponseMessage responseMessage = customerService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping("/employees/{id}")
     public ResponseEntity<ResponseMessage<?>> viewEmployee(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = employeeService.findUser(id);
+        ResponseMessage responseMessage = employeeService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping("/vendors/{id}")
     public ResponseEntity<ResponseMessage<?>> viewVendor(@PathVariable String id) throws Exception {
-        ResponseMessage responseMessage = vendorService.findUser(id);
+        ResponseMessage responseMessage = vendorService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 

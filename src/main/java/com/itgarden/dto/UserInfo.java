@@ -3,15 +3,13 @@ package com.itgarden.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 
 @Getter
 @Setter
 //@JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDTO extends BaseDTO {
+public class UserInfo extends BaseInfo {
 
 
     private String emailId;
@@ -28,10 +26,10 @@ public class UserDTO extends BaseDTO {
 
     private String mobileNo;
 
-    private List<AddressDTO> addressList;
+    private List<AddressInfo> addressList;
 
-    private List<RoleDTO> roles;
+    private List<RoleInfo> roles;
 
-    private EmployeeDTO employee;
+    private EmployeeInfo employee;
 
 }
