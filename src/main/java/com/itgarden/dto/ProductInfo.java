@@ -1,9 +1,13 @@
 package com.itgarden.dto;
 
 import com.itgarden.entity.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class ProductInfo extends BaseInfo {
 
     private String name;

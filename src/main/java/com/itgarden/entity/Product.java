@@ -1,12 +1,15 @@
 package com.itgarden.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Locale;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "product")
 public class Product extends BaseObject{
@@ -17,8 +20,8 @@ public class Product extends BaseObject{
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "code", nullable = false)
-    private String code;
+    @Column(name = "product_code", nullable = false)
+    private String productCode;
 
     @Column(name = "price", nullable = false)
     private double price;

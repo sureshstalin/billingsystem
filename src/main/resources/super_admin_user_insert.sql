@@ -5,6 +5,6 @@ insert into employee(is_deleted,employee_code,full_name,user_id,date_created)
 values(0,'EMP11111','Suresh Stalin',1,curdate());
 
 insert into address (is_deleted,address1,city,country,state,user_id,date_created)
-values (0,'test street','Chennai','India','TN',5,curdate());
+values (0,'test street','Chennai','India','TN',1,curdate());
 
-insert into user_role values(5,2)
+insert into user_role values(1,4)

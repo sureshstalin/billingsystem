@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.io.Serializable;
 @Getter
 @Setter
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseInfo implements Serializable {
 
     protected  Long id;

@@ -1,11 +1,14 @@
 package com.itgarden.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "biller")
 public class Biller extends BaseObject {
@@ -18,6 +21,6 @@ public class Biller extends BaseObject {
     private Customer customer;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private List<Product> products;
+    @JoinColumn(name = "product_item_id")
+    private List<ProductItem> productItems;
 }
