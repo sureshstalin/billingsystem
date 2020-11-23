@@ -1,5 +1,6 @@
 package com.itgarden.entity;
 
+import com.itgarden.common.staticdata.UserType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,9 @@ public class User extends BaseObject {
 
     @Column(name = "mobile_no", nullable = false)
     private String mobileNo;
+
+    @Column(name = "user_type", nullable = false)
+    private String userType;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Address> addressList;

@@ -37,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/public/authenticate","/api/public/refreshtoken").permitAll()
+                .antMatchers("/api/public/authenticate",
+                        "/api/public/refreshtoken","/api/public/superadmin/**").permitAll()
                 .antMatchers("/api/private/users/**")
                     .hasAnyAuthority("EMPLOYEE_ROLE","SUPER_ADMIN")
                 .anyRequest().authenticated()

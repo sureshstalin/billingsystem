@@ -15,7 +15,5 @@ public class OfferInfo extends BaseInfo {
 
     private String offerCode;
 
-    private String offerType;
-
     private String offerName;
 }

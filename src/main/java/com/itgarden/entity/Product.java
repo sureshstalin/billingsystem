@@ -30,12 +30,30 @@ public class Product extends BaseObject{
     @JoinColumn(name = "tax_id")
     private Tax tax;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "offer_id")
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "offer_id")
+//    private List<Offer> offers;
+
+    @ManyToMany(targetEntity = Offer.class,cascade =
+            {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(
+            name="product_offer",
+            joinColumns=
+            @JoinColumn( name="product_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="offer_id", referencedColumnName="id"))
     private List<Offer> offers;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_id")
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "vendor_id")
+//    private List<Vendor> vendors;
+
+    @ManyToMany(targetEntity = Vendor.class,cascade =
+            {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(
+            name="product_vendor",
+            joinColumns=
+            @JoinColumn( name="product_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="vendor_id", referencedColumnName="id"))
     private List<Vendor> vendors;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

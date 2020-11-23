@@ -1,23 +1,23 @@
 {
-  "fullName": "meenakshi employee",
+  "fullName": "Barathan Suresh",
   "user": {
     "type": null,
-    "emailId": "meenakshi.employee@gmail.com",
+    "emailId": "barathan@mycompany.com",
     "password": "123",
-    "rePassword": 123,
-    "firstName": "ramani",
+    "rePassword": "123",
+    "firstName": "Barathan",
     "middleName": "",
-    "lastName": "raj",
-    "mobileNo": "87626262",
+    "lastName": "Suresh",
+    "mobileNo": "93838383",
     "addressList": [
       {
-        "address1": "Ram Street",
-        "address2": "1st Lane",
-        "city": "Trichy",
+        "address1": "1s Cross street",
+        "address2": "2nd Avenue",
+        "city": "Chennai",
         "state": "TN",
         "country": "India",
-        "landmark": "far",
-        "mobile": "343171771"
+        "landmark": "Near xyz Mahal",
+        "mobile": "93838383"
       }
     ]
   }

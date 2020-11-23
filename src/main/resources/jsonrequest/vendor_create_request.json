@@ -1,23 +1,23 @@
 {
-  "fullName": "raga veena",
+  "fullName": "Ragu Ram",
   "user": {
     "type": null,
-    "emailId": "raga.veena@gmail.com",
+    "emailId": "ragu@babycare.com",
     "password": "123",
-    "rePassword": 123,
-    "firstName": "raga",
+    "rePassword": "123",
+    "firstName": "Ragu",
     "middleName": "",
-    "lastName": "veena",
-    "mobileNo": "39399393",
+    "lastName": "Ram",
+    "mobileNo": "171717171",
     "addressList": [
       {
-        "address1": "karim Street",
-        "address2": "third Lane",
-        "city": "sansjos",
+        "address1": "Amman koil street",
+        "address2": "People Nagar",
+        "city": "Trichy",
         "state": "TN",
         "country": "India",
-        "landmark": "far",
-        "mobile": "3434343"
+        "landmark": "Near xyz Temple",
+        "mobile": "17171717"
       }
     ]
   }

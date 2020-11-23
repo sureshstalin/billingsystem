@@ -7,6 +7,7 @@ CREATE TABLE user (
   middle_name varchar(255) DEFAULT NULL,
   mobile_no varchar(255) NOT NULL,
   password varchar(10) NOT NULL,
+  user_type varchar(10) NOT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id)
@@ -78,6 +79,16 @@ CREATE TABLE tax (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE offer (
+  id bigint NOT NULL AUTO_INCREMENT,
+  is_deleted bit(1) DEFAULT NULL,
+  offer_code varchar(10) NOT NULL,
+  offer_name varchar(255) NOT NULL,
+  date_created datetime DEFAULT CURRENT_TIMESTAMP,
+  date_modified datetime DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
 CREATE TABLE product (
   id bigint NOT NULL AUTO_INCREMENT,
   is_deleted bit(1) DEFAULT NULL,
@@ -87,13 +98,16 @@ CREATE TABLE product (
   price double NOT NULL,
   category_id bigint DEFAULT NULL,
   tax_id bigint DEFAULT NULL,
+  offer_id bigint DEFAULT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   KEY product_fk_category (category_id),
   KEY product_fk_tax (tax_id),
+  KEY product_fk_offer (offer_id),
   CONSTRAINT product_fk_category FOREIGN KEY (category_id) REFERENCES category (id),
-  CONSTRAINT product_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id)
+  CONSTRAINT product_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id),
+  CONSTRAINT product_fk_offer FOREIGN KEY (offer_id) REFERENCES offer (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE product_item (
@@ -120,17 +134,6 @@ CREATE TABLE biller (
   KEY biller_fk_customer (customer_id),
   CONSTRAINT biller_fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id),
   CONSTRAINT biller_fk_product_item FOREIGN KEY (product_item_id) REFERENCES product_item (id)
-) ENGINE=InnoDB;
-
-CREATE TABLE offer (
-  id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
-  offer_code varchar(10) NOT NULL,
-  offer_name varchar(255) NOT NULL,
-  offer_type varchar(255) NOT NULL,
-  date_created datetime DEFAULT CURRENT_TIMESTAMP,
-  date_modified datetime DEFAULT NULL,
-  PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE organization (

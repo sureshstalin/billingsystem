@@ -3,7 +3,7 @@ package com.itgarden.common.staticdata;
 public enum ROLES {
     ROLE_DEFAULT {
         public String toString() {
-            return "ROLE_DEFAULT";
+            return "DEFAULT_ROLE";
         }
     },
     SUPER_ADMIN_ROLE {

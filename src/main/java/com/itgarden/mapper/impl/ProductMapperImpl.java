@@ -70,7 +70,6 @@ public class ProductMapperImpl implements ProductMapper {
 
         offer.setId( offerInfo.getId() );
         offer.setOfferCode( offerInfo.getOfferCode() );
-        offer.setOfferType( offerInfo.getOfferType() );
         offer.setOfferName( offerInfo.getOfferName() );
 
         return offer;
@@ -140,7 +139,6 @@ public class ProductMapperImpl implements ProductMapper {
 
         offerInfo.setId( offer.getId() );
         offerInfo.setOfferCode( offer.getOfferCode() );
-        offerInfo.setOfferType( offer.getOfferType() );
         offerInfo.setOfferName( offer.getOfferName() );
 
         return offerInfo;
