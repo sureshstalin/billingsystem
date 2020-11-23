@@ -1,8 +1,10 @@
 package com.itgarden.mapper.impl;
 
+import com.itgarden.dto.CategoryInfo;
 import com.itgarden.dto.OfferInfo;
 import com.itgarden.dto.ProductInfo;
 import com.itgarden.dto.VendorInfo;
+import com.itgarden.entity.Category;
 import com.itgarden.entity.Offer;
 import com.itgarden.entity.Product;
 import com.itgarden.entity.Vendor;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-22T17:13:54+0530",
+    date = "2020-11-23T09:41:21+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class ProductMapperImpl implements ProductMapper {
@@ -34,7 +36,7 @@ public class ProductMapperImpl implements ProductMapper {
         product.setTax( productInfo.getTax() );
         product.setOffers( offerInfoListToOfferList( productInfo.getOffers() ) );
         product.setVendors( vendorInfoListToVendorList( productInfo.getVendors() ) );
-        product.setCategory( productInfo.getCategory() );
+        product.setCategory( categoryInfoToCategory( productInfo.getCategory() ) );
 
         return product;
     }
@@ -54,7 +56,7 @@ public class ProductMapperImpl implements ProductMapper {
         productInfo.setTax( product.getTax() );
         productInfo.setOffers( offerListToOfferInfoList( product.getOffers() ) );
         productInfo.setVendors( vendorListToVendorInfoList( product.getVendors() ) );
-        productInfo.setCategory( product.getCategory() );
+        productInfo.setCategory( categoryToCategoryInfo( product.getCategory() ) );
 
         return productInfo;
     }
@@ -114,6 +116,21 @@ public class ProductMapperImpl implements ProductMapper {
         return list1;
     }
 
+    protected Category categoryInfoToCategory(CategoryInfo categoryInfo) {
+        if ( categoryInfo == null ) {
+            return null;
+        }
+
+        Category category = new Category();
+
+        category.setId( categoryInfo.getId() );
+        category.setCategoryCode( categoryInfo.getCategoryCode() );
+        category.setName( categoryInfo.getName() );
+        category.setDescription( categoryInfo.getDescription() );
+
+        return category;
+    }
+
     protected OfferInfo offerToOfferInfo(Offer offer) {
         if ( offer == null ) {
             return null;
@@ -167,5 +184,20 @@ public class ProductMapperImpl implements ProductMapper {
         }
 
         return list1;
+    }
+
+    protected CategoryInfo categoryToCategoryInfo(Category category) {
+        if ( category == null ) {
+            return null;
+        }
+
+        CategoryInfo categoryInfo = new CategoryInfo();
+
+        categoryInfo.setId( category.getId() );
+        categoryInfo.setCategoryCode( category.getCategoryCode() );
+        categoryInfo.setName( category.getName() );
+        categoryInfo.setDescription( category.getDescription() );
+
+        return categoryInfo;
     }
 }

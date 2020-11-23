@@ -24,7 +24,7 @@ public class UserValidator<T> {
 
         if (t instanceof VendorInfo) {
             VendorInfo vendorInfo = (VendorInfo) t;
-            UserInfo userDTO = vendorInfo.getUserInfo();
+            UserInfo userDTO = vendorInfo.getUser();
             validationMessages = validateUser(userDTO);
             if (StringUtils.isEmpty(vendorInfo.getFullName())) {
                 validationMessages.add("Full Name can't be empty");

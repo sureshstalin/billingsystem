@@ -23,4 +23,8 @@ class UserService extends BaseService {
 
     }
 
+    @Override
+    public ResponseMessage findAll() throws Exception {
+        return null;
+    }
 }

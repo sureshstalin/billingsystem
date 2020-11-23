@@ -44,6 +44,9 @@ public class CodeGenerator {
         if(CodeType.VENDOR_CODE.name().equalsIgnoreCase(codeType)) {
             return "VEN"+id;
         }
+        if(CodeType.CATEGORY_CODE.name().equalsIgnoreCase(codeType)) {
+            return "CAT"+id;
+        }
         return null;
     }
 }

@@ -27,5 +27,8 @@ public class ProductService extends BaseService {
         return null;
     }
 
-
+    @Override
+    public ResponseMessage findAll() throws Exception {
+        return null;
+    }
 }

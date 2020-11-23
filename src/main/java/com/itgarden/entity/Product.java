@@ -41,6 +41,4 @@ public class Product extends BaseObject{
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
-
-
 }

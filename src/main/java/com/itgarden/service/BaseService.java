@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 abstract public class BaseService {
 
     public abstract ResponseMessage findResourceById(String id) throws Exception;
-
+    public abstract ResponseMessage findAll() throws Exception;
     public UserDetails getContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();

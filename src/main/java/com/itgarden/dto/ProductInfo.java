@@ -24,5 +24,5 @@ public class ProductInfo extends BaseInfo {
 
     private List<VendorInfo> vendors;
 
-    private Category category;
+    private CategoryInfo category;
 }
