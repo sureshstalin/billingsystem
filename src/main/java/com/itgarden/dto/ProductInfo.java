@@ -14,15 +14,17 @@ public class ProductInfo extends BaseInfo {
 
     private String description;
 
-    private String code;
+    private String productCode;
 
     private double price;
 
-    private Tax tax;
+    private TaxInfo tax;
 
     private List<OfferInfo> offers;
 
     private List<VendorInfo> vendors;
 
     private CategoryInfo category;
+
+    private Integer stockCount;
 }

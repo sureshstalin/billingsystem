@@ -1,0 +1,62 @@
+{
+  "id": 1,
+  "name": "snacks",
+  "description": "Ths is test1 Snacks Description",
+  "productCode": "PRD13260",
+  "price": 100.0,
+  "tax": {
+    "id": 1,
+    "hsnCode": "123458",
+    "taxPercentage": "11%",
+    "taxDescription": "Food"
+  },
+  "offers": [
+    {
+      "id": 1,
+      "offerCode": "OFF20856",
+      "offerName": "10%discount"
+    }
+  ],
+  "vendors": [
+    {
+      "id": 1,
+      "fullName": "Sugi Sivam",
+      "vendorCode": "VEN10599",
+      "user": {
+        "id": 2,
+        "emailId": "sugi@sivam.com",
+        "password": "123",
+        "firstName": "Sugi",
+        "middleName": "",
+        "lastName": "Sivam",
+        "mobileNo": "29292922",
+        "addressList": [
+          {
+            "id": 2,
+            "address1": "Ram Nagar",
+            "address2": "4th Street",
+            "city": "Trichy",
+            "state": "TN",
+            "country": "India",
+            "landmark": "Near xyz Complex",
+            "mobile": "9393933"
+          }
+        ],
+        "roles": [
+          {
+            "id": 5,
+            "name": "VENDOR_ROLE",
+            "description": "Vendor Role"
+          }
+        ],
+        "userType": "VENDOR"
+      }
+    }
+  ],
+  "category": {
+    "id": 1,
+    "categoryCode": "CAT21376",
+    "name": "Snacks Foods",
+    "description": "Dry grapes and dates"
+  }
+}

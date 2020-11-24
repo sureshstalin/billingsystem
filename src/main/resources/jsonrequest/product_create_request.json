@@ -1,0 +1,17 @@
+{
+  "name":"snacks",
+  "description":"Snacks Description",
+  "price":100,
+  "tax":{
+    "id":1
+  },
+  "offers":[{
+    "id":1
+  }],
+  "vendors":[{
+    "id":1
+  }],
+  "category":{
+    "id":1
+  }
+}

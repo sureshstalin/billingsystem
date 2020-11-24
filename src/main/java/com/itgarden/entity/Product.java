@@ -24,15 +24,14 @@ public class Product extends BaseObject{
     private String productCode;
 
     @Column(name = "price", nullable = false)
-    private double price;
+    private Double price;
+
+    @Column(name = "stock_count", nullable = false)
+    private Integer stockCount;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tax_id")
     private Tax tax;
-
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "offer_id")
-//    private List<Offer> offers;
 
     @ManyToMany(targetEntity = Offer.class,cascade =
             {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -42,10 +41,6 @@ public class Product extends BaseObject{
             @JoinColumn( name="product_id", referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="offer_id", referencedColumnName="id"))
     private List<Offer> offers;
-
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "vendor_id")
-//    private List<Vendor> vendors;
 
     @ManyToMany(targetEntity = Vendor.class,cascade =
             {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})

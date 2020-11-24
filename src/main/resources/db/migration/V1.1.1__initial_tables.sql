@@ -84,6 +84,7 @@ CREATE TABLE offer (
   is_deleted bit(1) DEFAULT NULL,
   offer_code varchar(10) NOT NULL,
   offer_name varchar(255) NOT NULL,
+  offer_description VARCHAR(150) NOT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id)
@@ -98,16 +99,14 @@ CREATE TABLE product (
   price double NOT NULL,
   category_id bigint DEFAULT NULL,
   tax_id bigint DEFAULT NULL,
-  offer_id bigint DEFAULT NULL,
+  stock_count int NOT NULL DEFAULT 0,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   KEY product_fk_category (category_id),
   KEY product_fk_tax (tax_id),
-  KEY product_fk_offer (offer_id),
   CONSTRAINT product_fk_category FOREIGN KEY (category_id) REFERENCES category (id),
-  CONSTRAINT product_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id),
-  CONSTRAINT product_fk_offer FOREIGN KEY (offer_id) REFERENCES offer (id)
+  CONSTRAINT product_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE product_item (
@@ -210,3 +209,13 @@ CREATE TABLE app_entity_code (
   date_modified DATETIME NULL,
   is_deleted TINYINT NULL,
   PRIMARY KEY (id));
+
+  CREATE TABLE system_codes (
+    id int NOT NULL AUTO_INCREMENT,
+    code_prefix varchar(5) NOT NULL,
+    code_type varchar(20) DEFAULT NULL,
+    is_deleted bit(1) DEFAULT 0,
+    date_created datetime DEFAULT CURRENT_TIMESTAMP,
+    date_modified datetime DEFAULT NULL,
+    PRIMARY KEY (id)
+  ) ENGINE=InnoDB;

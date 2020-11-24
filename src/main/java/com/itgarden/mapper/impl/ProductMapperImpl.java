@@ -1,13 +1,7 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.CategoryInfo;
-import com.itgarden.dto.OfferInfo;
-import com.itgarden.dto.ProductInfo;
-import com.itgarden.dto.VendorInfo;
-import com.itgarden.entity.Category;
-import com.itgarden.entity.Offer;
-import com.itgarden.entity.Product;
-import com.itgarden.entity.Vendor;
+import com.itgarden.dto.*;
+import com.itgarden.entity.*;
 import com.itgarden.mapper.ProductMapper;
 
 import javax.annotation.Generated;
@@ -16,7 +10,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-23T09:41:21+0530",
+    date = "2020-11-24T14:30:38+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class ProductMapperImpl implements ProductMapper {
@@ -32,8 +26,10 @@ public class ProductMapperImpl implements ProductMapper {
         product.setId( productInfo.getId() );
         product.setName( productInfo.getName() );
         product.setDescription( productInfo.getDescription() );
+        product.setProductCode( productInfo.getProductCode() );
         product.setPrice( productInfo.getPrice() );
-        product.setTax( productInfo.getTax() );
+        product.setStockCount( productInfo.getStockCount() );
+        product.setTax( taxInfoToTax( productInfo.getTax() ) );
         product.setOffers( offerInfoListToOfferList( productInfo.getOffers() ) );
         product.setVendors( vendorInfoListToVendorList( productInfo.getVendors() ) );
         product.setCategory( categoryInfoToCategory( productInfo.getCategory() ) );
@@ -52,13 +48,32 @@ public class ProductMapperImpl implements ProductMapper {
         productInfo.setId( product.getId() );
         productInfo.setName( product.getName() );
         productInfo.setDescription( product.getDescription() );
-        productInfo.setPrice( product.getPrice() );
-        productInfo.setTax( product.getTax() );
+        productInfo.setProductCode( product.getProductCode() );
+        if ( product.getPrice() != null ) {
+            productInfo.setPrice( product.getPrice() );
+        }
+        productInfo.setTax( taxToTaxInfo( product.getTax() ) );
         productInfo.setOffers( offerListToOfferInfoList( product.getOffers() ) );
         productInfo.setVendors( vendorListToVendorInfoList( product.getVendors() ) );
         productInfo.setCategory( categoryToCategoryInfo( product.getCategory() ) );
+        productInfo.setStockCount( product.getStockCount() );
 
         return productInfo;
+    }
+
+    protected Tax taxInfoToTax(TaxInfo taxInfo) {
+        if ( taxInfo == null ) {
+            return null;
+        }
+
+        Tax tax = new Tax();
+
+        tax.setId( taxInfo.getId() );
+        tax.setHsnCode( taxInfo.getHsnCode() );
+        tax.setTaxPercentage( taxInfo.getTaxPercentage() );
+        tax.setTaxDescription( taxInfo.getTaxDescription() );
+
+        return tax;
     }
 
     protected Offer offerInfoToOffer(OfferInfo offerInfo) {
@@ -71,6 +86,7 @@ public class ProductMapperImpl implements ProductMapper {
         offer.setId( offerInfo.getId() );
         offer.setOfferCode( offerInfo.getOfferCode() );
         offer.setOfferName( offerInfo.getOfferName() );
+        offer.setOfferDescription( offerInfo.getOfferDescription() );
 
         return offer;
     }
@@ -88,6 +104,86 @@ public class ProductMapperImpl implements ProductMapper {
         return list1;
     }
 
+    protected Address addressInfoToAddress(AddressInfo addressInfo) {
+        if ( addressInfo == null ) {
+            return null;
+        }
+
+        Address address = new Address();
+
+        address.setId( addressInfo.getId() );
+        address.setAddress1( addressInfo.getAddress1() );
+        address.setAddress2( addressInfo.getAddress2() );
+        address.setCity( addressInfo.getCity() );
+        address.setState( addressInfo.getState() );
+        address.setCountry( addressInfo.getCountry() );
+        address.setLandmark( addressInfo.getLandmark() );
+        address.setMobile( addressInfo.getMobile() );
+
+        return address;
+    }
+
+    protected List<Address> addressInfoListToAddressList(List<AddressInfo> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Address> list1 = new ArrayList<Address>( list.size() );
+        for ( AddressInfo addressInfo : list ) {
+            list1.add( addressInfoToAddress( addressInfo ) );
+        }
+
+        return list1;
+    }
+
+    protected Role roleInfoToRole(RoleInfo roleInfo) {
+        if ( roleInfo == null ) {
+            return null;
+        }
+
+        Role role = new Role();
+
+        role.setId( roleInfo.getId() );
+        role.setName( roleInfo.getName() );
+        role.setDescription( roleInfo.getDescription() );
+
+        return role;
+    }
+
+    protected List<Role> roleInfoListToRoleList(List<RoleInfo> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Role> list1 = new ArrayList<Role>( list.size() );
+        for ( RoleInfo roleInfo : list ) {
+            list1.add( roleInfoToRole( roleInfo ) );
+        }
+
+        return list1;
+    }
+
+    protected User userInfoToUser(UserInfo userInfo) {
+        if ( userInfo == null ) {
+            return null;
+        }
+
+        User user = new User();
+
+        user.setId( userInfo.getId() );
+        user.setEmailId( userInfo.getEmailId() );
+        user.setFirstName( userInfo.getFirstName() );
+        user.setPassword( userInfo.getPassword() );
+        user.setMiddleName( userInfo.getMiddleName() );
+        user.setLastName( userInfo.getLastName() );
+        user.setMobileNo( userInfo.getMobileNo() );
+        user.setUserType( userInfo.getUserType() );
+        user.setAddressList( addressInfoListToAddressList( userInfo.getAddressList() ) );
+        user.setRoles( roleInfoListToRoleList( userInfo.getRoles() ) );
+
+        return user;
+    }
+
     protected Vendor vendorInfoToVendor(VendorInfo vendorInfo) {
         if ( vendorInfo == null ) {
             return null;
@@ -98,6 +194,7 @@ public class ProductMapperImpl implements ProductMapper {
         vendor.setId( vendorInfo.getId() );
         vendor.setFullName( vendorInfo.getFullName() );
         vendor.setVendorCode( vendorInfo.getVendorCode() );
+        vendor.setUser( userInfoToUser( vendorInfo.getUser() ) );
 
         return vendor;
     }
@@ -130,6 +227,21 @@ public class ProductMapperImpl implements ProductMapper {
         return category;
     }
 
+    protected TaxInfo taxToTaxInfo(Tax tax) {
+        if ( tax == null ) {
+            return null;
+        }
+
+        TaxInfo taxInfo = new TaxInfo();
+
+        taxInfo.setId( tax.getId() );
+        taxInfo.setHsnCode( tax.getHsnCode() );
+        taxInfo.setTaxPercentage( tax.getTaxPercentage() );
+        taxInfo.setTaxDescription( tax.getTaxDescription() );
+
+        return taxInfo;
+    }
+
     protected OfferInfo offerToOfferInfo(Offer offer) {
         if ( offer == null ) {
             return null;
@@ -140,6 +252,7 @@ public class ProductMapperImpl implements ProductMapper {
         offerInfo.setId( offer.getId() );
         offerInfo.setOfferCode( offer.getOfferCode() );
         offerInfo.setOfferName( offer.getOfferName() );
+        offerInfo.setOfferDescription( offer.getOfferDescription() );
 
         return offerInfo;
     }
@@ -157,6 +270,86 @@ public class ProductMapperImpl implements ProductMapper {
         return list1;
     }
 
+    protected AddressInfo addressToAddressInfo(Address address) {
+        if ( address == null ) {
+            return null;
+        }
+
+        AddressInfo addressInfo = new AddressInfo();
+
+        addressInfo.setId( address.getId() );
+        addressInfo.setAddress1( address.getAddress1() );
+        addressInfo.setAddress2( address.getAddress2() );
+        addressInfo.setCity( address.getCity() );
+        addressInfo.setState( address.getState() );
+        addressInfo.setCountry( address.getCountry() );
+        addressInfo.setLandmark( address.getLandmark() );
+        addressInfo.setMobile( address.getMobile() );
+
+        return addressInfo;
+    }
+
+    protected List<AddressInfo> addressListToAddressInfoList(List<Address> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<AddressInfo> list1 = new ArrayList<AddressInfo>( list.size() );
+        for ( Address address : list ) {
+            list1.add( addressToAddressInfo( address ) );
+        }
+
+        return list1;
+    }
+
+    protected RoleInfo roleToRoleInfo(Role role) {
+        if ( role == null ) {
+            return null;
+        }
+
+        RoleInfo roleInfo = new RoleInfo();
+
+        roleInfo.setId( role.getId() );
+        roleInfo.setName( role.getName() );
+        roleInfo.setDescription( role.getDescription() );
+
+        return roleInfo;
+    }
+
+    protected List<RoleInfo> roleListToRoleInfoList(List<Role> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<RoleInfo> list1 = new ArrayList<RoleInfo>( list.size() );
+        for ( Role role : list ) {
+            list1.add( roleToRoleInfo( role ) );
+        }
+
+        return list1;
+    }
+
+    protected UserInfo userToUserInfo(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserInfo userInfo = new UserInfo();
+
+        userInfo.setId( user.getId() );
+        userInfo.setEmailId( user.getEmailId() );
+        userInfo.setPassword( user.getPassword() );
+        userInfo.setFirstName( user.getFirstName() );
+        userInfo.setMiddleName( user.getMiddleName() );
+        userInfo.setLastName( user.getLastName() );
+        userInfo.setMobileNo( user.getMobileNo() );
+        userInfo.setAddressList( addressListToAddressInfoList( user.getAddressList() ) );
+        userInfo.setRoles( roleListToRoleInfoList( user.getRoles() ) );
+        userInfo.setUserType( user.getUserType() );
+
+        return userInfo;
+    }
+
     protected VendorInfo vendorToVendorInfo(Vendor vendor) {
         if ( vendor == null ) {
             return null;
@@ -167,6 +360,7 @@ public class ProductMapperImpl implements ProductMapper {
         vendorInfo.setId( vendor.getId() );
         vendorInfo.setFullName( vendor.getFullName() );
         vendorInfo.setVendorCode( vendor.getVendorCode() );
+        vendorInfo.setUser( userToUserInfo( vendor.getUser() ) );
 
         return vendorInfo;
     }

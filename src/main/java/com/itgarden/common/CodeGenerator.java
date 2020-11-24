@@ -1,9 +1,9 @@
 package com.itgarden.common;
 
 import com.itgarden.common.staticdata.CodeType;
-import com.itgarden.common.staticdata.UserType;
 import com.itgarden.entity.AppEntityCode;
 import com.itgarden.repository.AppEntityCodeRepository;
+import com.itgarden.repository.SystemCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,16 +15,19 @@ public class CodeGenerator {
     @Autowired
     private AppEntityCodeRepository appEntityCodeRepository;
 
+    @Autowired
+    private SystemCodeRepository systemCodeRepository;
+
     public String newCode(CodeType codeType) {
         String code = "";
         AppEntityCode appEntityCode = null;
         do {
-            String newCode =  getCode(codeType.name());
+            String newCode = getCode(codeType.name());
             appEntityCode = appEntityCodeRepository.findByCode(newCode);
-            if(appEntityCode == null) {
+            if (appEntityCode == null) {
                 code = newCode;
             }
-        }while(appEntityCode != null);
+        } while (appEntityCode != null);
         appEntityCode = new AppEntityCode();
         appEntityCode.setCode(code);
         appEntityCode.setCodeType(codeType);
@@ -33,23 +36,9 @@ public class CodeGenerator {
     }
 
     private String getCode(String codeType) {
-        Random r = new Random( System.currentTimeMillis() );
-        int id =  ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
-        if(CodeType.EMPLOYEE_CODE.name().equalsIgnoreCase(codeType)) {
-            return "EMP"+id;
-        }
-        if(CodeType.CUSTOMER_CODE.name().equalsIgnoreCase(codeType)) {
-            return "CUS"+id;
-        }
-        if(CodeType.VENDOR_CODE.name().equalsIgnoreCase(codeType)) {
-            return "VEN"+id;
-        }
-        if(CodeType.CATEGORY_CODE.name().equalsIgnoreCase(codeType)) {
-            return "CAT"+id;
-        }
-        if(CodeType.OFFER_CODE.name().equalsIgnoreCase(codeType)) {
-            return "OFF"+id;
-        }
-        return null;
+        Random r = new Random(System.currentTimeMillis());
+        int id = ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
+        String codePrefix = systemCodeRepository.findByCodeType(codeType).getCodePrefix();
+        return codePrefix + id;
     }
 }

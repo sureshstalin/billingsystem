@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("api/private/offers")
 public class OfferController {
@@ -16,7 +18,7 @@ public class OfferController {
     private OfferService offerService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> save(@RequestBody OfferInfo offerInfo) {
+    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody OfferInfo offerInfo) {
         ResponseMessage responseMessage = offerService.save(offerInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }

@@ -5,5 +5,7 @@ public enum CodeType {
         VENDOR_CODE,
         CUSTOMER_CODE,
         CATEGORY_CODE,
-        OFFER_CODE
+        OFFER_CODE,
+        PRODUCT_CODE,
+        PRODUCT_ITEM_CODE
 }

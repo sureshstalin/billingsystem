@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("api/private/categories")
 public class CategoryController {
@@ -17,7 +19,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> save(@RequestBody CategoryInfo categoryInfo) {
+    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody CategoryInfo categoryInfo) {
         ResponseMessage responseMessage  = categoryService.save(categoryInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }

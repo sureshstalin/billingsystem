@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("api/private/taxes")
 public class TaxController {
@@ -16,7 +18,7 @@ public class TaxController {
     private TaxService taxService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> save(@RequestBody TaxInfo taxInfo) {
+    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody TaxInfo taxInfo) {
         ResponseMessage responseMessage  = taxService.save(taxInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
