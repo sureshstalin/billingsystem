@@ -15,4 +15,8 @@ public class BillingsystemApplication {
 	}
 
 
+//	@Bean
+//	SystemCodeConfigurer systemCodeConfigurer() {
+//		return new SystemCodeConfigurer();
+//	}
 }

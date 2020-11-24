@@ -1,5 +1,6 @@
 package com.itgarden.common;
 
+import com.itgarden.SystemCodeBean;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.entity.AppEntityCode;
 import com.itgarden.repository.AppEntityCodeRepository;
@@ -17,6 +18,9 @@ public class CodeGenerator {
 
     @Autowired
     private SystemCodeRepository systemCodeRepository;
+
+    @Autowired
+    private SystemCodeBean systemCodeBean;
 
     public String newCode(CodeType codeType) {
         String code = "";
@@ -38,7 +42,7 @@ public class CodeGenerator {
     private String getCode(String codeType) {
         Random r = new Random(System.currentTimeMillis());
         int id = ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
-        String codePrefix = systemCodeRepository.findByCodeType(codeType).getCodePrefix();
+        String codePrefix = systemCodeBean.getSystemCodes(codeType);
         return codePrefix + id;
     }
 }

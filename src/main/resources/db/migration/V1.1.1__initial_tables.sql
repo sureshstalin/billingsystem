@@ -140,12 +140,13 @@ CREATE TABLE organization (
   is_deleted bit(1) DEFAULT NULL,
   org_code varchar(255) NOT NULL,
   org_name varchar(255) NOT NULL,
+  user_id bigint NOT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  KEY ogranization_fk_user (user_id),
+  CONSTRAINT ogranization_fk_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB;
-
-
 
 CREATE TABLE role (
   id bigint NOT NULL AUTO_INCREMENT,

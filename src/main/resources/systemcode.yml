@@ -1,0 +1,24 @@
+system:
+  emp-codeprefix: EMP
+  emp-codetype: EMPLOYEE_CODE
+
+  cus-codeprefix: CUS
+  cus-codetype: CUSTOMER_CODE
+
+  ven-codeprefix: VEN
+  ven-codetype: VENDOR_CODE
+
+  cat-codeprefix: CAT
+  cat-codetype: CATEGORY_CODE
+
+  off-codeprefix: OFR
+  off-codetype: OFFER_CODE
+
+  prd-codeprefix: PRD
+  prd-codetype: PRODUCT_CODE
+
+  bcd-codeprefix: BCD
+  bcd-codetype: PRODUCT_ITEM_CODE
+
+  org-codeprefix: ORG
+  org-codetype: ORG_CODE

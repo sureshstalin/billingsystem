@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/public/authenticate",
-                        "/api/public/refreshtoken","/api/public/superadmin/**").permitAll()
+                        "/api/public/refreshtoken","/api/public/org").permitAll()
                 .antMatchers("/api/private/users/**")
                     .hasAnyAuthority("EMPLOYEE_ROLE","SUPER_ADMIN")
                 .anyRequest().authenticated()

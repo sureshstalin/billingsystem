@@ -2,6 +2,7 @@ package com.itgarden.service.bo;
 
 import com.itgarden.common.staticdata.Constants;
 import com.itgarden.dto.UserRoleInfo;
+import com.itgarden.entity.Role;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.repository.RoleRepository;
 import com.itgarden.service.BaseService;
@@ -34,5 +35,9 @@ public class RoleService extends BaseService {
     @Override
     public ResponseMessage findAll() throws Exception {
         return null;
+    }
+
+    public Role findByName(String roleName) {
+       return roleRepository.findByName(roleName).orElse(null);
     }
 }
