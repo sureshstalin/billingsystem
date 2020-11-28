@@ -26,4 +26,7 @@ public class Offer extends BaseObject {
 
     @Column(name = "offer_description", nullable = false)
     private String offerDescription;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 }

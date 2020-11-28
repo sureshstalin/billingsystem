@@ -34,7 +34,7 @@ public class OfferController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseMessage<?>> get() throws Exception{
+    public ResponseEntity<ResponseMessage<?>> geAll() throws Exception{
         ResponseMessage responseMessage = offerService.findAll();
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }

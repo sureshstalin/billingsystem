@@ -3,6 +3,7 @@ package com.itgarden.service.bo;
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.common.staticdata.Constants;
+import com.itgarden.common.staticdata.STATUS;
 import com.itgarden.dto.OfferInfo;
 import com.itgarden.entity.Offer;
 import com.itgarden.mapper.OfferMapper;
@@ -35,6 +36,7 @@ public class OfferService extends BaseService {
         if(StringUtils.isEmpty(offer.getOfferCode())) {
             String offerCode = codeGenerator.newCode(CodeType.OFFER_CODE);
             offer.setOfferCode(offerCode);
+            offer.setStatus(STATUS.PENDING.name());
         }
         Offer newOffer = offerRepository.save(offer);
         OfferInfo newOfferInfo = OfferMapper.INSTANCE.offerToOfferInfo(newOffer);

@@ -25,4 +25,6 @@ public class OfferInfo extends BaseInfo {
 
     @NotEmpty(message = "Offer Description can't be empty")
     private String offerDescription;
+
+    private String status;
 }

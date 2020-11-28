@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-24T12:26:25+0530",
+    date = "2020-11-29T01:49:02+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
 )
 public class OfferMapperImpl implements OfferMapper {
@@ -25,6 +25,7 @@ public class OfferMapperImpl implements OfferMapper {
         offer.setOfferCode( offerInfo.getOfferCode() );
         offer.setOfferName( offerInfo.getOfferName() );
         offer.setOfferDescription( offerInfo.getOfferDescription() );
+        offer.setStatus( offerInfo.getStatus() );
 
         return offer;
     }
@@ -41,6 +42,7 @@ public class OfferMapperImpl implements OfferMapper {
         offerInfo.setOfferCode( offer.getOfferCode() );
         offerInfo.setOfferName( offer.getOfferName() );
         offerInfo.setOfferDescription( offer.getOfferDescription() );
+        offerInfo.setStatus( offer.getStatus() );
 
         return offerInfo;
     }

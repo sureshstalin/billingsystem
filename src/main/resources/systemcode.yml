@@ -11,8 +11,8 @@ system:
   cat-codeprefix: CAT
   cat-codetype: CATEGORY_CODE
 
-  off-codeprefix: OFR
-  off-codetype: OFFER_CODE
+  ofr-codeprefix: OFR
+  ofr-codetype: OFFER_CODE
 
   prd-codeprefix: PRD
   prd-codetype: PRODUCT_CODE
