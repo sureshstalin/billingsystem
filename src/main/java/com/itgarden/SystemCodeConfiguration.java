@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+/*
+ * Created by Suresh Stalin on 24 / Nov / 2020.
+ */
+
 @Getter
 @Setter
 @Component

@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+/*
+ * Created by Suresh Stalin on 22 / Nov / 2020.
+ */
+
 @Setter
 @Getter
 public class OfferInfo extends BaseInfo {

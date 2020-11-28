@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
+ * Created by Suresh Stalin on 24 / Nov / 2020.
+ */
+
 @RestController
 @RequestMapping("api/public/org")
 public class OrganizationController {

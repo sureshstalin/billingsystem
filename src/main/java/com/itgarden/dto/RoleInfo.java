@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+ * Created by Suresh Stalin on 10 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

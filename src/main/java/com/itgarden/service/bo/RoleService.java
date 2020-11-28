@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/*
+ * Created by Suresh Stalin on 23 / Nov / 2020.
+ */
+
 @Service
 public class RoleService extends BaseService {
 

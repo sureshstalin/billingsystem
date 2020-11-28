@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+/*
+ * Created by Suresh Stalin on 23 / Nov / 2020.
+ */
+
 @Getter
 @Setter
 public class CategoryInfo extends BaseInfo {

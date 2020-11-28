@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+/*
+ * Created by Suresh Stalin on 04 / Nov / 2020.
+ */
 
 @Service("userService")
 class UserService extends BaseService {

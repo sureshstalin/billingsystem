@@ -8,6 +8,10 @@ import javax.persistence.Column;
 import java.util.List;
 
 
+/*
+ * Created by Suresh Stalin on 15 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 //@JsonInclude(JsonInclude.Include.NON_NULL)

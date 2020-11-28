@@ -8,9 +8,12 @@ import org.springframework.core.io.support.PropertySourceFactory;
 
 import java.io.IOException;
 import java.util.Properties;
+
 /*
+ * Created by Suresh Stalin on 24 / Nov / 2020.
  * This file for load Yml file
  */
+
 public class YamlPropertySourceFactory implements PropertySourceFactory {
 
     @Override

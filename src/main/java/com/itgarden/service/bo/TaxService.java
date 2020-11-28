@@ -14,18 +14,23 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Created by Suresh Stalin on 23 / Nov / 2020.
+ */
+
 @Service
 public class TaxService extends BaseService {
 
-    @Autowired
-    private BillingBaseService billingBaseService;
 
     @Autowired
     private TaxRepository taxRepository;
 
+    /*
+     * This method for adding new Tax Records and updating existing Tax Records
+     */
     public ResponseMessage save(TaxInfo taxInfo) {
         Tax tax = TaxMapper.INSTANCE.taxInfoToTax(taxInfo);
-        Tax newTax = (Tax)billingBaseService.save(tax);
+        Tax newTax = taxRepository.save(tax);
         TaxInfo newTaxInfoResponse = TaxMapper.INSTANCE.taxToTaxInfo(newTax);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(newTaxInfoResponse,"Tax saved successfully",Constants.INFO_TYPE);
         return responseMessage;

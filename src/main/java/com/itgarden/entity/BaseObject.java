@@ -8,6 +8,10 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+/*
+ * Created by Suresh Stalin on 13 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 @MappedSuperclass

@@ -6,13 +6,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Configuration
-//@Getter
-//@Setter
-//@Component
-//@Configuration
-//@ConfigurationProperties("system")
-//@PropertySource(value = "classpath:systemcode.yml", factory = YamlPropertySourceFactory.class)
+/*
+ * Created by Suresh Stalin on 24 / Nov / 2020.
+ */
 
 @Component
 public class SystemCodeBean {

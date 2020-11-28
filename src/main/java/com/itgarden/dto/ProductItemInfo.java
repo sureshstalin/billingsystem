@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/*
+ * Created by Suresh Stalin on 24 / Nov / 2020.
+ */
+
 @Getter
 @Setter
 public class ProductItemInfo extends BaseInfo {

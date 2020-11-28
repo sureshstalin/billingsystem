@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+/*
+ * Created by Suresh Stalin on 13 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 @Entity

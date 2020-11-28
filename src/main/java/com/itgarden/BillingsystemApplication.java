@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/*
+ * Created by Suresh Stalin on 13 / Oct / 2020.
+ */
 
 @SpringBootApplication
 public class BillingsystemApplication {

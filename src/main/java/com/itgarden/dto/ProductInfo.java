@@ -6,6 +6,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+/*
+ * Created by Suresh Stalin on 22 / Nov / 2020.
+ */
+
 @Getter
 @Setter
 public class ProductInfo extends BaseInfo {

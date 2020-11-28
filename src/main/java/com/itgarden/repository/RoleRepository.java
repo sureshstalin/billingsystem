@@ -10,6 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 
+/*
+ * Created by Suresh Stalin on 17 / Oct / 2020.
+ */
+
 public interface RoleRepository extends JpaRepository<Role,Long> {
 
     Optional<Role> findByName(String name);

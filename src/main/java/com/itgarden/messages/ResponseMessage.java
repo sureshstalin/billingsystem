@@ -3,8 +3,9 @@ package com.itgarden.messages;
 import lombok.*;
 
 /*
-  Created by Suresh Stalin on 16 / October / 2020
+ * Created by Suresh Stalin on 16 / Oct / 2020
  */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)

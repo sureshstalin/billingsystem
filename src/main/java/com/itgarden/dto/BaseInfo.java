@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+
+/*
+ * Created by Suresh Stalin on 14 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

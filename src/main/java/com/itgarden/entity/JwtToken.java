@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/*
+ * Created by Suresh Stalin on 10 / Nov / 2020.
+ */
+
 @Getter
 @Setter
 @Entity

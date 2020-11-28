@@ -7,6 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/*
+ * Created by Suresh Stalin on 24 / Nov / 2020.
+ */
+
 @Getter
 @Setter
 @Entity

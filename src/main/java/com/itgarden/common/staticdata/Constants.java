@@ -1,5 +1,9 @@
 package com.itgarden.common.staticdata;
 
+/*
+ * Created by Suresh Stalin on 23 / Nov / 2020.
+ */
+
 public interface Constants {
 
     String INFO_TYPE = "Info";

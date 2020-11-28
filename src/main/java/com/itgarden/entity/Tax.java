@@ -8,6 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/*
+ * Created by Suresh Stalin on 13 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 @Entity

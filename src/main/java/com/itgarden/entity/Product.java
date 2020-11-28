@@ -8,6 +8,10 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Locale;
 
+/*
+ * Created by Suresh Stalin on 13 / Oct / 2020.
+ */
+
 @Getter
 @Setter
 @Entity
