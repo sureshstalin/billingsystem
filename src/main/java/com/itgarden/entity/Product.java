@@ -30,8 +30,8 @@ public class Product extends BaseObject{
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "stock_count", nullable = false)
-    private Integer stockCount;
+    @Column(name = "stock_count", nullable = false )
+    private int stockCount;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tax_id")

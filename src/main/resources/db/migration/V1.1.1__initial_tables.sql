@@ -40,6 +40,7 @@ CREATE TABLE customer (
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX customer_code_UNIQUE (customer_code ASC) VISIBLE,
   KEY customer_fk_user (user_id),
   CONSTRAINT customer_fk_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB;
@@ -53,6 +54,7 @@ CREATE TABLE employee (
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX employee_code_UNIQUE (employee_code ASC) VISIBLE,
   KEY employee_fk_user (user_id),
   CONSTRAINT employee_fk_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB;
@@ -65,7 +67,8 @@ CREATE TABLE category (
   name varchar(255) NOT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE INDEX category_code_UNIQUE (category_code ASC) VISIBLE
 ) ENGINE=InnoDB;
 
 CREATE TABLE tax (
@@ -85,9 +88,11 @@ CREATE TABLE offer (
   offer_code varchar(10) NOT NULL,
   offer_name varchar(255) NOT NULL,
   offer_description VARCHAR(150) NOT NULL,
+  status VARCHAR(10) NOT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE INDEX offer_code_UNIQUE (offer_code ASC) VISIBLE
 ) ENGINE=InnoDB;
 
 CREATE TABLE product (
@@ -103,6 +108,8 @@ CREATE TABLE product (
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX name_UNIQUE (name ASC) VISIBLE,
+  UNIQUE INDEX product_code_UNIQUE (product_code ASC) VISIBLE,
   KEY product_fk_category (category_id),
   KEY product_fk_tax (tax_id),
   CONSTRAINT product_fk_category FOREIGN KEY (category_id) REFERENCES category (id),
@@ -117,6 +124,7 @@ CREATE TABLE product_item (
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX product_item_code_UNIQUE (product_item_code ASC) VISIBLE,
   KEY product_item_fk_product (product_id),
   CONSTRAINT product_item_fk_product FOREIGN KEY (product_id) REFERENCES product (id)
 ) ENGINE=InnoDB;
@@ -130,6 +138,7 @@ CREATE TABLE biller (
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX bill_no_UNIQUE (bill_no ASC) VISIBLE,
   KEY biller_fk_customer (customer_id),
   CONSTRAINT biller_fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id),
   CONSTRAINT biller_fk_product_item FOREIGN KEY (product_item_id) REFERENCES product_item (id)
@@ -144,6 +153,8 @@ CREATE TABLE organization (
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX org_code_UNIQUE (org_code ASC) VISIBLE,
+  UNIQUE INDEX org_name_UNIQUE (org_name ASC) VISIBLE,
   KEY ogranization_fk_user (user_id),
   CONSTRAINT ogranization_fk_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB;
@@ -155,7 +166,8 @@ CREATE TABLE role (
   role_name varchar(255) DEFAULT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE INDEX role_name_UNIQUE (role_name ASC) VISIBLE
 ) ENGINE=InnoDB;
 
 CREATE TABLE stock (
@@ -180,6 +192,7 @@ CREATE TABLE vendor (
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX vendor_code_UNIQUE (vendor_code ASC) VISIBLE,
   KEY vendor_fk_user (user_id),
   KEY vendor_fk_stock (vendor_id),
   CONSTRAINT vendor_fk_user FOREIGN KEY (user_id) REFERENCES user (id),
@@ -198,6 +211,7 @@ CREATE TABLE purchase_order (
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
+  UNIQUE INDEX purchase_order_code_UNIQUE (purchase_order_code ASC) VISIBLE,
   KEY purchase_order_fk_vendor (vendor_id),
   CONSTRAINT purchase_order_fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendor (id)
 ) ENGINE=InnoDB;
@@ -209,7 +223,9 @@ CREATE TABLE app_entity_code (
   date_created DATETIME NOT NULL,
   date_modified DATETIME NULL,
   is_deleted TINYINT NULL,
+  UNIQUE INDEX code_UNIQUE (code ASC) VISIBLE,
   PRIMARY KEY (id));
+
 
   CREATE TABLE system_codes (
     id int NOT NULL AUTO_INCREMENT,
