@@ -40,6 +40,11 @@ public class TestController {
         log.error("This is error info......");
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping(){
+        return new ResponseEntity<>("Server is running...", HttpStatus.OK);
+    }
 }
 
 
