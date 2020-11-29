@@ -9,10 +9,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductItemInfo extends BaseInfo {
+public class OrganizationInfo extends BaseInfo {
 
-    private String productItemCode;
+    private String orgCode;
 
-    private ProductInfo productInfo;
+    private String orgName;
 
+    private UserInfo user;
 }

@@ -1,10 +1,8 @@
 package com.itgarden.dto;
 
-import com.itgarden.common.staticdata.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.util.List;
 
 

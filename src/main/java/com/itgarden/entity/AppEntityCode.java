@@ -1,7 +1,6 @@
 package com.itgarden.entity;
 
 import com.itgarden.common.staticdata.CodeType;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

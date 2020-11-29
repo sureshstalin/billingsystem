@@ -1,7 +1,6 @@
 package com.itgarden.entity;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 

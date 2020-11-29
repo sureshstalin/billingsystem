@@ -1,6 +1,5 @@
 package com.itgarden.dto;
 
-import com.itgarden.entity.*;
 import lombok.Getter;
 import lombok.Setter;
 
