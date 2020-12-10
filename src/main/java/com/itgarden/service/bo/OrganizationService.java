@@ -41,18 +41,17 @@ public class OrganizationService extends BaseService {
     public ResponseMessage save(OrganizationInfo organizationInfo) throws Exception {
         ResponseMessage response = roleService.findResourceById(Constants.SUPER_ADMIN_ROLE_ID);
         UserRoleInfo userRoleInfo = (UserRoleInfo) response.getResponseClassType();
-        if (userRoleInfo.getRoleId() == Long.parseLong(Constants.SUPER_ADMIN_ROLE_ID)) {
-            throw new DuplicateKeyFoundException("The Super Admin already created: It can create only once.");
+        if (userRoleInfo != null) {
+            throw new DuplicateKeyFoundException
+                    ("The Super Admin already created: can't create more than one Super Admin Role");
         }
         Organization organization = OrganizationMapper.INSTANCE
                 .organizationInfoToOrganization(organizationInfo);
         String orgCode = codeGenerator.newCode(CodeType.ORG_CODE);
         organization.setOrgCode(orgCode);
-        organization.getUser().setUserType(UserType.EMPLOYEE.name());
+        organization.getUser().setUserType(UserType.OWNER.name());
         List<Role> roles = new ArrayList<>();
         Role role = roleService.findByName(ROLES.SUPER_ADMIN_ROLE.name());
-        role.setName(ROLES.SUPER_ADMIN_ROLE.name());
-        role.setDescription("Super Admin Role");
         roles.add(role);
         organization.getUser().setRoles(roles);
         Organization newOrganization = organizationRepository.save(organization);

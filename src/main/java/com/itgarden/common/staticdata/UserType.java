@@ -8,6 +8,7 @@ public enum UserType {
 
     EMPLOYEE,
     CUSTOMER,
-    VENDOR
+    VENDOR,
+    OWNER
 
 }

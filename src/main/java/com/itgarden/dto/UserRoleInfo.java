@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class UserRoleInfo {
 
-    private long userId;
+    private Long userId;
 
-    private long roleId;
+    private Long roleId;
 
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("api/public/org")
+@RequestMapping("api/public/orgs")
 public class OrganizationController {
 
     @Autowired

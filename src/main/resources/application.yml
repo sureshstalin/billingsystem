@@ -9,7 +9,7 @@ spring:
       ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3306/billing
-    username: billing
+    username: billing-admin
     password: billing123$$
     driver-class-name: com.mysql.cj.jdbc.Driver
 

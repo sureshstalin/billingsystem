@@ -27,8 +27,9 @@ public class RoleService extends BaseService {
     @Override
     public ResponseMessage findResourceById(String id) throws Exception {
         Object[] objects = roleRepository.getSuperAdmin(Long.parseLong(id));
-        UserRoleInfo userRoleInfo = new UserRoleInfo();
+        UserRoleInfo userRoleInfo = null;
         if (objects.length > 0) {
+            userRoleInfo = new UserRoleInfo();
             Object object[] = (Object[]) objects[0];
             userRoleInfo.setUserId(Long.parseLong(object[0].toString()));
             userRoleInfo.setRoleId(Long.parseLong(object[1].toString()));

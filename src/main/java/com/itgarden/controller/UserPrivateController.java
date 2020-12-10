@@ -87,8 +87,4 @@ public class UserPrivateController {
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
-
-
-
-
 }
