@@ -204,16 +204,20 @@ CREATE TABLE purchase_order (
   is_deleted bit(1) DEFAULT NULL,
   purchase_order_code varchar(10) NOT NULL,
   price double NOT NULL,
-  product_code varchar(10) NOT NULL,
+  product_id bigint DEFAULT NULL,
+  product_name varchar(255) NOT NULL,
   product_description varchar(255) NOT NULL,
   quantity int NOT NULL,
   vendor_id bigint DEFAULT NULL,
+  tax_id bigint DEFAULT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX purchase_order_code_UNIQUE (purchase_order_code ASC) VISIBLE,
   KEY purchase_order_fk_vendor (vendor_id),
-  CONSTRAINT purchase_order_fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendor (id)
+  CONSTRAINT purchase_order_fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendor (id),
+  KEY product_fk_tax (tax_id),
+  CONSTRAINT purchase_order_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE app_entity_code (

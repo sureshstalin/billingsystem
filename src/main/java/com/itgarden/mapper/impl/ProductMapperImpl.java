@@ -10,8 +10,8 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-24T14:30:38+0530",
-    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
+    date = "2020-12-17T16:06:35+0530",
+    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class ProductMapperImpl implements ProductMapper {
 
@@ -28,7 +28,9 @@ public class ProductMapperImpl implements ProductMapper {
         product.setDescription( productInfo.getDescription() );
         product.setProductCode( productInfo.getProductCode() );
         product.setPrice( productInfo.getPrice() );
-        product.setStockCount( productInfo.getStockCount() );
+        if ( productInfo.getStockCount() != null ) {
+            product.setStockCount( productInfo.getStockCount() );
+        }
         product.setTax( taxInfoToTax( productInfo.getTax() ) );
         product.setOffers( offerInfoListToOfferList( productInfo.getOffers() ) );
         product.setVendors( vendorInfoListToVendorList( productInfo.getVendors() ) );
@@ -87,6 +89,7 @@ public class ProductMapperImpl implements ProductMapper {
         offer.setOfferCode( offerInfo.getOfferCode() );
         offer.setOfferName( offerInfo.getOfferName() );
         offer.setOfferDescription( offerInfo.getOfferDescription() );
+        offer.setStatus( offerInfo.getStatus() );
 
         return offer;
     }
@@ -253,6 +256,7 @@ public class ProductMapperImpl implements ProductMapper {
         offerInfo.setOfferCode( offer.getOfferCode() );
         offerInfo.setOfferName( offer.getOfferName() );
         offerInfo.setOfferDescription( offer.getOfferDescription() );
+        offerInfo.setStatus( offer.getStatus() );
 
         return offerInfo;
     }

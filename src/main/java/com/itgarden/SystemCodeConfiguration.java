@@ -43,6 +43,6 @@ public class SystemCodeConfiguration {
     public String  orgCodePrefix;
     public String orgCodeType;
 
-
-
+    public String purCodePrefix;
+    public String purCodeType;
 }

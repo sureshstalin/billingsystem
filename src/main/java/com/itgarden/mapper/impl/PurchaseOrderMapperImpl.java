@@ -1,14 +1,8 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AddressInfo;
-import com.itgarden.dto.EmployeeInfo;
-import com.itgarden.dto.RoleInfo;
-import com.itgarden.dto.UserInfo;
-import com.itgarden.entity.Address;
-import com.itgarden.entity.Employee;
-import com.itgarden.entity.Role;
-import com.itgarden.entity.User;
-import com.itgarden.mapper.EmployeeMapper;
+import com.itgarden.dto.*;
+import com.itgarden.entity.*;
+import com.itgarden.mapper.PurchaseOrderMapper;
 
 import javax.annotation.Generated;
 import java.util.ArrayList;
@@ -19,38 +13,56 @@ import java.util.List;
     date = "2020-12-17T16:06:35+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
-public class EmployeeMapperImpl implements EmployeeMapper {
+public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
 
     @Override
-    public Employee employeeInfoToEmployee(EmployeeInfo employeeInfo) {
-        if ( employeeInfo == null ) {
+    public PurchaseOrder purchaseOrderInfoToPurchaseOrder(PurchaseOrderInfo purchaseOrderInfo) {
+        if ( purchaseOrderInfo == null ) {
             return null;
         }
 
-        Employee employee = new Employee();
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
 
-        employee.setId( employeeInfo.getId() );
-        employee.setFullName( employeeInfo.getFullName() );
-        employee.setEmployeeCode( employeeInfo.getEmployeeCode() );
-        employee.setUser( userInfoToUser( employeeInfo.getUser() ) );
+        purchaseOrder.setId( purchaseOrderInfo.getId() );
+        purchaseOrder.setDeleted( purchaseOrderInfo.isDeleted() );
+        purchaseOrder.setDateCreated( purchaseOrderInfo.getDateCreated() );
+        purchaseOrder.setDateModified( purchaseOrderInfo.getDateModified() );
+        purchaseOrder.setFlowType( purchaseOrderInfo.getFlowType() );
+        purchaseOrder.setProductName( purchaseOrderInfo.getProductName() );
+        purchaseOrder.setProductDescription( purchaseOrderInfo.getProductDescription() );
+        purchaseOrder.setQuantity( purchaseOrderInfo.getQuantity() );
+        purchaseOrder.setPrice( purchaseOrderInfo.getPrice() );
+        purchaseOrder.setUnitPrice( purchaseOrderInfo.getUnitPrice() );
+        purchaseOrder.setPurchaseOrderCode( purchaseOrderInfo.getPurchaseOrderCode() );
+        purchaseOrder.setVendor( vendorInfoToVendor( purchaseOrderInfo.getVendor() ) );
+        purchaseOrder.setTax( taxInfoToTax( purchaseOrderInfo.getTax() ) );
 
-        return employee;
+        return purchaseOrder;
     }
 
     @Override
-    public EmployeeInfo employeeToEmployeeInfo(Employee employee) {
-        if ( employee == null ) {
+    public PurchaseOrderInfo purchaseOrderToPurchaseOrderInfo(PurchaseOrder purchaseOrder) {
+        if ( purchaseOrder == null ) {
             return null;
         }
 
-        EmployeeInfo employeeInfo = new EmployeeInfo();
+        PurchaseOrderInfo purchaseOrderInfo = new PurchaseOrderInfo();
 
-        employeeInfo.setId( employee.getId() );
-        employeeInfo.setFullName( employee.getFullName() );
-        employeeInfo.setEmployeeCode( employee.getEmployeeCode() );
-        employeeInfo.setUser( userToUserInfo( employee.getUser() ) );
+        purchaseOrderInfo.setId( purchaseOrder.getId() );
+        purchaseOrderInfo.setDeleted( purchaseOrder.isDeleted() );
+        purchaseOrderInfo.setDateCreated( purchaseOrder.getDateCreated() );
+        purchaseOrderInfo.setDateModified( purchaseOrder.getDateModified() );
+        purchaseOrderInfo.setFlowType( purchaseOrder.getFlowType() );
+        purchaseOrderInfo.setProductName( purchaseOrder.getProductName() );
+        purchaseOrderInfo.setProductDescription( purchaseOrder.getProductDescription() );
+        purchaseOrderInfo.setQuantity( purchaseOrder.getQuantity() );
+        purchaseOrderInfo.setPrice( purchaseOrder.getPrice() );
+        purchaseOrderInfo.setUnitPrice( purchaseOrder.getUnitPrice() );
+        purchaseOrderInfo.setPurchaseOrderCode( purchaseOrder.getPurchaseOrderCode() );
+        purchaseOrderInfo.setVendor( vendorToVendorInfo( purchaseOrder.getVendor() ) );
+        purchaseOrderInfo.setTax( taxToTaxInfo( purchaseOrder.getTax() ) );
 
-        return employeeInfo;
+        return purchaseOrderInfo;
     }
 
     protected Address addressInfoToAddress(AddressInfo addressInfo) {
@@ -133,6 +145,36 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         return user;
     }
 
+    protected Vendor vendorInfoToVendor(VendorInfo vendorInfo) {
+        if ( vendorInfo == null ) {
+            return null;
+        }
+
+        Vendor vendor = new Vendor();
+
+        vendor.setId( vendorInfo.getId() );
+        vendor.setFullName( vendorInfo.getFullName() );
+        vendor.setVendorCode( vendorInfo.getVendorCode() );
+        vendor.setUser( userInfoToUser( vendorInfo.getUser() ) );
+
+        return vendor;
+    }
+
+    protected Tax taxInfoToTax(TaxInfo taxInfo) {
+        if ( taxInfo == null ) {
+            return null;
+        }
+
+        Tax tax = new Tax();
+
+        tax.setId( taxInfo.getId() );
+        tax.setHsnCode( taxInfo.getHsnCode() );
+        tax.setTaxPercentage( taxInfo.getTaxPercentage() );
+        tax.setTaxDescription( taxInfo.getTaxDescription() );
+
+        return tax;
+    }
+
     protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
@@ -211,5 +253,35 @@ public class EmployeeMapperImpl implements EmployeeMapper {
         userInfo.setUserType( user.getUserType() );
 
         return userInfo;
+    }
+
+    protected VendorInfo vendorToVendorInfo(Vendor vendor) {
+        if ( vendor == null ) {
+            return null;
+        }
+
+        VendorInfo vendorInfo = new VendorInfo();
+
+        vendorInfo.setId( vendor.getId() );
+        vendorInfo.setFullName( vendor.getFullName() );
+        vendorInfo.setVendorCode( vendor.getVendorCode() );
+        vendorInfo.setUser( userToUserInfo( vendor.getUser() ) );
+
+        return vendorInfo;
+    }
+
+    protected TaxInfo taxToTaxInfo(Tax tax) {
+        if ( tax == null ) {
+            return null;
+        }
+
+        TaxInfo taxInfo = new TaxInfo();
+
+        taxInfo.setId( tax.getId() );
+        taxInfo.setHsnCode( tax.getHsnCode() );
+        taxInfo.setTaxPercentage( tax.getTaxPercentage() );
+        taxInfo.setTaxDescription( tax.getTaxDescription() );
+
+        return taxInfo;
     }
 }

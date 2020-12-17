@@ -1,12 +1,14 @@
 package com.itgarden.mapper.impl;
 
 import com.itgarden.dto.AddressInfo;
+import com.itgarden.dto.OrganizationInfo;
 import com.itgarden.dto.RoleInfo;
 import com.itgarden.dto.UserInfo;
 import com.itgarden.entity.Address;
+import com.itgarden.entity.Organization;
 import com.itgarden.entity.Role;
 import com.itgarden.entity.User;
-import com.itgarden.mapper.UserMapper;
+import com.itgarden.mapper.OrganizationMapper;
 
 import javax.annotation.Generated;
 import java.util.ArrayList;
@@ -14,53 +16,41 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-17T16:06:35+0530",
+    date = "2020-12-17T16:06:34+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
-public class UserMapperImpl implements UserMapper {
+public class OrganizationMapperImpl implements OrganizationMapper {
 
     @Override
-    public User userInfoToUser(UserInfo userInfo) {
-        if ( userInfo == null ) {
+    public Organization organizationInfoToOrganization(OrganizationInfo organizationInfo) {
+        if ( organizationInfo == null ) {
             return null;
         }
 
-        User user = new User();
+        Organization organization = new Organization();
 
-        user.setId( userInfo.getId() );
-        user.setEmailId( userInfo.getEmailId() );
-        user.setFirstName( userInfo.getFirstName() );
-        user.setPassword( userInfo.getPassword() );
-        user.setMiddleName( userInfo.getMiddleName() );
-        user.setLastName( userInfo.getLastName() );
-        user.setMobileNo( userInfo.getMobileNo() );
-        user.setUserType( userInfo.getUserType() );
-        user.setAddressList( addressInfoListToAddressList( userInfo.getAddressList() ) );
-        user.setRoles( roleInfoListToRoleList( userInfo.getRoles() ) );
+        organization.setId( organizationInfo.getId() );
+        organization.setOrgCode( organizationInfo.getOrgCode() );
+        organization.setOrgName( organizationInfo.getOrgName() );
+        organization.setUser( userInfoToUser( organizationInfo.getUser() ) );
 
-        return user;
+        return organization;
     }
 
     @Override
-    public UserInfo userToUserInfo(User user) {
-        if ( user == null ) {
+    public OrganizationInfo organizationToOrganizationInfo(Organization organization) {
+        if ( organization == null ) {
             return null;
         }
 
-        UserInfo userInfo = new UserInfo();
+        OrganizationInfo organizationInfo = new OrganizationInfo();
 
-        userInfo.setId( user.getId() );
-        userInfo.setEmailId( user.getEmailId() );
-        userInfo.setPassword( user.getPassword() );
-        userInfo.setFirstName( user.getFirstName() );
-        userInfo.setMiddleName( user.getMiddleName() );
-        userInfo.setLastName( user.getLastName() );
-        userInfo.setMobileNo( user.getMobileNo() );
-        userInfo.setAddressList( addressListToAddressInfoList( user.getAddressList() ) );
-        userInfo.setRoles( roleListToRoleInfoList( user.getRoles() ) );
-        userInfo.setUserType( user.getUserType() );
+        organizationInfo.setId( organization.getId() );
+        organizationInfo.setOrgCode( organization.getOrgCode() );
+        organizationInfo.setOrgName( organization.getOrgName() );
+        organizationInfo.setUser( userToUserInfo( organization.getUser() ) );
 
-        return userInfo;
+        return organizationInfo;
     }
 
     protected Address addressInfoToAddress(AddressInfo addressInfo) {
@@ -122,6 +112,27 @@ public class UserMapperImpl implements UserMapper {
         return list1;
     }
 
+    protected User userInfoToUser(UserInfo userInfo) {
+        if ( userInfo == null ) {
+            return null;
+        }
+
+        User user = new User();
+
+        user.setId( userInfo.getId() );
+        user.setEmailId( userInfo.getEmailId() );
+        user.setFirstName( userInfo.getFirstName() );
+        user.setPassword( userInfo.getPassword() );
+        user.setMiddleName( userInfo.getMiddleName() );
+        user.setLastName( userInfo.getLastName() );
+        user.setMobileNo( userInfo.getMobileNo() );
+        user.setUserType( userInfo.getUserType() );
+        user.setAddressList( addressInfoListToAddressList( userInfo.getAddressList() ) );
+        user.setRoles( roleInfoListToRoleList( userInfo.getRoles() ) );
+
+        return user;
+    }
+
     protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
@@ -179,5 +190,26 @@ public class UserMapperImpl implements UserMapper {
         }
 
         return list1;
+    }
+
+    protected UserInfo userToUserInfo(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserInfo userInfo = new UserInfo();
+
+        userInfo.setId( user.getId() );
+        userInfo.setEmailId( user.getEmailId() );
+        userInfo.setPassword( user.getPassword() );
+        userInfo.setFirstName( user.getFirstName() );
+        userInfo.setMiddleName( user.getMiddleName() );
+        userInfo.setLastName( user.getLastName() );
+        userInfo.setMobileNo( user.getMobileNo() );
+        userInfo.setAddressList( addressListToAddressInfoList( user.getAddressList() ) );
+        userInfo.setRoles( roleListToRoleInfoList( user.getRoles() ) );
+        userInfo.setUserType( user.getUserType() );
+
+        return userInfo;
     }
 }

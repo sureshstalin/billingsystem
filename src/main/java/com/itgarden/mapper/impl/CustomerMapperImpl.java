@@ -16,8 +16,8 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-22T16:13:34+0530",
-    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_261 (Oracle Corporation)"
+    date = "2020-12-17T16:06:35+0530",
+    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class CustomerMapperImpl implements CustomerMapper {
 
@@ -126,6 +126,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         user.setMiddleName( userInfo.getMiddleName() );
         user.setLastName( userInfo.getLastName() );
         user.setMobileNo( userInfo.getMobileNo() );
+        user.setUserType( userInfo.getUserType() );
         user.setAddressList( addressInfoListToAddressList( userInfo.getAddressList() ) );
         user.setRoles( roleInfoListToRoleList( userInfo.getRoles() ) );
 
@@ -207,6 +208,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         userInfo.setMobileNo( user.getMobileNo() );
         userInfo.setAddressList( addressListToAddressInfoList( user.getAddressList() ) );
         userInfo.setRoles( roleListToRoleInfoList( user.getRoles() ) );
+        userInfo.setUserType( user.getUserType() );
 
         return userInfo;
     }

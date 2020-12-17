@@ -22,3 +22,6 @@ system:
 
   org-codeprefix: ORG
   org-codetype: ORG_CODE
+
+  pur-codeprefix: PUR
+  pur-codetype: PURCHASE_ORDER_CODE

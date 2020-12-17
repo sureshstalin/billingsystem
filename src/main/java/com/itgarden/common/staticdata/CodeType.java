@@ -11,5 +11,6 @@ public enum CodeType {
         OFFER_CODE,
         PRODUCT_CODE,
         PRODUCT_ITEM_CODE,
-        ORG_CODE
+        ORG_CODE,
+        PURCHASE_ORDER_CODE
 }
