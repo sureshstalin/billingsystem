@@ -1,0 +1,23 @@
+{
+  "orgName": "BMB Medicals",
+  "user": {
+    "emailId": "suresh@bmb.com",
+    "password": "123",
+    "rePassword": "123",
+    "firstName": "Suresh",
+    "middleName": "",
+    "lastName": "Stalin",
+    "mobileNo": "3838383",
+    "addressList": [
+      {
+        "address1": "Kalangari vilakkam street",
+        "address2": "Day to Day Nagar",
+        "city": "Chennai",
+        "state": "TN",
+        "country": "India",
+        "landmark": "Near that church",
+        "mobile": "17171717"
+      }
+    ]
+  }
+}
