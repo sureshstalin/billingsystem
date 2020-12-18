@@ -6,11 +6,13 @@ import com.itgarden.common.TaxCalculationInput;
 import com.itgarden.common.TaxCalculationResponse;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.dto.PurchaseOrderInfo;
+import com.itgarden.entity.Category;
 import com.itgarden.entity.PurchaseOrder;
 import com.itgarden.entity.Tax;
 import com.itgarden.entity.Vendor;
 import com.itgarden.mapper.PurchaseOrderMapper;
 import com.itgarden.messages.ResponseMessage;
+import com.itgarden.repository.CategoryRepository;
 import com.itgarden.repository.PurchaseOrderRepository;
 import com.itgarden.repository.TaxRepository;
 import com.itgarden.repository.VendorRepository;
@@ -39,10 +41,15 @@ public class PurchaseOrderService extends BaseService {
     @Autowired
     private TaxCalculation taxCalculation;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public ResponseMessage<PurchaseOrderInfo> save(PurchaseOrderInfo purchaseOrderInfo) {
 
         PurchaseOrder purchaseOrder = PurchaseOrderMapper.INSTANCE
                 .purchaseOrderInfoToPurchaseOrder(purchaseOrderInfo);
+        Category category = categoryRepository.findById(purchaseOrderInfo.getCategory().getId()).orElse(null);
+        purchaseOrder.setCategory(category);
         Vendor vendor = vendorRepository.getOne(purchaseOrder.getVendor().getId()) ;
         purchaseOrder.setVendor(vendor);
         Tax tax = taxRepository.getOne(purchaseOrder.getTax().getId());

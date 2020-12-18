@@ -49,5 +49,9 @@ public class PurchaseOrder extends BaseObject{
     @Column(name = "total_amount", nullable = false)
     private double totalAmount;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 
 }

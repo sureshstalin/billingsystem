@@ -213,6 +213,7 @@ CREATE TABLE purchase_order (
   tax_id bigint DEFAULT NULL,
   tax_amount double DEFAULT 0,
   total_amount double NOT NULL,
+  category_id bigint NOT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
@@ -220,7 +221,8 @@ CREATE TABLE purchase_order (
   KEY purchase_order_fk_vendor (vendor_id),
   CONSTRAINT purchase_order_fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendor (id),
   KEY product_fk_tax (tax_id),
-  CONSTRAINT purchase_order_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id)
+  CONSTRAINT purchase_order_fk_tax FOREIGN KEY (tax_id) REFERENCES tax (id),
+  CONSTRAINT purchase_order_fk_category FOREIGN KEY (category_id) REFERENCES category (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE app_entity_code (

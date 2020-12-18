@@ -10,7 +10,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-18T11:48:22+0530",
+    date = "2020-12-18T13:52:40+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
@@ -38,6 +38,7 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrder.setTax( taxInfoToTax( purchaseOrderInfo.getTax() ) );
         purchaseOrder.setTaxAmount( purchaseOrderInfo.getTaxAmount() );
         purchaseOrder.setTotalAmount( purchaseOrderInfo.getTotalAmount() );
+        purchaseOrder.setCategory( categoryInfoToCategory( purchaseOrderInfo.getCategory() ) );
 
         return purchaseOrder;
     }
@@ -65,6 +66,7 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrderInfo.setTax( taxToTaxInfo( purchaseOrder.getTax() ) );
         purchaseOrderInfo.setTaxAmount( purchaseOrder.getTaxAmount() );
         purchaseOrderInfo.setTotalAmount( purchaseOrder.getTotalAmount() );
+        purchaseOrderInfo.setCategory( categoryToCategoryInfo( purchaseOrder.getCategory() ) );
 
         return purchaseOrderInfo;
     }
@@ -179,6 +181,21 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         return tax;
     }
 
+    protected Category categoryInfoToCategory(CategoryInfo categoryInfo) {
+        if ( categoryInfo == null ) {
+            return null;
+        }
+
+        Category category = new Category();
+
+        category.setId( categoryInfo.getId() );
+        category.setCategoryCode( categoryInfo.getCategoryCode() );
+        category.setName( categoryInfo.getName() );
+        category.setDescription( categoryInfo.getDescription() );
+
+        return category;
+    }
+
     protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
@@ -287,5 +304,20 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         taxInfo.setTaxDescription( tax.getTaxDescription() );
 
         return taxInfo;
+    }
+
+    protected CategoryInfo categoryToCategoryInfo(Category category) {
+        if ( category == null ) {
+            return null;
+        }
+
+        CategoryInfo categoryInfo = new CategoryInfo();
+
+        categoryInfo.setId( category.getId() );
+        categoryInfo.setCategoryCode( category.getCategoryCode() );
+        categoryInfo.setName( category.getName() );
+        categoryInfo.setDescription( category.getDescription() );
+
+        return categoryInfo;
     }
 }
