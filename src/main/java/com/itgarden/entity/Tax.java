@@ -21,7 +21,7 @@ public class Tax extends BaseObject{
     private String hsnCode;
 
     @Column(name = "tax_percentage", nullable = false)
-    private String taxPercentage;
+    private float taxPercentage;
 
     @Column(name = "tax_description", nullable = false)
     private String taxDescription;

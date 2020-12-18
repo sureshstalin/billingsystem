@@ -34,4 +34,9 @@ public class PurchaseOrderInfo extends BaseObject {
 
     private TaxInfo tax;
 
+    private double taxAmount;
+
+    private double totalAmount;
+
+
 }

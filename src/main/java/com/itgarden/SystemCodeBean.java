@@ -27,6 +27,7 @@ public class SystemCodeBean {
         systemCodes.put(systemCodeConfiguration.getPrdCodeType(), systemCodeConfiguration.getPrdCodePrefix());
         systemCodes.put(systemCodeConfiguration.getBcdCodeType(), systemCodeConfiguration.getBcdCodePrefix());
         systemCodes.put(systemCodeConfiguration.getOrgCodeType(), systemCodeConfiguration.getOrgCodePrefix());
+        systemCodes.put(systemCodeConfiguration.getPurCodeType(),systemCodeConfiguration.getPurCodePrefix());
         return systemCodes.get(key);
     }
 }

@@ -3,6 +3,7 @@ package com.itgarden.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.naming.Name;
 import javax.persistence.*;
 import java.util.List;
 
@@ -41,5 +42,12 @@ public class PurchaseOrder extends BaseObject{
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tax_id")
     private Tax tax;
+
+    @Column(name = "tax_amount", nullable = false)
+    private double taxAmount;
+
+    @Column(name = "total_amount", nullable = false)
+    private double totalAmount;
+
 
 }

@@ -1,6 +1,9 @@
 package com.itgarden.service.bo;
 
 import com.itgarden.common.CodeGenerator;
+import com.itgarden.common.TaxCalculation;
+import com.itgarden.common.TaxCalculationInput;
+import com.itgarden.common.TaxCalculationResponse;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.dto.PurchaseOrderInfo;
 import com.itgarden.entity.PurchaseOrder;
@@ -33,6 +36,9 @@ public class PurchaseOrderService extends BaseService {
     @Autowired
     private TaxRepository taxRepository;
 
+    @Autowired
+    private TaxCalculation taxCalculation;
+
     public ResponseMessage<PurchaseOrderInfo> save(PurchaseOrderInfo purchaseOrderInfo) {
 
         PurchaseOrder purchaseOrder = PurchaseOrderMapper.INSTANCE
@@ -44,6 +50,14 @@ public class PurchaseOrderService extends BaseService {
         if(purchaseOrderInfo.getId() == null) {
             String purchaseOrderCode = codeGenerator.newCode(CodeType.PURCHASE_ORDER_CODE);
             purchaseOrder.setPurchaseOrderCode(purchaseOrderCode);
+            TaxCalculationInput taxCalculationInput =
+                    new TaxCalculationInput(
+                            purchaseOrder.getUnitPrice(),purchaseOrder.getTax().getTaxPercentage(),purchaseOrder.getQuantity());
+            TaxCalculationResponse taxCalculationResponse
+                    = taxCalculation.calculateTax(taxCalculationInput);
+            purchaseOrder.setTotalAmount(taxCalculationResponse.getTotalAmount());
+            purchaseOrder.setPrice(taxCalculationResponse.getPrice());
+            purchaseOrder.setTaxAmount(taxCalculationResponse.getTaxAmount());
         }
         PurchaseOrder newPurchaseOrder = purchaseOrderRepository.save(purchaseOrder);
         PurchaseOrderInfo newPurchaseOrderInfo = PurchaseOrderMapper
