@@ -8,6 +8,6 @@ import lombok.Setter;
 public class TaxCalculationResponse {
 
     private double totalAmount;
-    private double price;
     private double taxAmount;
+    private double grandTotal;
 }

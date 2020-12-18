@@ -63,7 +63,7 @@ public class PurchaseOrderService extends BaseService {
             TaxCalculationResponse taxCalculationResponse
                     = taxCalculation.calculateTax(taxCalculationInput);
             purchaseOrder.setTotalAmount(taxCalculationResponse.getTotalAmount());
-            purchaseOrder.setPrice(taxCalculationResponse.getPrice());
+            purchaseOrder.setGrandTotal(taxCalculationResponse.getGrandTotal());
             purchaseOrder.setTaxAmount(taxCalculationResponse.getTaxAmount());
         }
         PurchaseOrder newPurchaseOrder = purchaseOrderRepository.save(purchaseOrder);

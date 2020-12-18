@@ -10,7 +10,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-18T13:52:40+0530",
+    date = "2020-12-18T16:15:55+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
@@ -31,7 +31,6 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrder.setProductName( purchaseOrderInfo.getProductName() );
         purchaseOrder.setProductDescription( purchaseOrderInfo.getProductDescription() );
         purchaseOrder.setQuantity( purchaseOrderInfo.getQuantity() );
-        purchaseOrder.setPrice( purchaseOrderInfo.getPrice() );
         purchaseOrder.setUnitPrice( purchaseOrderInfo.getUnitPrice() );
         purchaseOrder.setPurchaseOrderCode( purchaseOrderInfo.getPurchaseOrderCode() );
         purchaseOrder.setVendor( vendorInfoToVendor( purchaseOrderInfo.getVendor() ) );
@@ -39,6 +38,7 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrder.setTaxAmount( purchaseOrderInfo.getTaxAmount() );
         purchaseOrder.setTotalAmount( purchaseOrderInfo.getTotalAmount() );
         purchaseOrder.setCategory( categoryInfoToCategory( purchaseOrderInfo.getCategory() ) );
+        purchaseOrder.setGrandTotal( purchaseOrderInfo.getGrandTotal() );
 
         return purchaseOrder;
     }
@@ -59,7 +59,6 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrderInfo.setProductName( purchaseOrder.getProductName() );
         purchaseOrderInfo.setProductDescription( purchaseOrder.getProductDescription() );
         purchaseOrderInfo.setQuantity( purchaseOrder.getQuantity() );
-        purchaseOrderInfo.setPrice( purchaseOrder.getPrice() );
         purchaseOrderInfo.setUnitPrice( purchaseOrder.getUnitPrice() );
         purchaseOrderInfo.setPurchaseOrderCode( purchaseOrder.getPurchaseOrderCode() );
         purchaseOrderInfo.setVendor( vendorToVendorInfo( purchaseOrder.getVendor() ) );
@@ -67,6 +66,7 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrderInfo.setTaxAmount( purchaseOrder.getTaxAmount() );
         purchaseOrderInfo.setTotalAmount( purchaseOrder.getTotalAmount() );
         purchaseOrderInfo.setCategory( categoryToCategoryInfo( purchaseOrder.getCategory() ) );
+        purchaseOrderInfo.setGrandTotal( purchaseOrder.getGrandTotal() );
 
         return purchaseOrderInfo;
     }

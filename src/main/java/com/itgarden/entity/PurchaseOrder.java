@@ -26,9 +26,6 @@ public class PurchaseOrder extends BaseObject{
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "price", nullable = false)
-    private double price;
-
     @Column(name = "unit_price", nullable = false)
     private double unitPrice;
 
@@ -53,5 +50,7 @@ public class PurchaseOrder extends BaseObject{
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "grand_total",nullable = false)
+    private double grandTotal;
 
 }

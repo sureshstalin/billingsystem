@@ -23,17 +23,14 @@ public class TaxCalculation {
         double unitPrice = calculationInput.getUnitPrice();
         float taxPercentage = calculationInput.getTaxPercentage();
         int quantity = calculationInput.getQuantity();
-        double price = 0d;
         double taxAmount = 0d;
         taxCalculationResponse.setTotalAmount(unitPrice * quantity);
-        taxCalculationResponse.setPrice(price);
         if (taxPercentage > 0) {
             taxAmount = (unitPrice * taxPercentage) / 100; // Tqx amount
-            price = unitPrice + taxAmount;  // adding unit price with Tax Amount
-            taxCalculationResponse.setPrice(price); // per unit total amount which is with tax
             taxCalculationResponse.setTaxAmount(quantity * taxAmount);
             // getPrice return Unit Price with Tax and multiplying with quantity which is tatal amount
-            taxCalculationResponse.setTotalAmount(quantity * price);
+            taxCalculationResponse.setTotalAmount(quantity * unitPrice);
+            taxCalculationResponse.setGrandTotal(taxCalculationResponse.getTotalAmount() + taxCalculationResponse.getTaxAmount());
         }
         return taxCalculationResponse;
     }

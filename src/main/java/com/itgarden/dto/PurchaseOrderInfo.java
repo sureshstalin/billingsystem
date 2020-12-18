@@ -18,8 +18,6 @@ public class PurchaseOrderInfo extends BaseObject {
 
     private int quantity;
 
-    private double price;
-
     private double unitPrice;
 
     private String purchaseOrderCode;
@@ -34,5 +32,6 @@ public class PurchaseOrderInfo extends BaseObject {
 
     private CategoryInfo category;
 
+    private double grandTotal;
 
 }

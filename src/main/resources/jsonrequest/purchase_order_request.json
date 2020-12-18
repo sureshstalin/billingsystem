@@ -1,0 +1,15 @@
+{
+  "productName":"T-shirt",
+  "productDescription":"This is T-Shirt for Men",
+  "quantity":10,
+  "unitPrice":100,
+  "vendor" :{
+    "id":1
+  },
+  "tax":{
+    "id":1
+  },
+  "category":{
+    "id":1
+  }
+}
