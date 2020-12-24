@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 /*
  * Created by Suresh Stalin on 13 / Oct / 2020.
@@ -23,7 +22,10 @@ public class Biller extends BaseObject {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_item_id")
-    private List<ProductItem> productItems;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(name = "grand_total", nullable = false)
+    private double grandTotal;
 }

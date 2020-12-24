@@ -1,5 +1,6 @@
 package com.itgarden.dto;
 
+import com.itgarden.common.staticdata.PurchaseOrderStatus;
 import com.itgarden.entity.BaseObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,5 +34,7 @@ public class PurchaseOrderInfo extends BaseObject {
     private CategoryInfo category;
 
     private double grandTotal;
+
+    private PurchaseOrderStatus purchaseOrderStatus;
 
 }

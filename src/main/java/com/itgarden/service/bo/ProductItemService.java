@@ -43,7 +43,21 @@ public class ProductItemService extends BaseService {
         ResponseMessage responseMessage = ResponseMessage.withResponseData(productItems,
                 String.format("Product Items are add in Product %s ", product.getProductCode()), Constants.INFO_TYPE);
         return responseMessage;
+    }
 
+    public ResponseMessage save(Product product,int productItemCount) {
+        ArrayList<ProductItem> productItems = new ArrayList<>();
+        for (int i = 0; i < productItemCount; i++) {
+            ProductItem productItem = new ProductItem();
+            String productCodeItem = codeGenerator.newCode(CodeType.PRODUCT_ITEM_CODE);
+            productItem.setProductItemCode(productCodeItem);
+            productItem.setProduct(product);
+            productItemRepository.save(productItem);
+            productItems.add(productItem);
+        }
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(productItems,
+                String.format("Product Items are add in Product %s ", product.getProductCode()), Constants.INFO_TYPE);
+        return responseMessage;
     }
 
     @Override

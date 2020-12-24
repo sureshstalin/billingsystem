@@ -10,7 +10,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-18T16:15:55+0530",
+    date = "2020-12-19T11:28:24+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
@@ -39,6 +39,7 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrder.setTotalAmount( purchaseOrderInfo.getTotalAmount() );
         purchaseOrder.setCategory( categoryInfoToCategory( purchaseOrderInfo.getCategory() ) );
         purchaseOrder.setGrandTotal( purchaseOrderInfo.getGrandTotal() );
+        purchaseOrder.setPurchaseOrderStatus( purchaseOrderInfo.getPurchaseOrderStatus() );
 
         return purchaseOrder;
     }
@@ -67,6 +68,7 @@ public class PurchaseOrderMapperImpl implements PurchaseOrderMapper {
         purchaseOrderInfo.setTotalAmount( purchaseOrder.getTotalAmount() );
         purchaseOrderInfo.setCategory( categoryToCategoryInfo( purchaseOrder.getCategory() ) );
         purchaseOrderInfo.setGrandTotal( purchaseOrder.getGrandTotal() );
+        purchaseOrderInfo.setPurchaseOrderStatus( purchaseOrder.getPurchaseOrderStatus() );
 
         return purchaseOrderInfo;
     }

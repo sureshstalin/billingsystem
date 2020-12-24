@@ -133,15 +133,31 @@ CREATE TABLE biller (
   id bigint NOT NULL AUTO_INCREMENT,
   is_deleted bit(1) DEFAULT NULL,
   bill_no varchar(255) NOT NULL,
-  product_item_id bigint NOT NULL,
+  product_id bigint NOT NULL,
   customer_id bigint DEFAULT NULL,
+  grand_total double NOT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX bill_no_UNIQUE (bill_no ASC) VISIBLE,
   KEY biller_fk_customer (customer_id),
   CONSTRAINT biller_fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id),
-  CONSTRAINT biller_fk_product_item FOREIGN KEY (product_item_id) REFERENCES product_item (id)
+  KEY biller_fk_product (product_id),
+  CONSTRAINT biller_fk_product FOREIGN KEY (product_id) REFERENCES product(id)
+) ENGINE=InnoDB;
+
+CREATE TABLE payment (
+  id bigint NOT NULL AUTO_INCREMENT,
+  is_deleted bit(1) DEFAULT NULL,
+  biller_id bigint NOT NULL,
+  product_item_id bigint NOT NULL,
+  date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  date_modified datetime DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY payment_fk_biller (biller_id),
+  CONSTRAINT payment_fk_biller FOREIGN KEY (biller_id) REFERENCES biller(id),
+  KEY payment_fk_product_item (product_item_id),
+  CONSTRAINT payment_fk_product_item FOREIGN KEY (product_item_id) REFERENCES product_item(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE organization (
@@ -213,6 +229,7 @@ CREATE TABLE purchase_order (
   grand_total double NOT NULL DEFAULT 0,
   vendor_id bigint DEFAULT NULL,
   category_id bigint NOT NULL,
+  status tinyint(1) NOT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),

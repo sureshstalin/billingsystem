@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /*
  * Created by Suresh Stalin on 22 / Nov / 2020.
  */
@@ -27,8 +29,14 @@ public class ProductManagementController {
     private ProductItemService productItemService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> saveProduct(@RequestBody ProductInfo productInfo) {
-        ResponseMessage responseMessage =  productService.save(productInfo);
+    public ResponseEntity<ResponseMessage<?>> add(@Valid @RequestBody ProductInfo productInfo) {
+        ResponseMessage responseMessage =  productService.add(productInfo);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<ResponseMessage<?>> update(@RequestBody ProductInfo productInfo) {
+        ResponseMessage responseMessage =  productService.update(productInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 

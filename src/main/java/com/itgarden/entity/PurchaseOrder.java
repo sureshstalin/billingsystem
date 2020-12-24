@@ -1,5 +1,6 @@
 package com.itgarden.entity;
 
+import com.itgarden.common.staticdata.PurchaseOrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,4 +54,6 @@ public class PurchaseOrder extends BaseObject{
     @Column(name = "grand_total",nullable = false)
     private double grandTotal;
 
+    @Column(name = "status",nullable = false)
+    private PurchaseOrderStatus purchaseOrderStatus;
 }
