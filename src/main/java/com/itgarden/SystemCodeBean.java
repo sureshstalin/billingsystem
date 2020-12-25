@@ -28,6 +28,7 @@ public class SystemCodeBean {
         systemCodes.put(systemCodeConfiguration.getBcdCodeType(), systemCodeConfiguration.getBcdCodePrefix());
         systemCodes.put(systemCodeConfiguration.getOrgCodeType(), systemCodeConfiguration.getOrgCodePrefix());
         systemCodes.put(systemCodeConfiguration.getPurCodeType(),systemCodeConfiguration.getPurCodePrefix());
+        systemCodes.put(systemCodeConfiguration.getBilCodeType(),systemCodeConfiguration.getBilCodePrefix());
         return systemCodes.get(key);
     }
 }

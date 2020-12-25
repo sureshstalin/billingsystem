@@ -7,3 +7,4 @@ insert into system_codes (code_prefix,code_type) VALUE ('PRD','PRODUCT_CODE');
 insert into system_codes (code_prefix,code_type) VALUE ('BCD','PRODUCT_ITEM_CODE');
 insert into system_codes (code_prefix,code_type) VALUE ('ORG','ORG_CODE');
 insert into system_codes (code_prefix,code_type) VALUE ('PUR','PURCHASE_ORDER_CODE');
+insert into system_codes (code_prefix,code_type) VALUE ('BIL','BILL_NO');

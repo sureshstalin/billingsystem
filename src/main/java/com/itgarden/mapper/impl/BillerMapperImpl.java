@@ -1,14 +1,8 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AddressInfo;
-import com.itgarden.dto.CustomerInfo;
-import com.itgarden.dto.RoleInfo;
-import com.itgarden.dto.UserInfo;
-import com.itgarden.entity.Address;
-import com.itgarden.entity.Customer;
-import com.itgarden.entity.Role;
-import com.itgarden.entity.User;
-import com.itgarden.mapper.CustomerMapper;
+import com.itgarden.dto.*;
+import com.itgarden.entity.*;
+import com.itgarden.mapper.BillerMapper;
 
 import javax.annotation.Generated;
 import java.util.ArrayList;
@@ -16,41 +10,45 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-25T09:21:20+0530",
+    date = "2020-12-26T02:23:18+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
-public class CustomerMapperImpl implements CustomerMapper {
+public class BillerMapperImpl implements BillerMapper {
 
     @Override
-    public Customer customerInfoToCustomer(CustomerInfo customerInfo) {
-        if ( customerInfo == null ) {
+    public Biller billerInfoToBiller(BillerInfo billerInfo) {
+        if ( billerInfo == null ) {
             return null;
         }
 
-        Customer customer = new Customer();
+        Biller biller = new Biller();
 
-        customer.setId( customerInfo.getId() );
-        customer.setFullName( customerInfo.getFullName() );
-        customer.setCustomerCode( customerInfo.getCustomerCode() );
-        customer.setUser( userInfoToUser( customerInfo.getUser() ) );
+        biller.setId( billerInfo.getId() );
+        biller.setBillNo( billerInfo.getBillNo() );
+        biller.setCustomer( customerInfoToCustomer( billerInfo.getCustomer() ) );
+        biller.setGrandTotal( billerInfo.getGrandTotal() );
+        biller.setQuantity( billerInfo.getQuantity() );
+        biller.setTotalTaxAmount( billerInfo.getTotalTaxAmount() );
 
-        return customer;
+        return biller;
     }
 
     @Override
-    public CustomerInfo customerToCustomerInfo(Customer customer) {
-        if ( customer == null ) {
+    public BillerInfo billerToBillerInfo(Biller biller) {
+        if ( biller == null ) {
             return null;
         }
 
-        CustomerInfo customerInfo = new CustomerInfo();
+        BillerInfo billerInfo = new BillerInfo();
 
-        customerInfo.setId( customer.getId() );
-        customerInfo.setFullName( customer.getFullName() );
-        customerInfo.setCustomerCode( customer.getCustomerCode() );
-        customerInfo.setUser( userToUserInfo( customer.getUser() ) );
+        billerInfo.setId( biller.getId() );
+        billerInfo.setBillNo( biller.getBillNo() );
+        billerInfo.setCustomer( customerToCustomerInfo( biller.getCustomer() ) );
+        billerInfo.setGrandTotal( biller.getGrandTotal() );
+        billerInfo.setQuantity( biller.getQuantity() );
+        billerInfo.setTotalTaxAmount( biller.getTotalTaxAmount() );
 
-        return customerInfo;
+        return billerInfo;
     }
 
     protected Address addressInfoToAddress(AddressInfo addressInfo) {
@@ -133,6 +131,21 @@ public class CustomerMapperImpl implements CustomerMapper {
         return user;
     }
 
+    protected Customer customerInfoToCustomer(CustomerInfo customerInfo) {
+        if ( customerInfo == null ) {
+            return null;
+        }
+
+        Customer customer = new Customer();
+
+        customer.setId( customerInfo.getId() );
+        customer.setFullName( customerInfo.getFullName() );
+        customer.setCustomerCode( customerInfo.getCustomerCode() );
+        customer.setUser( userInfoToUser( customerInfo.getUser() ) );
+
+        return customer;
+    }
+
     protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
@@ -211,5 +224,20 @@ public class CustomerMapperImpl implements CustomerMapper {
         userInfo.setUserType( user.getUserType() );
 
         return userInfo;
+    }
+
+    protected CustomerInfo customerToCustomerInfo(Customer customer) {
+        if ( customer == null ) {
+            return null;
+        }
+
+        CustomerInfo customerInfo = new CustomerInfo();
+
+        customerInfo.setId( customer.getId() );
+        customerInfo.setFullName( customer.getFullName() );
+        customerInfo.setCustomerCode( customer.getCustomerCode() );
+        customerInfo.setUser( userToUserInfo( customer.getUser() ) );
+
+        return customerInfo;
     }
 }

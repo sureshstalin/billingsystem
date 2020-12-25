@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-17T16:06:35+0530",
+    date = "2020-12-26T01:29:45+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class ProductItemMapperImpl implements ProductItemMapper {
@@ -23,6 +23,7 @@ public class ProductItemMapperImpl implements ProductItemMapper {
 
         productItem.setId( productItemInfo.getId() );
         productItem.setProductItemCode( productItemInfo.getProductItemCode() );
+        productItem.setStockStatus( productItemInfo.getStockStatus() );
 
         return productItem;
     }
@@ -37,6 +38,7 @@ public class ProductItemMapperImpl implements ProductItemMapper {
 
         productItemInfo.setId( productItem.getId() );
         productItemInfo.setProductItemCode( productItem.getProductItemCode() );
+        productItemInfo.setStockStatus( productItem.getStockStatus() );
 
         return productItemInfo;
     }

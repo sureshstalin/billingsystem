@@ -31,7 +31,7 @@ public class Product extends BaseObject{
     @Column(name = "stock_count", nullable = false )
     private int stockCount;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "tax_id")
     private Tax tax;
 
@@ -53,7 +53,7 @@ public class Product extends BaseObject{
             inverseJoinColumns=@JoinColumn(name="vendor_id", referencedColumnName="id"))
     private List<Vendor> vendors;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 }

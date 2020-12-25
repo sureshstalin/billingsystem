@@ -1,14 +1,8 @@
 package com.itgarden.mapper.impl;
 
-import com.itgarden.dto.AddressInfo;
-import com.itgarden.dto.CustomerInfo;
-import com.itgarden.dto.RoleInfo;
-import com.itgarden.dto.UserInfo;
-import com.itgarden.entity.Address;
-import com.itgarden.entity.Customer;
-import com.itgarden.entity.Role;
-import com.itgarden.entity.User;
-import com.itgarden.mapper.CustomerMapper;
+import com.itgarden.dto.*;
+import com.itgarden.entity.*;
+import com.itgarden.mapper.PaymentMapper;
 
 import javax.annotation.Generated;
 import java.util.ArrayList;
@@ -16,41 +10,57 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-25T09:21:20+0530",
+    date = "2020-12-26T02:23:18+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
-public class CustomerMapperImpl implements CustomerMapper {
+public class PaymentMapperImpl implements PaymentMapper {
 
     @Override
-    public Customer customerInfoToCustomer(CustomerInfo customerInfo) {
-        if ( customerInfo == null ) {
+    public Payment paymentInfoToPayment(PaymentInfo paymentInfo) {
+        if ( paymentInfo == null ) {
             return null;
         }
 
-        Customer customer = new Customer();
+        Payment payment = new Payment();
 
-        customer.setId( customerInfo.getId() );
-        customer.setFullName( customerInfo.getFullName() );
-        customer.setCustomerCode( customerInfo.getCustomerCode() );
-        customer.setUser( userInfoToUser( customerInfo.getUser() ) );
+        payment.setId( paymentInfo.getId() );
+        payment.setDeleted( paymentInfo.isDeleted() );
+        payment.setDateCreated( paymentInfo.getDateCreated() );
+        payment.setDateModified( paymentInfo.getDateModified() );
+        payment.setFlowType( paymentInfo.getFlowType() );
+        payment.setBiller( billerInfoToBiller( paymentInfo.getBiller() ) );
+        payment.setProductItem( productItemInfoToProductItem( paymentInfo.getProductItem() ) );
+        payment.setTax( paymentInfo.getTax() );
+        payment.setPrice( paymentInfo.getPrice() );
+        payment.setTotalPrice( paymentInfo.getTotalPrice() );
+        payment.setTaxAmount( paymentInfo.getTaxAmount() );
+        payment.setProductId( paymentInfo.getProductId() );
 
-        return customer;
+        return payment;
     }
 
     @Override
-    public CustomerInfo customerToCustomerInfo(Customer customer) {
-        if ( customer == null ) {
+    public PaymentInfo paymentToPaymentInfo(Payment payment) {
+        if ( payment == null ) {
             return null;
         }
 
-        CustomerInfo customerInfo = new CustomerInfo();
+        PaymentInfo paymentInfo = new PaymentInfo();
 
-        customerInfo.setId( customer.getId() );
-        customerInfo.setFullName( customer.getFullName() );
-        customerInfo.setCustomerCode( customer.getCustomerCode() );
-        customerInfo.setUser( userToUserInfo( customer.getUser() ) );
+        paymentInfo.setId( payment.getId() );
+        paymentInfo.setDeleted( payment.isDeleted() );
+        paymentInfo.setDateCreated( payment.getDateCreated() );
+        paymentInfo.setDateModified( payment.getDateModified() );
+        paymentInfo.setFlowType( payment.getFlowType() );
+        paymentInfo.setBiller( billerToBillerInfo( payment.getBiller() ) );
+        paymentInfo.setProductItem( productItemToProductItemInfo( payment.getProductItem() ) );
+        paymentInfo.setTax( payment.getTax() );
+        paymentInfo.setPrice( payment.getPrice() );
+        paymentInfo.setTotalPrice( payment.getTotalPrice() );
+        paymentInfo.setTaxAmount( payment.getTaxAmount() );
+        paymentInfo.setProductId( payment.getProductId() );
 
-        return customerInfo;
+        return paymentInfo;
     }
 
     protected Address addressInfoToAddress(AddressInfo addressInfo) {
@@ -133,6 +143,52 @@ public class CustomerMapperImpl implements CustomerMapper {
         return user;
     }
 
+    protected Customer customerInfoToCustomer(CustomerInfo customerInfo) {
+        if ( customerInfo == null ) {
+            return null;
+        }
+
+        Customer customer = new Customer();
+
+        customer.setId( customerInfo.getId() );
+        customer.setFullName( customerInfo.getFullName() );
+        customer.setCustomerCode( customerInfo.getCustomerCode() );
+        customer.setUser( userInfoToUser( customerInfo.getUser() ) );
+
+        return customer;
+    }
+
+    protected Biller billerInfoToBiller(BillerInfo billerInfo) {
+        if ( billerInfo == null ) {
+            return null;
+        }
+
+        Biller biller = new Biller();
+
+        biller.setId( billerInfo.getId() );
+        biller.setBillNo( billerInfo.getBillNo() );
+        biller.setCustomer( customerInfoToCustomer( billerInfo.getCustomer() ) );
+        biller.setGrandTotal( billerInfo.getGrandTotal() );
+        biller.setQuantity( billerInfo.getQuantity() );
+        biller.setTotalTaxAmount( billerInfo.getTotalTaxAmount() );
+
+        return biller;
+    }
+
+    protected ProductItem productItemInfoToProductItem(ProductItemInfo productItemInfo) {
+        if ( productItemInfo == null ) {
+            return null;
+        }
+
+        ProductItem productItem = new ProductItem();
+
+        productItem.setId( productItemInfo.getId() );
+        productItem.setProductItemCode( productItemInfo.getProductItemCode() );
+        productItem.setStockStatus( productItemInfo.getStockStatus() );
+
+        return productItem;
+    }
+
     protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
@@ -211,5 +267,51 @@ public class CustomerMapperImpl implements CustomerMapper {
         userInfo.setUserType( user.getUserType() );
 
         return userInfo;
+    }
+
+    protected CustomerInfo customerToCustomerInfo(Customer customer) {
+        if ( customer == null ) {
+            return null;
+        }
+
+        CustomerInfo customerInfo = new CustomerInfo();
+
+        customerInfo.setId( customer.getId() );
+        customerInfo.setFullName( customer.getFullName() );
+        customerInfo.setCustomerCode( customer.getCustomerCode() );
+        customerInfo.setUser( userToUserInfo( customer.getUser() ) );
+
+        return customerInfo;
+    }
+
+    protected BillerInfo billerToBillerInfo(Biller biller) {
+        if ( biller == null ) {
+            return null;
+        }
+
+        BillerInfo billerInfo = new BillerInfo();
+
+        billerInfo.setId( biller.getId() );
+        billerInfo.setBillNo( biller.getBillNo() );
+        billerInfo.setCustomer( customerToCustomerInfo( biller.getCustomer() ) );
+        billerInfo.setGrandTotal( biller.getGrandTotal() );
+        billerInfo.setQuantity( biller.getQuantity() );
+        billerInfo.setTotalTaxAmount( biller.getTotalTaxAmount() );
+
+        return billerInfo;
+    }
+
+    protected ProductItemInfo productItemToProductItemInfo(ProductItem productItem) {
+        if ( productItem == null ) {
+            return null;
+        }
+
+        ProductItemInfo productItemInfo = new ProductItemInfo();
+
+        productItemInfo.setId( productItem.getId() );
+        productItemInfo.setProductItemCode( productItem.getProductItemCode() );
+        productItemInfo.setStockStatus( productItem.getStockStatus() );
+
+        return productItemInfo;
     }
 }

@@ -41,14 +41,14 @@ public class UserValidator<T> {
             if (StringUtils.isEmpty(userDTO.getMobileNo())) {
                 validationMessages.add("Mobile No can't be empty");
             }
-            if (userDTO != null && userDTO.getId() == null) {
-                if (StringUtils.isEmpty(userDTO.getPassword())) {
-                    validationMessages.add("Password can't be empty");
-                }
-                if (StringUtils.isEmpty(userDTO.getRePassword())) {
-                    validationMessages.add("Re enter Password can't be empty");
-                }
-            }
+//            if (userDTO != null && userDTO.getId() == null) {
+//                if (StringUtils.isEmpty(userDTO.getPassword())) {
+//                    validationMessages.add("Password can't be empty");
+//                }
+//                if (StringUtils.isEmpty(userDTO.getRePassword())) {
+//                    validationMessages.add("Re enter Password can't be empty");
+//                }
+//            }
         }
         if (!validationMessages.isEmpty()) {
             throw new InvalidInputException(validationMessages);
@@ -64,7 +64,7 @@ public class UserValidator<T> {
         if (StringUtils.isEmpty(userDTO.getFirstName())) {
             validationMessages.add("First name can't be empty");
         }
-        if(StringUtils.isEmpty(userDTO.getEmailId())) {
+        if (StringUtils.isEmpty(userDTO.getEmailId())) {
             validationMessages.add("Email can't be empty");
         }
         if (StringUtils.isEmpty(userDTO.getLastName())) {

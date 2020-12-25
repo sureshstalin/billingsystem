@@ -25,3 +25,6 @@ system:
 
   pur-codeprefix: PUR
   pur-codetype: PURCHASE_ORDER_CODE
+
+  bil-codeprefix: BIL
+  bil-codetype: BILL_NO

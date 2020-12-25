@@ -3,6 +3,7 @@ package com.itgarden.service.bo;
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.common.staticdata.Constants;
+import com.itgarden.common.staticdata.StockStatus;
 import com.itgarden.dto.ProductItemInfo;
 import com.itgarden.entity.Product;
 import com.itgarden.entity.ProductItem;
@@ -37,6 +38,7 @@ public class ProductItemService extends BaseService {
             String productCodeItem = codeGenerator.newCode(CodeType.PRODUCT_ITEM_CODE);
             productItem.setProductItemCode(productCodeItem);
             productItem.setProduct(product);
+            productItem.setStockStatus(StockStatus.IN_STOCK);
             productItemRepository.save(productItem);
             productItems.add(productItem);
         }

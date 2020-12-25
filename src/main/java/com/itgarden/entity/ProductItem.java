@@ -1,6 +1,7 @@
 package com.itgarden.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.itgarden.common.staticdata.StockStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +21,10 @@ public class ProductItem extends BaseObject{
     private String productItemCode;
 
     @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "status",nullable = false)
+    private StockStatus stockStatus;
 }

@@ -121,6 +121,7 @@ CREATE TABLE product_item (
   is_deleted bit(1) DEFAULT NULL,
   product_item_code varchar(100) NOT NULL,
   product_id bigint NOT NULL,
+  status int NOT NULL DEFAULT 0,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
@@ -133,17 +134,15 @@ CREATE TABLE biller (
   id bigint NOT NULL AUTO_INCREMENT,
   is_deleted bit(1) DEFAULT NULL,
   bill_no varchar(255) NOT NULL,
-  product_id bigint NOT NULL,
   customer_id bigint DEFAULT NULL,
   grand_total double NOT NULL,
+  total_tax_amount double NOT NULL,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX bill_no_UNIQUE (bill_no ASC) VISIBLE,
   KEY biller_fk_customer (customer_id),
-  CONSTRAINT biller_fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id),
-  KEY biller_fk_product (product_id),
-  CONSTRAINT biller_fk_product FOREIGN KEY (product_id) REFERENCES product(id)
+  CONSTRAINT biller_fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE payment (
@@ -151,13 +150,19 @@ CREATE TABLE payment (
   is_deleted bit(1) DEFAULT NULL,
   biller_id bigint NOT NULL,
   product_item_id bigint NOT NULL,
+  price DOUBLE NOT NULL,
+  tax_id BIGINT NOT NULL,
+  total_price DOUBLE NOT NULL,
+  tax_amount DOUBLE NOT NULL DEFAULT 0,
   date_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date_modified datetime DEFAULT NULL,
   PRIMARY KEY (id),
   KEY payment_fk_biller (biller_id),
   CONSTRAINT payment_fk_biller FOREIGN KEY (biller_id) REFERENCES biller(id),
   KEY payment_fk_product_item (product_item_id),
-  CONSTRAINT payment_fk_product_item FOREIGN KEY (product_item_id) REFERENCES product_item(id)
+  CONSTRAINT payment_fk_product_item FOREIGN KEY (product_item_id) REFERENCES product_item(id),
+  KEY payment_fk_tax (tax_id),
+  CONSTRAINT payment_fk_tax FOREIGN KEY (tax_id) REFERENCES tax(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE organization (

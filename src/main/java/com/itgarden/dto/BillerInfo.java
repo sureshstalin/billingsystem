@@ -19,9 +19,12 @@ public class BillerInfo extends BaseInfo {
 
     private String billNo;
 
-    private Customer customer;
-
-    private Product product;
+    private CustomerInfo customer;
 
     private double grandTotal;
+
+    private int quantity;
+
+    private double totalTaxAmount;
+
 }

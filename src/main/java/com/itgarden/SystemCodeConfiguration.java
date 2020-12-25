@@ -45,4 +45,7 @@ public class SystemCodeConfiguration {
 
     public String purCodePrefix;
     public String purCodeType;
+
+    public String bilCodePrefix;
+    public String bilCodeType;
 }

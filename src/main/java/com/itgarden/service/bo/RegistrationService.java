@@ -77,10 +77,11 @@ public class RegistrationService {
                 if (customer.getId() == null) {
                     customer.setCustomerCode(codeGenerator.newCode(CodeType.CUSTOMER_CODE));
                 }
-                customer.getUser().getAddressList().get(0).setUser(customer.getUser());
+                if(customer.getUser().getAddressList() != null && customer.getUser().getAddressList().size() > 0) {
+                    customer.getUser().getAddressList().get(0).setUser(customer.getUser());
+                }
                 customer.getUser().setUserType(UserType.CUSTOMER.name());
-//                customer.getUser().setPassword(passwordEncoder.encode(customer.getUser().getPassword()));
-                customer.getUser().setPassword(customer.getUser().getPassword());
+                customer.getUser().setPassword(customer.getUser().getMobileNo());
                 BaseObject newObject = billingBaseService.save(customer);
                 CustomerInfo customerDto = CustomerMapper.INSTANCE.customerToCustomerInfo((Customer) newObject);
                 responseMessage = ResponseMessage.withResponseData(customerDto, "Customer Created Successfully", "message");

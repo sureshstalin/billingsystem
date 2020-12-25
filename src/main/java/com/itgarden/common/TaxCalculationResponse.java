@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class TaxCalculationResponse {
 
-    private double totalAmount;
-    private double taxAmount;
-    private double grandTotal;
+    private double totalAmount; // unit price * quantity (without Tax)
+    private double taxAmount; // Only Tax Amount
+    private double grandTotal; // Total amount with Tax
 }

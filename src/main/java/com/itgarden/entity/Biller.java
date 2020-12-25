@@ -22,10 +22,14 @@ public class Biller extends BaseObject {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     @Column(name = "grand_total", nullable = false)
     private double grandTotal;
+
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+
+    @Column(name = "total_tax_amount", nullable = false)
+    private double totalTaxAmount;
+
+
 }
