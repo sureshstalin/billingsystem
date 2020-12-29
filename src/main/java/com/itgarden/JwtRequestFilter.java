@@ -2,10 +2,9 @@ package com.itgarden;
 
 import com.itgarden.common.staticdata.TokenType;
 import com.itgarden.exception.InvalidInputException;
-import com.itgarden.exception.InvalidTokenException;
 import com.itgarden.repository.JwtTokenRepository;
 import com.itgarden.security.JwtUtils;
-import com.itgarden.service.bo.AuthenticationService;
+import com.itgarden.service.AuthenticationService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;

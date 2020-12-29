@@ -12,9 +12,9 @@ import com.itgarden.exception.InvalidTokenException;
 import com.itgarden.exception.InvalidUserNamePasswordException;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.security.JwtUtils;
-import com.itgarden.service.bo.AuthenticationService;
-import com.itgarden.service.bo.RegistrationService;
-import com.itgarden.service.bo.RoleService;
+import com.itgarden.service.AuthenticationService;
+import com.itgarden.service.EmployeeService;
+import com.itgarden.service.RoleService;
 import com.itgarden.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +49,7 @@ public class UserPublicController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private RegistrationService registrationService;
+    private EmployeeService employeeService;
 
     @Autowired
     private UserValidator userValidator;
@@ -72,7 +72,7 @@ public class UserPublicController {
         AuthenticationResponseInfo authenticationResponseDTO = authenticationService.generateAuthResponse(userDetails, TokenType.ACCESS_TOKEN);
         JwtToken jwtTokenResponse = authenticationService.saveJwt(authenticationResponseDTO);
         if (jwtTokenResponse != null) {
-            ResponseMessage responseMessage = ResponseMessage.withResponseData(authenticationResponseDTO, "Authentication Success", "Message");
+            ResponseMessage responseMessage = ResponseMessage.withResponseData(authenticationResponseDTO, "Authentication Success", "Info");
             return new ResponseEntity<ResponseMessage<AuthenticationResponseInfo>>(responseMessage, HttpStatus.OK);
         } else {
             ResponseMessage responseMessage = ResponseMessage.withResponseData(new AuthenticationResponseInfo(), "Authentication Failure", "Error");
@@ -102,18 +102,16 @@ public class UserPublicController {
     }
 
     @PostMapping("/superadmin/{id}") // http://localhost:9091/api/public/users/employees
-    public ResponseEntity<ResponseMessage<?>> saveEmployee(@Valid @RequestBody EmployeeInfo requestBody, @PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> saveEmployee(@Valid @RequestBody EmployeeInfo requestBody, @PathVariable Long id) throws Exception {
         requestBody.setType(UserType.EMPLOYEE.name());
         ResponseMessage responseMessage = roleService.findResourceById(id);
         UserRoleInfo userRoleInfo = (UserRoleInfo) responseMessage.getResponseClassType();
-        if (userRoleInfo.getRoleId() == Long.parseLong(id)) {
+        if (userRoleInfo.getRoleId() ==id) {
             throw new DuplicateKeyFoundException("The Super Admin already created: It can create only once.");
         } else {
             userValidator.validate(requestBody);
-            ResponseMessage registrationResponse = registrationService.createSuperAdmin(requestBody);
+            ResponseMessage registrationResponse = employeeService.createSuperAdmin(requestBody);
             return new ResponseEntity<ResponseMessage<?>>(registrationResponse, HttpStatus.CREATED);
         }
-
     }
-
 }

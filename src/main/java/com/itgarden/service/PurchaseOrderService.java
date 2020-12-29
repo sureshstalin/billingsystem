@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.TaxCalculation;
@@ -6,6 +6,7 @@ import com.itgarden.common.TaxCalculationInput;
 import com.itgarden.common.TaxCalculationResponse;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.common.staticdata.PurchaseOrderStatus;
+import com.itgarden.dto.BaseInfo;
 import com.itgarden.dto.PurchaseOrderInfo;
 import com.itgarden.entity.Category;
 import com.itgarden.entity.PurchaseOrder;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PurchaseOrderService extends BaseService {
+public class PurchaseOrderService extends BaseService<PurchaseOrderInfo> {
 
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
@@ -76,8 +77,8 @@ public class PurchaseOrderService extends BaseService {
     }
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(Long.parseLong(id)).orElse(null);
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(id).orElse(null);
         PurchaseOrderInfo purchaseOrderInfo = PurchaseOrderMapper.INSTANCE.purchaseOrderToPurchaseOrderInfo(purchaseOrder);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(purchaseOrderInfo, "", "");
         return responseMessage;
@@ -95,6 +96,10 @@ public class PurchaseOrderService extends BaseService {
         return responseMessage;
     }
 
+    @Override
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        return null;
+    }
 //    public void findPurchaseOrderByVendorAndProductNameAndStatus(Long vendorId,String productName,
 //                                                                 PurchaseOrderStatus purchaseOrderStatus) {
 //        PurchaseOrder purchaseOrder

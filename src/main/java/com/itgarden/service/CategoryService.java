@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.staticdata.CodeType;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Service
-public class CategoryService extends BaseService {
+public class CategoryService extends BaseService<CategoryInfo> {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -29,7 +29,7 @@ public class CategoryService extends BaseService {
     @Autowired
     private CodeGenerator codeGenerator;
 
-    public ResponseMessage save(CategoryInfo categoryInfo) {
+    public ResponseMessage save(CategoryInfo categoryInfo) throws Exception {
         Category category = CategoryMapper.INSTANCE.categoryInfoToCategory(categoryInfo);
         if(StringUtils.isEmpty(category.getCategoryCode())) {
             String categoryCode = codeGenerator.newCode(CodeType.CATEGORY_CODE);
@@ -43,11 +43,16 @@ public class CategoryService extends BaseService {
     }
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        Category category = categoryRepository.findById(Long.parseLong(id)).orElse(null);
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        Category category = categoryRepository.findById(id).orElse(null);
         CategoryInfo categoryInfoResponse = CategoryMapper.INSTANCE.categoryToCategoryInfo(category);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(categoryInfoResponse, Constants.SUCCESS_STATUS, Constants.INFO_TYPE);
         return responseMessage;
+    }
+
+    @Override
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        return null;
     }
 
     @Override

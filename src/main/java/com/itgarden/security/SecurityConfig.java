@@ -1,7 +1,11 @@
 package com.itgarden.security;
 
+/*
+ * Created by Suresh Stalin on 06 / Nov / 2020.
+ */
+
 import com.itgarden.JwtRequestFilter;
-import com.itgarden.service.bo.AuthenticationService;
+import com.itgarden.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +18,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/*
- * Created by Suresh Stalin on 06 / Nov / 2020.
- */
-
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -27,14 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     JwtRequestFilter jwtFilter;
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService);
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticationService);//.passwordEncoder(passwordEncoder());
+        auth.userDetailsService(authenticationService);
     }
 
     @Override
@@ -42,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/public/authenticate",
-                        "/api/public/refreshtoken","/api/public/orgs","/api/public/test/ping").permitAll()
+                        "/api/public/refreshtoken","/api/public/orgs","/api/public/test/ping",
+                        "/v2/api-docs/**","/swagger-resources/**","/swagger-ui/**").permitAll()
                 .antMatchers("/api/private/users/**")
                     .hasAnyAuthority("EMPLOYEE_ROLE","SUPER_ADMIN")
                 .anyRequest().authenticated()
@@ -62,9 +58,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }
 

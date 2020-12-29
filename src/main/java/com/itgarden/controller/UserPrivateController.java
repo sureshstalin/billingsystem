@@ -3,10 +3,10 @@ package com.itgarden.controller;
 import com.itgarden.common.staticdata.UserType;
 import com.itgarden.dto.*;
 import com.itgarden.messages.ResponseMessage;
-import com.itgarden.service.bo.CustomerService;
-import com.itgarden.service.bo.EmployeeService;
-import com.itgarden.service.bo.RegistrationService;
-import com.itgarden.service.bo.VendorService;
+import com.itgarden.service.CustomerService;
+import com.itgarden.service.EmployeeService;
+import com.itgarden.service.RegistrationService;
+import com.itgarden.service.VendorService;
 import com.itgarden.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,19 +70,19 @@ public class UserPrivateController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity<ResponseMessage<?>> viewCustomer(@PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> viewCustomer(@PathVariable Long id) throws Exception {
         ResponseMessage responseMessage = customerService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping("/employees/{id}")
-    public ResponseEntity<ResponseMessage<?>> viewEmployee(@PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> viewEmployee(@PathVariable Long id) throws Exception {
         ResponseMessage responseMessage = employeeService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping("/vendors/{id}")
-    public ResponseEntity<ResponseMessage<?>> viewVendor(@PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> viewVendor(@PathVariable Long id) throws Exception {
         ResponseMessage responseMessage = vendorService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }

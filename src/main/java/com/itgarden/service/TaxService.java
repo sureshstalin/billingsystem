@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.staticdata.Constants;
 import com.itgarden.dto.TaxInfo;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Service
-public class TaxService extends BaseService {
+public class TaxService extends BaseService<TaxInfo> {
 
 
     @Autowired
@@ -28,7 +28,7 @@ public class TaxService extends BaseService {
     /*
      * This method for adding new Tax Records and updating existing Tax Records
      */
-    public ResponseMessage save(TaxInfo taxInfo) {
+    public ResponseMessage save(TaxInfo taxInfo) throws Exception {
         Tax tax = TaxMapper.INSTANCE.taxInfoToTax(taxInfo);
         Tax newTax = taxRepository.save(tax);
         TaxInfo newTaxInfoResponse = TaxMapper.INSTANCE.taxToTaxInfo(newTax);
@@ -37,11 +37,16 @@ public class TaxService extends BaseService {
     }
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        Tax tax = taxRepository.findById(Long.parseLong(id)).orElse(null);
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        Tax tax = taxRepository.findById(id).orElse(null);
         TaxInfo newTaxInfoResponse = TaxMapper.INSTANCE.taxToTaxInfo(tax);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(newTaxInfoResponse,"Tax saved successfully",Constants.INFO_TYPE);
         return responseMessage;
+    }
+
+    @Override
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        return null;
     }
 
     @Override

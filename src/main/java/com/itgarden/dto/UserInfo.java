@@ -34,7 +34,7 @@ public class UserInfo extends BaseInfo {
 
     private List<RoleInfo> roles;
 
-    private EmployeeInfo employee;
+//    private EmployeeInfo employee;
 
     private String userType;
 

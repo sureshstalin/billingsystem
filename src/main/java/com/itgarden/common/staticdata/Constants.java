@@ -10,5 +10,5 @@ public interface Constants {
     String ERROR_TYPE = "Error";
     String SUCCESS_STATUS = "Success";
     String FAILURE_STATUS = "Failure";
-    String SUPER_ADMIN_ROLE_ID = "2";
+    long SUPER_ADMIN_ROLE_ID = 2;
 }

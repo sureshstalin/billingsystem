@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.Utils;
 import com.itgarden.common.staticdata.TokenType;

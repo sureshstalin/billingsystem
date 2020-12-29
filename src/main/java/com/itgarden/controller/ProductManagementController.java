@@ -1,12 +1,9 @@
 package com.itgarden.controller;
 
 import com.itgarden.dto.ProductInfo;
-import com.itgarden.dto.ProductItemInfo;
-import com.itgarden.entity.Product;
-import com.itgarden.entity.ProductItem;
 import com.itgarden.messages.ResponseMessage;
-import com.itgarden.service.bo.ProductItemService;
-import com.itgarden.service.bo.ProductService;
+import com.itgarden.service.ProductItemService;
+import com.itgarden.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +26,8 @@ public class ProductManagementController {
     private ProductItemService productItemService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> add(@Valid @RequestBody ProductInfo productInfo) {
-        ResponseMessage responseMessage =  productService.add(productInfo);
+    public ResponseEntity<ResponseMessage<?>> add(@Valid @RequestBody ProductInfo productInfo) throws Exception {
+        ResponseMessage responseMessage =  productService.save(productInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 
@@ -41,7 +38,7 @@ public class ProductManagementController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseMessage<?>> get(@PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> get(@PathVariable Long id) throws Exception {
         ResponseMessage responseMessage = productService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
@@ -58,7 +55,7 @@ public class ProductManagementController {
 //        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
 //    }
     @PostMapping("/items/{id}")
-    public ResponseEntity<ResponseMessage<?>> getProductItem(@PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> getProductItem(@PathVariable Long id) throws Exception {
         ResponseMessage responseMessage =  productItemService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }

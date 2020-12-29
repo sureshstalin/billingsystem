@@ -1,15 +1,16 @@
 {
-  "productName":"T-shirt",
-  "productDescription":"This is T-Shirt for Men",
-  "quantity":10,
-  "unitPrice":100,
+  "productName":"Toys-for-kids",
+  "productDescription":"Toys for kids",
+  "quantity":3,
+  "unitPrice":300,
+  "purchaseOrderStatus":"READY",
   "vendor" :{
     "id":1
   },
   "tax":{
-    "id":1
+    "id":2
   },
   "category":{
-    "id":1
+    "id":2
   }
 }

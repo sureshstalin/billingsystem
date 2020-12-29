@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.staticdata.CodeType;
@@ -7,13 +7,15 @@ import com.itgarden.common.staticdata.PurchaseOrderStatus;
 import com.itgarden.common.staticdata.STATUS;
 import com.itgarden.dto.OfferInfo;
 import com.itgarden.dto.ProductInfo;
+import com.itgarden.dto.ProductItemInfo;
+import com.itgarden.dto.ProductResponse;
 import com.itgarden.entity.*;
 import com.itgarden.exception.InvalidInputException;
 import com.itgarden.exception.ResourceNotFoundException;
+import com.itgarden.mapper.ProductItemMapper;
 import com.itgarden.mapper.ProductMapper;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.repository.*;
-import com.itgarden.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -27,7 +29,7 @@ import java.util.stream.Collectors;
  */
 
 @Service
-public class ProductService extends BaseService {
+public class ProductService extends BaseService<ProductInfo> {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -54,10 +56,9 @@ public class ProductService extends BaseService {
     private PurchaseOrderRepository purchaseOrderRepository;
 
 
-    public ResponseMessage add(ProductInfo productInfo) {
+    public ResponseMessage save(ProductInfo productInfo) throws Exception {
         ResponseMessage responseMessage = null;
         List<Offer> offers = new ArrayList<>();
-        List<Vendor> vendors = new ArrayList<>();
         Product product = ProductMapper.INSTANCE.productInfoToProduct(productInfo);
         List<Offer> offerRequest = product.getOffers();
         List<Vendor> vendorRequest = product.getVendors();
@@ -75,8 +76,14 @@ public class ProductService extends BaseService {
             }
             String productCode = codeGenerator.newCode(CodeType.PRODUCT_CODE);
             product.setProductCode(productCode);
-            Category category = categoryRepository.findById(product.getCategory().getId()).orElse(null);
-            Tax tax = taxRepository.findById(product.getTax().getId()).orElse(null);
+            product.setStockCount(purchaseOrder.getQuantity());
+            product.setCategory(purchaseOrder.getCategory());
+            product.setDescription(purchaseOrder.getProductDescription());
+            product.setName(purchaseOrder.getProductName());
+            product.setTax(purchaseOrder.getTax());
+            List<Vendor> vendors = new ArrayList<>();
+            vendors.add(purchaseOrder.getVendor());
+            product.setVendors(vendors);
             if (offerRequest != null) {
                 for (Offer offerId : offerRequest) {
                     Offer offer = offerRepository.findById(offerId.getId()).orElse(null);
@@ -86,33 +93,29 @@ public class ProductService extends BaseService {
                     offers.add(offer);
                 }
             }
-            for (Vendor vendorReq : vendorRequest) {
-                Vendor vendor = vendorRepository.findById(vendorReq.getId()).orElse(null);
-                vendors.add(vendor);
-//                productStockCount = vendor.get
-            }
-            product.setStockCount(purchaseOrder.getQuantity());
-            if (vendors.isEmpty()) {
-                throw new ResourceNotFoundException("Vendor not found");
-            }
-            if (category == null) {
-                throw new ResourceNotFoundException("Category not found");
-            }
-            if (tax == null) {
-                throw new ResourceNotFoundException("Tax not found");
-            }
             product.setOffers(offers);
             product.setVendors(vendors);
-            product.setCategory(category);
-            product.setTax(tax);
         }
         Product newProduct = (Product) productRepository.save(product);
+        productInfo =  ProductMapper.INSTANCE.productToProductInfo(newProduct);
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setProductInfo(productInfo);
         if (newProduct.getStockCount() > 0) {
             responseMessage = productItemService.save(newProduct);
             purchaseOrder.setPurchaseOrderStatus(PurchaseOrderStatus.COMPLETED);
             purchaseOrderRepository.save(purchaseOrder);
+            List<ProductItem> productItems = (List<ProductItem>)responseMessage.getResponseClassType();
+            System.out.println("ProductItems " + productItems);
+            List<ProductItemInfo> productItemInfos = new ArrayList<>();
+            for (ProductItem productItem: productItems) {
+                ProductItemInfo productItemInfo = ProductItemMapper.INSTANCE.productItemToProductItemInfo(productItem);
+                productItemInfos.add(productItemInfo);
+            }
+             productResponse.setProductItemList(productItemInfos);
+            responseMessage = ResponseMessage.withResponseData(productResponse, "Product saved Successfully", Constants.INFO_TYPE);
         } else {
-            responseMessage = ResponseMessage.withResponseData(newProduct, "Product saved Successfully", Constants.INFO_TYPE);
+            productResponse.setProductInfo(productInfo);
+            responseMessage = ResponseMessage.withResponseData(productResponse, "Product saved Successfully", Constants.INFO_TYPE);
         }
         return responseMessage;
     }
@@ -145,8 +148,8 @@ public class ProductService extends BaseService {
     }
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        Product product = productRepository.findById(Long.parseLong(id)).orElse(null);
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        Product product = productRepository.findById(id).orElse(null);
         ProductInfo productInfo = ProductMapper.INSTANCE.productToProductInfo(product);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(productInfo, Constants.SUCCESS_STATUS, Constants.INFO_TYPE);
         return responseMessage;
@@ -162,5 +165,10 @@ public class ProductService extends BaseService {
         }
         ResponseMessage responseMessage = ResponseMessage.withResponseData(productInfos, Constants.SUCCESS_STATUS, Constants.INFO_TYPE);
         return responseMessage;
+    }
+
+    @Override
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.staticdata.Constants;
 import com.itgarden.dto.UserRoleInfo;
@@ -25,8 +25,8 @@ public class RoleService extends BaseService {
     EntityManager em;
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        Object[] objects = roleRepository.getSuperAdmin(Long.parseLong(id));
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        Object[] objects = roleRepository.getSuperAdmin(id);
         UserRoleInfo userRoleInfo = null;
         if (objects.length > 0) {
             userRoleInfo = new UserRoleInfo();
@@ -42,7 +42,17 @@ public class RoleService extends BaseService {
         return null;
     }
 
+    @Override
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        return null;
+    }
+
     public Role findByName(String roleName) {
        return roleRepository.findByName(roleName).orElse(null);
+    }
+
+    @Override
+    public ResponseMessage save(Object baseInfo) throws Exception {
+        return null;
     }
 }

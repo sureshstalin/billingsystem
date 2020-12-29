@@ -1,12 +1,8 @@
 package com.itgarden.controller;
 
 import com.itgarden.dto.*;
-import com.itgarden.entity.Customer;
-import com.itgarden.entity.Product;
-import com.itgarden.entity.ProductItem;
-import com.itgarden.entity.User;
 import com.itgarden.messages.ResponseMessage;
-import com.itgarden.service.bo.BillerService;
+import com.itgarden.service.BillerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +21,7 @@ public class BillerController {
         public ResponseEntity<ResponseMessage<?>> doPayment(@RequestBody PaymentRequest paymentRequest) {
             String mobileNo = paymentRequest.getCustomerMobileNo();
             List<String> productItemCode = paymentRequest.getProductItemCode();
-            BillerInfo billerInfo = billerService.save(paymentRequest);
-            ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfo,"","");
+            ResponseMessage responseMessage = billerService.save(paymentRequest);
             return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
         }
 
@@ -35,6 +30,12 @@ public class BillerController {
         List<String> productItemCode = paymentRequest.getProductItemCode();
         List<PaymentInfo> paymentInfos = billerService.cancel(paymentRequest);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfos,"","");
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+    @GetMapping("/payments/{billNo}")
+    public ResponseEntity<ResponseMessage<?>> getBill(@PathVariable String billNo) throws Exception {
+        ResponseMessage responseMessage = billerService.findResourceByCode(billNo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 }

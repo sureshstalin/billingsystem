@@ -1,4 +1,4 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.staticdata.CodeType;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @Service
-public class ProductItemService extends BaseService {
+public class ProductItemService extends BaseService<Product> {
 
     @Autowired
     private ProductItemRepository productItemRepository;
@@ -30,7 +30,7 @@ public class ProductItemService extends BaseService {
     @Autowired
     private CodeGenerator codeGenerator;
 
-    public ResponseMessage save(Product product) {
+    public ResponseMessage save(Product product) throws Exception{
         Integer stockCount = product.getStockCount();
         ArrayList<ProductItem> productItems = new ArrayList<>();
         for (int i = 0; i < stockCount; i++) {
@@ -63,8 +63,8 @@ public class ProductItemService extends BaseService {
     }
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        ProductItem productItem = productItemRepository.findById(Long.parseLong(id)).orElse(null);
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        ProductItem productItem = productItemRepository.findById(id).orElse(null);
         ProductItemInfo productItemInfo = ProductItemMapper.INSTANCE.productItemToProductItemInfo(productItem);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(productItemInfo, Constants.SUCCESS_STATUS, Constants.INFO_TYPE);
         return responseMessage;
@@ -80,5 +80,10 @@ public class ProductItemService extends BaseService {
         }
         ResponseMessage responseMessage = ResponseMessage.withResponseData(productItemInfos, Constants.SUCCESS_STATUS, Constants.INFO_TYPE);
         return responseMessage;
+    }
+
+    @Override
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        return null;
     }
 }

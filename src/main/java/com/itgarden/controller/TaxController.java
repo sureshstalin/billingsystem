@@ -2,18 +2,13 @@ package com.itgarden.controller;
 
 import com.itgarden.dto.TaxInfo;
 import com.itgarden.messages.ResponseMessage;
-import com.itgarden.service.bo.TaxService;
+import com.itgarden.service.TaxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /*
  * Created by Suresh Stalin on 23 / Nov / 2020.
@@ -27,13 +22,13 @@ public class TaxController {
     private TaxService taxService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody TaxInfo taxInfo) {
+    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody TaxInfo taxInfo) throws Exception {
         ResponseMessage responseMessage  = taxService.save(taxInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseMessage<?>> get(@PathVariable String id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> get(@PathVariable Long id) throws Exception {
         ResponseMessage responseMessage = taxService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }

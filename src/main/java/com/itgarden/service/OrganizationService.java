@@ -1,7 +1,5 @@
-package com.itgarden.service.bo;
+package com.itgarden.service;
 
-import com.itgarden.SystemCodeBean;
-import com.itgarden.SystemCodeConfiguration;
 import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.common.staticdata.Constants;
@@ -15,7 +13,6 @@ import com.itgarden.exception.DuplicateKeyFoundException;
 import com.itgarden.mapper.OrganizationMapper;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.repository.OrganizationRepository;
-import com.itgarden.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +24,7 @@ import java.util.List;
  */
 
 @Service
-public class OrganizationService extends BaseService {
+public class OrganizationService extends BaseService<OrganizationInfo> {
 
     @Autowired
     private OrganizationRepository organizationRepository;
@@ -38,7 +35,7 @@ public class OrganizationService extends BaseService {
     @Autowired
     private RoleService roleService;
 
-    public ResponseMessage save(OrganizationInfo organizationInfo) throws Exception {
+    public ResponseMessage save(OrganizationInfo organizationInfo)  throws Exception{
         ResponseMessage response = roleService.findResourceById(Constants.SUPER_ADMIN_ROLE_ID);
         UserRoleInfo userRoleInfo = (UserRoleInfo) response.getResponseClassType();
         if (userRoleInfo != null) {
@@ -64,12 +61,30 @@ public class OrganizationService extends BaseService {
     }
 
     @Override
-    public ResponseMessage findResourceById(String id) throws Exception {
-        return null;
+    public ResponseMessage findResourceByCode(String code) throws Exception {
+        Organization organization = organizationRepository.findOrganizationByorgCode(code);
+        OrganizationInfo organizationInfo = OrganizationMapper.INSTANCE.organizationToOrganizationInfo(organization);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(organizationInfo,"","");
+        return responseMessage;
+    }
+
+    @Override
+    public ResponseMessage findResourceById(Long id) throws Exception {
+        Organization organization = organizationRepository.findById(id).orElse(null);
+        OrganizationInfo organizationInfo = OrganizationMapper.INSTANCE.organizationToOrganizationInfo(organization);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(organizationInfo,"","");
+        return responseMessage;
     }
 
     @Override
     public ResponseMessage findAll() throws Exception {
-        return null;
+        List<OrganizationInfo> organizationInfos = new ArrayList<>();
+        List<Organization> organizations = organizationRepository.findAll();
+        for (Organization organization: organizations) {
+            OrganizationInfo organizationInfo = OrganizationMapper.INSTANCE.organizationToOrganizationInfo(organization);
+            organizationInfos.add(organizationInfo);
+        }
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(organizationInfos,"","");
+        return responseMessage;
     }
 }
