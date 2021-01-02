@@ -1,0 +1,1 @@
+ALTER TABLE payment ADD COLUMN payment_status VARCHAR(20) NOT NULL;

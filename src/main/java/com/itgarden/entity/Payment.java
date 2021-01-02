@@ -43,4 +43,6 @@ public class Payment extends BaseObject {
     @Column(name = "product_id")
     private long productId;
 
+    @Column(name = "payment_status")
+    private String paymentStatus;
 }

@@ -31,5 +31,9 @@ public class Biller extends BaseObject {
     @Column(name = "total_tax_amount", nullable = false)
     private double totalTaxAmount;
 
+    @Column(name = "bill_status",nullable = false)
+    private String billStatus;
+
+
 
 }

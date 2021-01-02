@@ -1,0 +1,1 @@
+ALTER TABLE biller ADD COLUMN bill_status VARCHAR(20) NOT NULL;

@@ -11,5 +11,4 @@ public class PaymentRequest {
 
         private List<String> productItemCode; // This is a Barcode
         private String customerMobileNo;
-        private int quantity;
 }

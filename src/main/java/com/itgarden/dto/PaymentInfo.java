@@ -27,4 +27,6 @@ public class PaymentInfo extends BaseObject {
 
     private long productId;
 
+    private String paymentStatus;
+
 }

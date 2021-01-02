@@ -10,7 +10,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-26T02:23:18+0530",
+    date = "2021-01-02T14:49:26+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class BillerMapperImpl implements BillerMapper {
@@ -29,6 +29,7 @@ public class BillerMapperImpl implements BillerMapper {
         biller.setGrandTotal( billerInfo.getGrandTotal() );
         biller.setQuantity( billerInfo.getQuantity() );
         biller.setTotalTaxAmount( billerInfo.getTotalTaxAmount() );
+        biller.setBillStatus( billerInfo.getBillStatus() );
 
         return biller;
     }
@@ -47,6 +48,7 @@ public class BillerMapperImpl implements BillerMapper {
         billerInfo.setGrandTotal( biller.getGrandTotal() );
         billerInfo.setQuantity( biller.getQuantity() );
         billerInfo.setTotalTaxAmount( biller.getTotalTaxAmount() );
+        billerInfo.setBillStatus( biller.getBillStatus() );
 
         return billerInfo;
     }

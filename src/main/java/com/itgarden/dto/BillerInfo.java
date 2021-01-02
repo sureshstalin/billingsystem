@@ -27,4 +27,6 @@ public class BillerInfo extends BaseInfo {
 
     private double totalTaxAmount;
 
+    private String billStatus;
+
 }

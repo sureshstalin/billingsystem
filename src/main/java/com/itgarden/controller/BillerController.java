@@ -1,5 +1,6 @@
 package com.itgarden.controller;
 
+import com.itgarden.common.staticdata.BillStatus;
 import com.itgarden.dto.*;
 import com.itgarden.entity.Biller;
 import com.itgarden.mapper.BillerMapper;
@@ -47,7 +48,7 @@ public class BillerController {
     @PutMapping("/{billNo}")
     public ResponseEntity<ResponseMessage<?>> cancelBill(@PathVariable String billNo) throws Exception {
         Biller biller = billerService.findBillByBillNo(billNo);
-        biller.setDeleted(true);
+        biller.setBillStatus(BillStatus.REFUND.name());
         billerService.updateBiller(biller);
         BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(biller);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfo, "", "");
@@ -56,7 +57,7 @@ public class BillerController {
 
     @PutMapping("/{billNo}/payments/{paymentId}")
     public ResponseEntity<ResponseMessage<?>> cancelPayment(@PathVariable Long paymentId) {
-        ResponseMessage responseMessage = billerService.deletePayment(paymentId);
+        ResponseMessage responseMessage = billerService.cancelPayment(paymentId);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 

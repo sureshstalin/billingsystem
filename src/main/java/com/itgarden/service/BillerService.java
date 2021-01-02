@@ -4,6 +4,7 @@ import com.itgarden.common.CodeGenerator;
 import com.itgarden.common.TaxCalculation;
 import com.itgarden.common.TaxCalculationInput;
 import com.itgarden.common.TaxCalculationResponse;
+import com.itgarden.common.staticdata.BillStatus;
 import com.itgarden.common.staticdata.CodeType;
 import com.itgarden.common.staticdata.StockStatus;
 import com.itgarden.common.staticdata.UserType;
@@ -62,12 +63,13 @@ public class BillerService extends BaseService<PaymentRequest> {
         this.productRepository = productRepository;
     }
 
-    private Biller sellProduct(Customer customer, int quantity) {
+    private Biller sellProduct(Customer customer) {
         Biller biller = new Biller();
         biller.setCustomer(customer);
-        biller.setQuantity(quantity);
+        biller.setQuantity(0);
         biller.setGrandTotal(0);
         biller.setBillNo(codeGenerator.newCode(CodeType.BILL_NO));
+        biller.setBillStatus(BillStatus.SUCCESS.name());
         Biller newBiller = billerRepository.save(biller);
         return newBiller;
     }
@@ -88,10 +90,15 @@ public class BillerService extends BaseService<PaymentRequest> {
     public Biller updateBiller(Biller biller) {
         List<Payment> payments = paymentRepository.findPaymentByBiller(biller);
         for (Payment payment :payments) {
-            payment.setDeleted(true);
+            payment.setPaymentStatus(BillStatus.REFUND.name());
             paymentRepository.save(payment);
+            ProductItem productItem = payment.getProductItem();
+            productItem.setStockStatus(StockStatus.IN_STOCK);
+            productItemRepository.save(productItem);
+            Product product = productItem.getProduct();
+            product.setStockCount(product.getStockCount() + 1);
+            productRepository.save(product);
         }
-        biller.setDeleted(true);
         billerRepository.save(biller);
         return billerRepository.save(biller);
     }
@@ -101,7 +108,6 @@ public class BillerService extends BaseService<PaymentRequest> {
         CustomerInfo customerInfo = null;
         try {
             List<String> productItemCodes = paymentRequest.getProductItemCode();
-            int quantity = paymentRequest.getQuantity();
             String customerMobileNo = paymentRequest.getCustomerMobileNo();
             Customer customer = customerRepository.findCustomerByMobileNo(customerMobileNo);
             if (customer == null) {
@@ -118,13 +124,14 @@ public class BillerService extends BaseService<PaymentRequest> {
             }
             List<ProductItem> productItems = productItemRepository.findProductItemByProductItemCodeIn(productItemCodes);
             customer = customerRepository.findCustomerByMobileNo(customerMobileNo);
-            Biller biller = sellProduct(customer, quantity);
+            Biller biller = sellProduct(customer);
             double grandTotal = 0;
             double totalTaxAmount = 0;
             for (ProductItem productItem : productItems) {
                 Payment payment = new Payment();
                 payment.setProductItem(productItem);
                 payment.setProductId(productItem.getProduct().getId());
+                payment.setPaymentStatus(BillStatus.SUCCESS.name());
                 payment.setBiller(biller);
                 payment.setTax(productItem.getProduct().getTax());
                 TaxCalculationResponse taxCalculationResponse =
@@ -215,10 +222,19 @@ public class BillerService extends BaseService<PaymentRequest> {
         return responseMessage;
     }
 
-    public ResponseMessage deletePayment(Long paymentId) {
+    public ResponseMessage cancelPayment(Long paymentId) {
         Payment payment = paymentRepository.findById(paymentId).orElse(null);
-        payment.setDeleted(true);
+        payment.setPaymentStatus(BillStatus.REFUND.name());
         paymentRepository.save(payment);
+        Biller biller = payment.getBiller();
+        biller.setBillStatus(BillStatus.PARTIAL_REFUND.name());
+        billerRepository.save(biller);
+        ProductItem productItem = payment.getProductItem();
+        productItem.setStockStatus(StockStatus.IN_STOCK);
+        productItemRepository.save(productItem);
+        Product product = productItem.getProduct();
+        product.setStockCount(product.getStockCount() + 1);
+        productRepository.save(product);
         PaymentInfo paymentInfo =PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo,"","");
         return  responseMessage;
