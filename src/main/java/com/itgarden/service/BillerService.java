@@ -13,16 +13,17 @@ import com.itgarden.mapper.BillerMapper;
 import com.itgarden.mapper.CustomerMapper;
 import com.itgarden.mapper.PaymentMapper;
 import com.itgarden.messages.ResponseMessage;
-import com.itgarden.repository.BillerRepository;
-import com.itgarden.repository.CustomerRepository;
-import com.itgarden.repository.PaymentRepository;
-import com.itgarden.repository.ProductItemRepository;
+import com.itgarden.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class BillerService extends BaseService<PaymentRequest> {
@@ -42,13 +43,15 @@ public class BillerService extends BaseService<PaymentRequest> {
 
     private final RegistrationService registrationService;
 
+    private final ProductRepository productRepository;
+
     @Autowired
     public BillerService(CustomerRepository customerRepository, ProductItemRepository productItemRepository,
                          TaxCalculation taxCalculation,
                          BillerRepository billerRepository,
                          PaymentRepository paymentRepository,
                          CodeGenerator codeGenerator,
-                         RegistrationService registrationService) {
+                         RegistrationService registrationService,ProductRepository  productRepository) {
         this.customerRepository = customerRepository;
         this.productItemRepository = productItemRepository;
         this.taxCalculation = taxCalculation;
@@ -56,6 +59,7 @@ public class BillerService extends BaseService<PaymentRequest> {
         this.paymentRepository = paymentRepository;
         this.codeGenerator = codeGenerator;
         this.registrationService = registrationService;
+        this.productRepository = productRepository;
     }
 
     private Biller sellProduct(Customer customer, int quantity) {
@@ -80,7 +84,17 @@ public class BillerService extends BaseService<PaymentRequest> {
         return taxCalculation.calculateTax(taxCalculationInput);
     }
 
-
+    @Transactional
+    public Biller updateBiller(Biller biller) {
+        List<Payment> payments = paymentRepository.findPaymentByBiller(biller);
+        for (Payment payment :payments) {
+            payment.setDeleted(true);
+            paymentRepository.save(payment);
+        }
+        biller.setDeleted(true);
+        billerRepository.save(biller);
+        return billerRepository.save(biller);
+    }
     @Transactional
     public ResponseMessage save(PaymentRequest paymentRequest) {
         ResponseMessage responseMessage = null;
@@ -123,6 +137,7 @@ public class BillerService extends BaseService<PaymentRequest> {
                 paymentRepository.save(payment);
                 productItem.setStockStatus(StockStatus.SOLD);
                 productItemRepository.save(productItem);
+                updateStock(productItem);
             }
             biller.setGrandTotal(grandTotal);
             biller.setQuantity(productItems.size());
@@ -137,13 +152,18 @@ public class BillerService extends BaseService<PaymentRequest> {
         return responseMessage;
     }
 
+    private void updateStock(ProductItem productItem) {
+        Product product = productItem.getProduct();
+        product.setStockCount(product.getStockCount() - 1);
+        productRepository.save(product);
+    }
     public List<PaymentInfo> cancel(PaymentRequest paymentRequest) {
         List<PaymentInfo> paymentInfos = new ArrayList<>();
         List<String> productItemCodes = paymentRequest.getProductItemCode();
         String customerMobileNo = paymentRequest.getCustomerMobileNo();
         List<ProductItem> productItems = productItemRepository.findProductItemByProductItemCodeIn(productItemCodes);
         for (ProductItem productItem : productItems) {
-            Payment payment = paymentRepository.findPaymentByProductItemAndDeletedFalse(productItem);
+            Payment payment = paymentRepository.findPaymentByProductItem(productItem);
             payment.setDeleted(true);
             Payment newPayment = paymentRepository.save(payment);
             Biller biller = payment.getBiller();
@@ -165,7 +185,14 @@ public class BillerService extends BaseService<PaymentRequest> {
 
     @Override
     public ResponseMessage findAll() throws Exception {
-        return null;
+       List<Biller> billers = billerRepository.findAll();
+        List<BillerInfo> billerInfos = new ArrayList<>();
+        for (Biller biller: billers) {
+            BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(biller);
+            billerInfos.add(billerInfo);
+        }
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfos,"","");
+        return responseMessage;
     }
 
     @Override
@@ -174,5 +201,26 @@ public class BillerService extends BaseService<PaymentRequest> {
         BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(biller);
         ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfo,"","");
         return responseMessage;
+    }
+
+    public Biller findBillByBillNo(String code) throws Exception {
+        Biller biller = billerRepository.findBillerByBillNo(code);
+        return biller;
+    }
+
+    public ResponseMessage  findPaymentById(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId).orElse(null);
+        PaymentInfo paymentInfo =PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo,"","");
+        return responseMessage;
+    }
+
+    public ResponseMessage deletePayment(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId).orElse(null);
+        payment.setDeleted(true);
+        paymentRepository.save(payment);
+        PaymentInfo paymentInfo =PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo,"","");
+        return  responseMessage;
     }
 }

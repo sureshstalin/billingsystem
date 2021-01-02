@@ -22,19 +22,21 @@ public class TaxController {
     private TaxService taxService;
 
     @PostMapping
-    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody TaxInfo taxInfo) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> save(@Valid @RequestBody TaxInfo taxInfo,
+                                                   @RequestHeader(value="Authorization") String accessToken) throws Exception {
         ResponseMessage responseMessage  = taxService.save(taxInfo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseMessage<?>> get(@PathVariable Long id) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> get(@PathVariable Long id,
+                                                  @RequestHeader(value="Authorization") String accessToken) throws Exception {
         ResponseMessage responseMessage = taxService.findResourceById(id);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseMessage<?>> getAll() throws Exception {
+    public ResponseEntity<ResponseMessage<?>> getAll(@RequestHeader(value="Authorization") String accessToken) throws Exception {
         ResponseMessage responseMessage = taxService.findAll();
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }

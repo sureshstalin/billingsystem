@@ -215,9 +215,7 @@ CREATE TABLE vendor (
   PRIMARY KEY (id),
   UNIQUE INDEX vendor_code_UNIQUE (vendor_code ASC) VISIBLE,
   KEY vendor_fk_user (user_id),
-  KEY vendor_fk_stock (vendor_id),
-  CONSTRAINT vendor_fk_user FOREIGN KEY (user_id) REFERENCES user (id),
-  CONSTRAINT vendor_fk_stock FOREIGN KEY (vendor_id) REFERENCES stock (id)
+  CONSTRAINT vendor_fk_user FOREIGN KEY (user_id) REFERENCES user (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE purchase_order (

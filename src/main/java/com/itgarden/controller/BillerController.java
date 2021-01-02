@@ -1,6 +1,8 @@
 package com.itgarden.controller;
 
 import com.itgarden.dto.*;
+import com.itgarden.entity.Biller;
+import com.itgarden.mapper.BillerMapper;
 import com.itgarden.messages.ResponseMessage;
 import com.itgarden.service.BillerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +16,49 @@ import java.util.List;
 @RequestMapping("api/private/bills")
 public class BillerController {
 
-        @Autowired
-        private BillerService billerService;
+    @Autowired
+    private BillerService billerService;
 
-        @PostMapping("/payments")
-        public ResponseEntity<ResponseMessage<?>> doPayment(@RequestBody PaymentRequest paymentRequest) {
-            String mobileNo = paymentRequest.getCustomerMobileNo();
-            List<String> productItemCode = paymentRequest.getProductItemCode();
-            ResponseMessage responseMessage = billerService.save(paymentRequest);
-            return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
-        }
-
-    @PutMapping("/payments/cancel")
-    public ResponseEntity<ResponseMessage<?>> doCancelPayment(@RequestBody PaymentRequest paymentRequest) {
+    @PostMapping()
+    public ResponseEntity<ResponseMessage<?>> doPayment(@RequestBody PaymentRequest paymentRequest) {
+        String mobileNo = paymentRequest.getCustomerMobileNo();
         List<String> productItemCode = paymentRequest.getProductItemCode();
-        List<PaymentInfo> paymentInfos = billerService.cancel(paymentRequest);
-        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfos,"","");
-        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+        ResponseMessage responseMessage = billerService.save(paymentRequest);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 
-    @GetMapping("/payments/{billNo}")
+    @GetMapping()
+    public ResponseEntity<ResponseMessage<?>> getAllBills() throws Exception {
+        ResponseMessage responseMessage = billerService.findAll();
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
+    }
+    @GetMapping("/{billNo}")
     public ResponseEntity<ResponseMessage<?>> getBill(@PathVariable String billNo) throws Exception {
         ResponseMessage responseMessage = billerService.findResourceByCode(billNo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
+
+    @GetMapping("{billNo}/payments/{paymentId}")
+    public ResponseEntity<ResponseMessage<?>> getPaymentByPaymentId(@PathVariable String billNo,@PathVariable Long paymentId) throws Exception {
+        ResponseMessage responseMessage = billerService.findPaymentById(paymentId);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+    @PutMapping("/{billNo}")
+    public ResponseEntity<ResponseMessage<?>> cancelBill(@PathVariable String billNo) throws Exception {
+        Biller biller = billerService.findBillByBillNo(billNo);
+        biller.setDeleted(true);
+        billerService.updateBiller(biller);
+        BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(biller);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfo, "", "");
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+    @PutMapping("/{billNo}/payments/{paymentId}")
+    public ResponseEntity<ResponseMessage<?>> cancelPayment(@PathVariable Long paymentId) {
+        ResponseMessage responseMessage = billerService.deletePayment(paymentId);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
+
 }

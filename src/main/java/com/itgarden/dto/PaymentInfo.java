@@ -17,7 +17,7 @@ public class PaymentInfo extends BaseObject {
 
     private ProductItemInfo productItem;
 
-    private Tax tax;
+    private TaxInfo tax;
 
     private double price;
 

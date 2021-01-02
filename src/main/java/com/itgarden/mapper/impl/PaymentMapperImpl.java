@@ -10,7 +10,7 @@ import java.util.List;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-26T02:23:18+0530",
+    date = "2021-01-02T11:47:48+0530",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_271 (Oracle Corporation)"
 )
 public class PaymentMapperImpl implements PaymentMapper {
@@ -30,7 +30,7 @@ public class PaymentMapperImpl implements PaymentMapper {
         payment.setFlowType( paymentInfo.getFlowType() );
         payment.setBiller( billerInfoToBiller( paymentInfo.getBiller() ) );
         payment.setProductItem( productItemInfoToProductItem( paymentInfo.getProductItem() ) );
-        payment.setTax( paymentInfo.getTax() );
+        payment.setTax( taxInfoToTax( paymentInfo.getTax() ) );
         payment.setPrice( paymentInfo.getPrice() );
         payment.setTotalPrice( paymentInfo.getTotalPrice() );
         payment.setTaxAmount( paymentInfo.getTaxAmount() );
@@ -54,7 +54,7 @@ public class PaymentMapperImpl implements PaymentMapper {
         paymentInfo.setFlowType( payment.getFlowType() );
         paymentInfo.setBiller( billerToBillerInfo( payment.getBiller() ) );
         paymentInfo.setProductItem( productItemToProductItemInfo( payment.getProductItem() ) );
-        paymentInfo.setTax( payment.getTax() );
+        paymentInfo.setTax( taxToTaxInfo( payment.getTax() ) );
         paymentInfo.setPrice( payment.getPrice() );
         paymentInfo.setTotalPrice( payment.getTotalPrice() );
         paymentInfo.setTaxAmount( payment.getTaxAmount() );
@@ -189,6 +189,21 @@ public class PaymentMapperImpl implements PaymentMapper {
         return productItem;
     }
 
+    protected Tax taxInfoToTax(TaxInfo taxInfo) {
+        if ( taxInfo == null ) {
+            return null;
+        }
+
+        Tax tax = new Tax();
+
+        tax.setId( taxInfo.getId() );
+        tax.setHsnCode( taxInfo.getHsnCode() );
+        tax.setTaxPercentage( taxInfo.getTaxPercentage() );
+        tax.setTaxDescription( taxInfo.getTaxDescription() );
+
+        return tax;
+    }
+
     protected AddressInfo addressToAddressInfo(Address address) {
         if ( address == null ) {
             return null;
@@ -313,5 +328,20 @@ public class PaymentMapperImpl implements PaymentMapper {
         productItemInfo.setStockStatus( productItem.getStockStatus() );
 
         return productItemInfo;
+    }
+
+    protected TaxInfo taxToTaxInfo(Tax tax) {
+        if ( tax == null ) {
+            return null;
+        }
+
+        TaxInfo taxInfo = new TaxInfo();
+
+        taxInfo.setId( tax.getId() );
+        taxInfo.setHsnCode( tax.getHsnCode() );
+        taxInfo.setTaxPercentage( tax.getTaxPercentage() );
+        taxInfo.setTaxDescription( tax.getTaxDescription() );
+
+        return taxInfo;
     }
 }
