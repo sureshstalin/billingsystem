@@ -29,4 +29,6 @@ public class BillerInfo extends BaseInfo {
 
     private String billStatus;
 
+    private List<PaymentInfo> paymentInfos;
+
 }

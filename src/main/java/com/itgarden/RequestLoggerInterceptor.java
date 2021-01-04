@@ -54,12 +54,19 @@ public class RequestLoggerInterceptor implements HandlerInterceptor {
         String ipAddress = getClientIpAddressIfServletRequestExist();
         System.out.println(String.format("The client IP Address %s",ipAddress));
         log.info(String.format("The client IP Address %s",ipAddress));
+        long startTime = System.currentTimeMillis();
+        request.setAttribute("startTime", startTime);
+        log.info("["  + handler + " ] Started processing" );
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         System.out.println("This is postHandle");
+        long startTime = (Long)request.getAttribute("startTime");
+        long endTime = System.currentTimeMillis();
+        long executeTime = endTime - startTime;
+        log.info("[" + handler + " ] Ended processing and took : " + executeTime + "ms");
     }
 
     @Override

@@ -39,6 +39,12 @@ public class BillerController {
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
+    @GetMapping("/{billNo}/payments")
+    public ResponseEntity<ResponseMessage<?>> getAllPaymentsFromBill(@PathVariable String billNo) throws Exception {
+        ResponseMessage responseMessage = billerService.findResourceByCode(billNo);
+        return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
+    }
+
     @GetMapping("{billNo}/payments/{paymentId}")
     public ResponseEntity<ResponseMessage<?>> getPaymentByPaymentId(@PathVariable String billNo,@PathVariable Long paymentId) throws Exception {
         ResponseMessage responseMessage = billerService.findPaymentById(paymentId);

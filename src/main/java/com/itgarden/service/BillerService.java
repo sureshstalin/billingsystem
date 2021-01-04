@@ -21,10 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class BillerService extends BaseService<PaymentRequest> {
@@ -52,7 +48,7 @@ public class BillerService extends BaseService<PaymentRequest> {
                          BillerRepository billerRepository,
                          PaymentRepository paymentRepository,
                          CodeGenerator codeGenerator,
-                         RegistrationService registrationService,ProductRepository  productRepository) {
+                         RegistrationService registrationService, ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.productItemRepository = productItemRepository;
         this.taxCalculation = taxCalculation;
@@ -89,7 +85,7 @@ public class BillerService extends BaseService<PaymentRequest> {
     @Transactional
     public Biller updateBiller(Biller biller) {
         List<Payment> payments = paymentRepository.findPaymentByBiller(biller);
-        for (Payment payment :payments) {
+        for (Payment payment : payments) {
             payment.setPaymentStatus(BillStatus.REFUND.name());
             paymentRepository.save(payment);
             ProductItem productItem = payment.getProductItem();
@@ -102,6 +98,7 @@ public class BillerService extends BaseService<PaymentRequest> {
         billerRepository.save(biller);
         return billerRepository.save(biller);
     }
+
     @Transactional
     public ResponseMessage save(PaymentRequest paymentRequest) {
         ResponseMessage responseMessage = null;
@@ -153,7 +150,7 @@ public class BillerService extends BaseService<PaymentRequest> {
 
             BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(newBiller);
             responseMessage = ResponseMessage.withResponseData(billerInfo, "", "");
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return responseMessage;
@@ -164,6 +161,7 @@ public class BillerService extends BaseService<PaymentRequest> {
         product.setStockCount(product.getStockCount() - 1);
         productRepository.save(product);
     }
+
     public List<PaymentInfo> cancel(PaymentRequest paymentRequest) {
         List<PaymentInfo> paymentInfos = new ArrayList<>();
         List<String> productItemCodes = paymentRequest.getProductItemCode();
@@ -192,21 +190,28 @@ public class BillerService extends BaseService<PaymentRequest> {
 
     @Override
     public ResponseMessage findAll() throws Exception {
-       List<Biller> billers = billerRepository.findAll();
+        List<Biller> billers = billerRepository.findAll();
         List<BillerInfo> billerInfos = new ArrayList<>();
-        for (Biller biller: billers) {
+        for (Biller biller : billers) {
             BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(biller);
             billerInfos.add(billerInfo);
         }
-        ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfos,"","");
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfos, "", "");
         return responseMessage;
     }
 
     @Override
     public ResponseMessage findResourceByCode(String code) throws Exception {
         Biller biller = billerRepository.findBillerByBillNo(code);
+        List<Payment> payments = paymentRepository.findPaymentByBiller(biller);
+        List<PaymentInfo> paymentInfos = new ArrayList<>();
+        for (Payment payment : payments) {
+            PaymentInfo paymentInfo = PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
+            paymentInfos.add(paymentInfo);
+        }
         BillerInfo billerInfo = BillerMapper.INSTANCE.billerToBillerInfo(biller);
-        ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfo,"","");
+        billerInfo.setPaymentInfos(paymentInfos);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(billerInfo, "", "");
         return responseMessage;
     }
 
@@ -215,10 +220,10 @@ public class BillerService extends BaseService<PaymentRequest> {
         return biller;
     }
 
-    public ResponseMessage  findPaymentById(Long paymentId) {
+    public ResponseMessage findPaymentById(Long paymentId) {
         Payment payment = paymentRepository.findById(paymentId).orElse(null);
-        PaymentInfo paymentInfo =PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
-        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo,"","");
+        PaymentInfo paymentInfo = PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo, "", "");
         return responseMessage;
     }
 
@@ -235,8 +240,8 @@ public class BillerService extends BaseService<PaymentRequest> {
         Product product = productItem.getProduct();
         product.setStockCount(product.getStockCount() + 1);
         productRepository.save(product);
-        PaymentInfo paymentInfo =PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
-        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo,"","");
-        return  responseMessage;
+        PaymentInfo paymentInfo = PaymentMapper.INSTANCE.paymentToPaymentInfo(payment);
+        ResponseMessage responseMessage = ResponseMessage.withResponseData(paymentInfo, "", "");
+        return responseMessage;
     }
 }
