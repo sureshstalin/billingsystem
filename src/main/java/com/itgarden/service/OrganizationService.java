@@ -46,6 +46,7 @@ public class OrganizationService extends BaseService<OrganizationInfo> {
                 .organizationInfoToOrganization(organizationInfo);
         String orgCode = codeGenerator.newCode(CodeType.ORG_CODE);
         organization.setOrgCode(orgCode);
+        organization.getUser().getAddressList().get(0).setUser(organization.getUser());
         organization.getUser().setUserType(UserType.OWNER.name());
         List<Role> roles = new ArrayList<>();
         Role role = roleService.findByName(ROLES.SUPER_ADMIN_ROLE.name());
