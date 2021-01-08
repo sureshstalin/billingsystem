@@ -37,6 +37,8 @@ public class CategoryService extends BaseService<CategoryInfo> {
         }
         Category newCategory = categoryRepository.save(category);
         CategoryInfo categoryInfoResponse = CategoryMapper.INSTANCE.categoryToCategoryInfo(newCategory);
+
+
         ResponseMessage responseMessage = ResponseMessage.withResponseData(categoryInfoResponse, "Category Saved" +
                 " Successfully", Constants.INFO_TYPE);
         return responseMessage;

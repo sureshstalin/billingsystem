@@ -44,6 +44,7 @@ public class OrganizationService extends BaseService<OrganizationInfo> {
         }
         Organization organization = OrganizationMapper.INSTANCE
                 .organizationInfoToOrganization(organizationInfo);
+
         String orgCode = codeGenerator.newCode(CodeType.ORG_CODE);
         organization.setOrgCode(orgCode);
         organization.getUser().getAddressList().get(0).setUser(organization.getUser());

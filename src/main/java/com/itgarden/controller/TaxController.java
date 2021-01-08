@@ -36,7 +36,7 @@ public class TaxController {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseMessage<?>> getAll(@RequestHeader(value="Authorization") String accessToken) throws Exception {
+    public ResponseEntity<ResponseMessage<?>> getAll() throws Exception {
         ResponseMessage responseMessage = taxService.findAll();
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }

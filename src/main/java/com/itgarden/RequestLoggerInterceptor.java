@@ -29,7 +29,7 @@ public class RequestLoggerInterceptor implements HandlerInterceptor {
             "REMOTE_ADDR"
     };
 
-    public static String getClientIpAddressIfServletRequestExist() {
+    public static String getClientIpAddress() {
         String ipAddress = "";
         if (RequestContextHolder.getRequestAttributes() == null) {
             return "0.0.0.0";
@@ -51,7 +51,7 @@ public class RequestLoggerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("This is PreHandle");
-        String ipAddress = getClientIpAddressIfServletRequestExist();
+        String ipAddress = getClientIpAddress();
         System.out.println(String.format("The client IP Address %s",ipAddress));
         log.info(String.format("The client IP Address %s",ipAddress));
         long startTime = System.currentTimeMillis();

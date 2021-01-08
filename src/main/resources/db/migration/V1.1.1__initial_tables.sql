@@ -1,6 +1,6 @@
 CREATE TABLE user (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) NOT NULL,
+  is_deleted tinyint(1) NOT NULL,
   email_id varchar(255) DEFAULT NULL,
   first_name varchar(255) DEFAULT NULL,
   last_name varchar(255) DEFAULT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE user (
 
 CREATE TABLE address (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   address1 varchar(255) DEFAULT NULL,
   address2 varchar(255) DEFAULT NULL,
   city varchar(255) DEFAULT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE address (
 
 CREATE TABLE customer (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   customer_code varchar(255) NOT NULL,
   full_name varchar(255) DEFAULT NULL,
   user_id bigint DEFAULT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE customer (
 
 CREATE TABLE employee (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   employee_code varchar(255) NOT NULL,
   full_name varchar(255) NOT NULL,
   user_id bigint DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE employee (
 
 CREATE TABLE category (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   category_code varchar(255) NOT NULL,
   description varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE category (
 
 CREATE TABLE tax (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   hsn_code varchar(255) NOT NULL,
   tax_description varchar(255) NOT NULL,
   tax_percentage float NOT NULL DEFAULT 0,
@@ -84,7 +84,7 @@ CREATE TABLE tax (
 
 CREATE TABLE offer (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   offer_code varchar(10) NOT NULL,
   offer_name varchar(255) NOT NULL,
   offer_description VARCHAR(150) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE offer (
 
 CREATE TABLE product (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   product_code varchar(255) NOT NULL,
   description varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE product (
 
 CREATE TABLE product_item (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   product_item_code varchar(100) NOT NULL,
   product_id bigint NOT NULL,
   status int NOT NULL DEFAULT 0,
@@ -132,7 +132,7 @@ CREATE TABLE product_item (
 
 CREATE TABLE biller (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   bill_no varchar(255) NOT NULL,
   customer_id bigint DEFAULT NULL,
   grand_total double NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE biller (
 
 CREATE TABLE payment (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   biller_id bigint NOT NULL,
   product_item_id bigint NOT NULL,
   price DOUBLE NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE payment (
 
 CREATE TABLE organization (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   org_code varchar(255) NOT NULL,
   org_name varchar(255) NOT NULL,
   user_id bigint NOT NULL,
@@ -182,7 +182,7 @@ CREATE TABLE organization (
 
 CREATE TABLE role (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   role_description varchar(255) DEFAULT NULL,
   role_name varchar(255) DEFAULT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
@@ -193,7 +193,7 @@ CREATE TABLE role (
 
 CREATE TABLE stock (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   stock_count bigint NOT NULL,
   product_id bigint DEFAULT NULL,
   date_created datetime DEFAULT CURRENT_TIMESTAMP,
@@ -205,7 +205,7 @@ CREATE TABLE stock (
 
 CREATE TABLE vendor (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted tinyint(1) DEFAULT NULL,
   full_name varchar(255) NOT NULL,
   vendor_code varchar(255) NOT NULL,
   user_id bigint DEFAULT NULL,
@@ -220,7 +220,7 @@ CREATE TABLE vendor (
 
 CREATE TABLE purchase_order (
   id bigint NOT NULL AUTO_INCREMENT,
-  is_deleted bit(1) DEFAULT NULL,
+  is_deleted TINYINT(1) DEFAULT NULL,
   purchase_order_code varchar(10) NOT NULL,
   product_name varchar(255) NOT NULL,
   product_description varchar(255) NOT NULL,
@@ -250,7 +250,7 @@ CREATE TABLE app_entity_code (
   code_type VARCHAR(20) NOT NULL,
   date_created DATETIME NOT NULL,
   date_modified DATETIME NULL,
-  is_deleted TINYINT NULL,
+  is_deleted tinyint(1) NULL,
   UNIQUE INDEX code_UNIQUE (code ASC) VISIBLE,
   PRIMARY KEY (id));
 
@@ -259,7 +259,7 @@ CREATE TABLE app_entity_code (
     id int NOT NULL AUTO_INCREMENT,
     code_prefix varchar(5) NOT NULL,
     code_type varchar(20) DEFAULT NULL,
-    is_deleted bit(1) DEFAULT 0,
+    is_deleted tinyint(1) DEFAULT 0,
     date_created datetime DEFAULT CURRENT_TIMESTAMP,
     date_modified datetime DEFAULT NULL,
     PRIMARY KEY (id)

@@ -65,7 +65,7 @@ public class ProductService extends BaseService<ProductInfo> {
         PurchaseOrder purchaseOrder = null;
         // As of now one vendor id from client side
         if (vendorRequest == null || vendorRequest.size() == 0) {
-            throw new InvalidInputException("Vendor id is not found. Vendor id is must");
+            throw new ResourceNotFoundException("Vendor id is not found. Vendor id is must");
         }
         if (StringUtils.isEmpty(product.getProductCode())) {
             purchaseOrder = purchaseOrderRepository.findPurchaseOrderByVendorAndProductNameAndPurchaseOrderStatus(

@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category,Long> {
 
+//    select * from category where category_code='CAT21728' and is_deleted=0
+    Category findCategoryByCategoryCodeAndDeletedFalse(String categoryCode);
 }

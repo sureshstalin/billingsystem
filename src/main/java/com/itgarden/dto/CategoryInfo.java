@@ -15,6 +15,7 @@ public class CategoryInfo extends BaseInfo {
 
 
     private String categoryCode;
+
     @NotEmpty(message = "Category name can't be empty")
     private String name;
 

@@ -20,7 +20,7 @@ public class BillerController {
     @Autowired
     private BillerService billerService;
 
-    @PostMapping()
+    @PostMapping() // api/private/bills
     public ResponseEntity<ResponseMessage<?>> doPayment(@RequestBody PaymentRequest paymentRequest) {
         String mobileNo = paymentRequest.getCustomerMobileNo();
         List<String> productItemCode = paymentRequest.getProductItemCode();
@@ -28,24 +28,24 @@ public class BillerController {
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
 
-    @GetMapping()
-    public ResponseEntity<ResponseMessage<?>> getAllBills() throws Exception {
+    @GetMapping() // api/private/bills
+    public ResponseEntity<ResponseMessage<?>> getAllBills(@RequestHeader(value="Authorization") String accessToken) throws Exception {
         ResponseMessage responseMessage = billerService.findAll();
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.CREATED);
     }
-    @GetMapping("/{billNo}")
+    @GetMapping("/{billNo}") // api/private/bills/10000
     public ResponseEntity<ResponseMessage<?>> getBill(@PathVariable String billNo) throws Exception {
         ResponseMessage responseMessage = billerService.findResourceByCode(billNo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
-    @GetMapping("/{billNo}/payments")
+    @GetMapping("/{billNo}/payments") // api/private/bills/10000/payments
     public ResponseEntity<ResponseMessage<?>> getAllPaymentsFromBill(@PathVariable String billNo) throws Exception {
         ResponseMessage responseMessage = billerService.findResourceByCode(billNo);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);
     }
 
-    @GetMapping("{billNo}/payments/{paymentId}")
+    @GetMapping("{billNo}/payments/{paymentId}") // api/private/bills/10000/payments/2
     public ResponseEntity<ResponseMessage<?>> getPaymentByPaymentId(@PathVariable String billNo,@PathVariable Long paymentId) throws Exception {
         ResponseMessage responseMessage = billerService.findPaymentById(paymentId);
         return new ResponseEntity<ResponseMessage<?>>(responseMessage, HttpStatus.OK);

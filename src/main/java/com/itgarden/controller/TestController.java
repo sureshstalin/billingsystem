@@ -1,9 +1,16 @@
 package com.itgarden.controller;
 
+import com.itgarden.SystemCodeConfiguration;
+import com.itgarden.dto.ColorInfo;
 import com.itgarden.dto.UserInfo;
+import com.itgarden.entity.Category;
+import com.itgarden.entity.Color;
 import com.itgarden.entity.User;
+import com.itgarden.mapper.CategoryMapper;
+import com.itgarden.mapper.ColorMapper;
 import com.itgarden.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +24,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/public/test")
 public class TestController {
+
+
+    @Autowired
+    private SystemCodeConfiguration systemCodeConfiguration;
 
     @GetMapping("/log")
     public ResponseEntity<Void> logTest()  {
@@ -43,6 +54,20 @@ public class TestController {
 
     @GetMapping("/ping")
     public ResponseEntity<String> ping(){
+
+//        emp-codeprefix: EMP
+//        emp-codetype: EMPLOYEE_CODE
+//        public String empCodePrefix;
+//        public String empCodeType;
+        System.out.println("EMP Prefix " + systemCodeConfiguration.getEmpCodePrefix());
+        System.out.println("EMP Code " + systemCodeConfiguration.getEmpCodeType());
+        ColorInfo colorInfo = new ColorInfo();
+        colorInfo.setColorId(100);
+        colorInfo.setColorName("Blue");
+        Color color = ColorMapper.INSTANCE.colorInfoToColor(colorInfo);
+        System.out.println("##### Color data #### ");
+        System.out.println("Color ID  " + color.getColorId());
+        System.out.println("Color Name " + color.getColorName());
         return new ResponseEntity<>("Server is running...", HttpStatus.OK);
     }
 }
