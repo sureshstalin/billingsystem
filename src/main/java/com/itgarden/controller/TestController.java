@@ -61,13 +61,13 @@ public class TestController {
 //        public String empCodeType;
         System.out.println("EMP Prefix " + systemCodeConfiguration.getEmpCodePrefix());
         System.out.println("EMP Code " + systemCodeConfiguration.getEmpCodeType());
-        ColorInfo colorInfo = new ColorInfo();
-        colorInfo.setColorId(100);
-        colorInfo.setColorName("Blue");
-        Color color = ColorMapper.INSTANCE.colorInfoToColor(colorInfo);
-        System.out.println("##### Color data #### ");
-        System.out.println("Color ID  " + color.getColorId());
-        System.out.println("Color Name " + color.getColorName());
+//        ColorInfo colorInfo = new ColorInfo();
+//        colorInfo.setColorId(100);
+//        colorInfo.setColorName("Blue");
+//        Color color = ColorMapper.INSTANCE.colorInfoToColor(colorInfo);
+//        System.out.println("##### Color data #### ");
+//        System.out.println("Color ID  " + color.getColorId());
+//        System.out.println("Color Name " + color.getColorName());
         return new ResponseEntity<>("Server is running...", HttpStatus.OK);
     }
 }

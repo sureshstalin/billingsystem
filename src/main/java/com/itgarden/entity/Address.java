@@ -1,6 +1,7 @@
 package com.itgarden.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ public class Address extends BaseObject {
     @Column(name = "ADDRESS1", nullable = false)
     private String address1;
 
+//    @Setter(value = AccessLevel.NONE)
     @Column(name = "ADDRESS2", nullable = true)
     private String address2;
 

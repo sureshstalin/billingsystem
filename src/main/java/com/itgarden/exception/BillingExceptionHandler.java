@@ -35,6 +35,8 @@ public class BillingExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException arguments, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {
+
+        log.info("hello world");
         BindingResult bindingResult = arguments.getBindingResult();
         List<String> validationMessages = new ArrayList<>();
         List<ObjectError> objectErrors = bindingResult.getAllErrors();

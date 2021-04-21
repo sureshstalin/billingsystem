@@ -65,6 +65,7 @@ public class UserPublicController {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(),
                             authenticationRequest.getPassword()));
+
         } catch (BadCredentialsException bce) {
             throw new InvalidUserNamePasswordException(bce.getMessage());
         }
@@ -80,6 +81,8 @@ public class UserPublicController {
         }
     }
 
+    // 1 Accesstoken - 15 min expr, refreshtoken - 30 min expir first login
+    //
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshToken(@RequestBody AuthenticationRequestInfo authenticationRequest) throws Exception {
         String refreshToken = authenticationRequest.getRefreshToken();

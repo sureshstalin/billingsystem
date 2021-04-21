@@ -1,6 +1,7 @@
 package com.itgarden.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 @Setter
 @MappedSuperclass
 public class BaseObject implements Serializable {
+
 
 
     @Id

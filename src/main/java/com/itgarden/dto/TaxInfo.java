@@ -21,4 +21,6 @@ public class TaxInfo extends BaseInfo {
 
     @NotEmpty(message = "Tax description can't be empty")
     private String taxDescription;
+
+
 }

@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthenticationRequestInfo {
+public class    AuthenticationRequestInfo {
 
     private String userName;
     private String password;
